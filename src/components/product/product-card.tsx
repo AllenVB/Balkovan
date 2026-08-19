@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Icon } from "@/components/ui/icon";
+import { AddToCartButton } from "@/components/cart/add-to-cart-button";
 import { formatPriceCompact } from "@/lib/format";
 import type { Product } from "@/lib/products";
 
@@ -54,13 +54,11 @@ export function ProductCard({ product, variant = "grid" }: ProductCardProps) {
             <span className="font-price-display text-price-display text-on-background">
               {formatPriceCompact(product.priceInKurus)}
             </span>
-            <button
-              type="button"
-              aria-label={`${product.name} ürününü sepete ekle`}
+            <AddToCartButton
+              product={product}
+              icon="add"
               className="w-12 h-12 rounded-full bg-surface-container-highest text-amber-deep flex items-center justify-center hover:bg-amber-deep hover:text-on-primary transition-colors"
-            >
-              <Icon name="add" />
-            </button>
+            />
           </div>
         </div>
       </article>
@@ -99,13 +97,11 @@ export function ProductCard({ product, variant = "grid" }: ProductCardProps) {
           <span className="font-price-display text-price-display text-primary">
             {formatPriceCompact(product.priceInKurus)}
           </span>
-          <button
-            type="button"
-            aria-label={`${product.name} ürününü sepete ekle`}
+          <AddToCartButton
+            product={product}
+            icon="add_shopping_cart"
             className="bg-primary hover:bg-surface-tint text-on-primary p-3 rounded-full flex items-center justify-center transition-colors shadow-md active:scale-95"
-          >
-            <Icon name="add_shopping_cart" />
-          </button>
+          />
         </div>
       </div>
     </article>

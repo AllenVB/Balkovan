@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { IconName } from "@/lib/icons";
 import type { Metadata } from "next";
 import { Icon } from "@/components/ui/icon";
 import { ContactForm } from "@/components/contact/contact-form";
@@ -11,7 +12,12 @@ export const metadata: Metadata = {
     "Sorularınız, önerileriniz ve toptan alım talepleriniz için Balkovan iletişim bilgileri.",
 };
 
-const contactDetails = [
+const contactDetails: {
+  icon: IconName;
+  title: string;
+  lines: string[];
+  note?: string;
+}[] = [
   {
     icon: "location_on",
     title: "Adres",
@@ -30,7 +36,7 @@ const contactDetails = [
   },
 ];
 
-const socialLinks = [
+const socialLinks: { icon: IconName; label: string; href: string }[] = [
   { icon: "share", label: "Instagram", href: "https://instagram.com" },
   { icon: "photo_camera", label: "Facebook", href: "https://facebook.com" },
   { icon: "play_arrow", label: "YouTube", href: "https://youtube.com" },

@@ -2,36 +2,25 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import { Icon } from "@/components/ui/icon";
+import { useCart } from "@/components/cart/cart-provider";
 import { formatPrice } from "@/lib/format";
-import {
-  calculateCartTotals,
-  type CartLine,
-  FREE_SHIPPING_THRESHOLD_KURUS,
-} from "@/lib/cart";
+import { FREE_SHIPPING_THRESHOLD_KURUS, MAX_LINE_QUANTITY } from "@/lib/cart";
 
-/**
- * Sepet ekrani. Adet degistirme ve satir silme bu bilesende yasiyor;
- * kalicilik (sunucuya yazma) backend fazinda eklenecek.
- */
-export function CartView({ initialLines }: { initialLines: CartLine[] }) {
-  const [lines, setLines] = useState(initialLines);
-  const totals = calculateCartTotals(lines);
+/** Sepet ekrani. Satirlar CartProvider'dan gelir; adet ve silme oraya yazar. */
+export function CartView() {
+  const { lines, totals, isReady, setQuantity, removeLine } = useCart();
 
-  const changeQuantity = (id: string, delta: number) => {
-    setLines((current) =>
-      current.map((line) =>
-        line.id === id
-          ? { ...line, quantity: Math.max(1, line.quantity + delta) }
-          : line,
-      ),
+  // Sepet tarayici deposundan okunana kadar bos/dolu karari verilemez;
+  // aksi halde dolu sepette bir an "sepetiniz bos" yaniyor.
+  if (!isReady) {
+    return (
+      <div className="w-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-stack-lg">
+        <div className="h-64 rounded-xl bg-surface-container-low animate-pulse" />
+        <span className="sr-only">Sepet yükleniyor</span>
+      </div>
     );
-  };
-
-  const removeLine = (id: string) => {
-    setLines((current) => current.filter((line) => line.id !== id));
-  };
+  }
 
   if (lines.length === 0) {
     return (
@@ -73,9 +62,7 @@ export function CartView({ initialLines }: { initialLines: CartLine[] }) {
                   kaldı
                 </>
               ) : (
-                <span className="font-bold text-primary">
-                  Kargonuz ücretsiz!
-                </span>
+                <span className="font-bold text-primary">Kargonuz ücretsiz!</span>
               )}
             </div>
             <Icon name="local_shipping" className="text-primary" />
@@ -148,9 +135,9 @@ export function CartView({ initialLines }: { initialLines: CartLine[] }) {
                   <div className="flex items-center border border-honey-200 rounded-lg bg-background">
                     <button
                       type="button"
-                      onClick={() => changeQuantity(line.id, -1)}
+                      onClick={() => setQuantity(line.id, line.quantity - 1)}
                       disabled={line.quantity <= 1}
-                      aria-label="Azalt"
+                      aria-label={`${line.name} adedini azalt`}
                       className="px-3 py-1 text-primary hover:bg-honey-100 rounded-l-lg transition-colors disabled:opacity-40 disabled:hover:bg-transparent"
                     >
                       −
@@ -160,9 +147,10 @@ export function CartView({ initialLines }: { initialLines: CartLine[] }) {
                     </span>
                     <button
                       type="button"
-                      onClick={() => changeQuantity(line.id, 1)}
-                      aria-label="Artır"
-                      className="px-3 py-1 text-primary hover:bg-honey-100 rounded-r-lg transition-colors"
+                      onClick={() => setQuantity(line.id, line.quantity + 1)}
+                      disabled={line.quantity >= MAX_LINE_QUANTITY}
+                      aria-label={`${line.name} adedini artır`}
+                      className="px-3 py-1 text-primary hover:bg-honey-100 rounded-r-lg transition-colors disabled:opacity-40 disabled:hover:bg-transparent"
                     >
                       +
                     </button>

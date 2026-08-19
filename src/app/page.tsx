@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { IconName } from "@/lib/icons";
 import Link from "next/link";
 import { Icon } from "@/components/ui/icon";
 import { Container } from "@/components/ui/container";
@@ -7,7 +8,13 @@ import { ProductCard } from "@/components/product/product-card";
 import { featuredProducts } from "@/lib/products";
 import { stitchImages } from "@/lib/images";
 
-const campaigns = [
+const campaigns: {
+  icon: IconName;
+  iconBg: string;
+  title: string;
+  description: string;
+  cta: string;
+}[] = [
   {
     icon: "redeem",
     iconBg: "bg-primary-container",
@@ -73,7 +80,11 @@ const testimonials = [
   },
 ];
 
-const productionSteps = [
+const productionSteps: {
+  icon: IconName;
+  title: string;
+  description: string;
+}[] = [
   {
     icon: "eco",
     title: "Doğal Çevre",

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { IconName } from "@/lib/icons";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Icon } from "@/components/ui/icon";
@@ -11,7 +12,15 @@ export const metadata: Metadata = {
     "Hoş geldin indirimi, ücretsiz kargo ve hediye seti fırsatları. Balkovan'ın güncel kampanyaları.",
 };
 
-const campaigns = [
+const campaigns: {
+  icon: IconName;
+  iconBg: string;
+  decorationHover: string;
+  title: string;
+  description: string;
+  code: string | null;
+  note?: string;
+}[] = [
   {
     icon: "redeem",
     iconBg: "bg-primary-container text-on-primary-container",

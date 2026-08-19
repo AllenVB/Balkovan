@@ -58,8 +58,10 @@ oraya elle taşındı — yeni ekran geldiğinde class isimleri birebir kullanı
   kurulunca sayfalarda değişiklik gerekmeyecek.
 - **Görseller** Stitch'in geçici CDN adreslerinden geliyor (`src/lib/images.ts`).
   Gerçek ürün fotoğrafları hazır olunca tek dosyadan değiştirilecek.
-- **Sepet** örnek veriyle çalışıyor; adet/silme sayfa içinde çalışır ama
-  kalıcı değil.
+- **Sepet** çalışıyor: ürün (gramaj varyantıyla) eklenir, adedi değiştirilir,
+  silinir; başlıktaki rozet adedi gösterir. Sepet tarayıcıda `localStorage`'da
+  tutulduğu için sayfa yenilense de durur. Kalıcı (hesaba bağlı) sepet backend
+  fazında gelecek — değişecek tek dosya `src/lib/cart-storage.ts`.
 - **İletişim formu** doğrulama yapar, gönderim henüz bir servise bağlı değil.
 - **Ödeme** hiç başlamadı (iyzico planlandı).
 - **Hesap ekranı** örnek üye verisiyle çalışıyor (`src/lib/account.ts`);

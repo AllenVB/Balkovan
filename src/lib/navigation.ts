@@ -1,3 +1,5 @@
+import type { IconName } from "@/lib/icons";
+
 /** Tasarimdaki TopNavBar ve BottomNavBar baglantilarinin tek kaynagi. */
 export const mainNavLinks = [
   { href: "/urunler", label: "Ürünler" },
@@ -6,7 +8,11 @@ export const mainNavLinks = [
   { href: "/iletisim", label: "İletişim" },
 ] as const;
 
-export const bottomNavLinks = [
+export const bottomNavLinks: ReadonlyArray<{
+  href: string;
+  label: string;
+  icon: IconName;
+}> = [
   { href: "/urunler", label: "Mağaza", icon: "storefront" },
   { href: "/sepet", label: "Sepetim", icon: "shopping_basket" },
   { href: "/hesabim", label: "Hesabım", icon: "person" },

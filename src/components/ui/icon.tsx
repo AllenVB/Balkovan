@@ -1,8 +1,9 @@
 import { clsx } from "clsx";
+import type { IconName } from "@/lib/icons";
 
 type IconProps = {
-  /** Material Symbols ligature adi, orn. "shopping_cart". */
-  name: string;
+  /** Material Symbols ligature adi. Yeni ikon icin once lib/icons.ts listesine ekle. */
+  name: IconName;
   className?: string;
   /** Dolu (filled) varyant. Tasarimda yildiz/konum ikonlarinda kullaniliyor. */
   filled?: boolean;

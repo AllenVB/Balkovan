@@ -1,4 +1,4 @@
-import { stitchImages } from "@/lib/images";
+import type { Product, ProductVariant } from "@/lib/products";
 
 /**
  * Kargo kurallari.
@@ -11,11 +11,16 @@ import { stitchImages } from "@/lib/images";
 export const FREE_SHIPPING_THRESHOLD_KURUS = 150000;
 export const SHIPPING_FEE_KURUS = 4500;
 
+/** Bir satirda izin verilen en fazla adet. */
+export const MAX_LINE_QUANTITY = 99;
+
 export type CartLine = {
+  /** Urun + varyant birlesimi. Ayni urunun 450g ve 850g'i ayri satirdir. */
   id: string;
   productSlug: string;
+  variantWeightGrams: number;
   name: string;
-  /** "Cam Kavanoz, 850g" gibi varyant ozeti. */
+  /** "Kavanoz, 450g" gibi varyant ozeti. */
   variantLabel: string;
   tag?: string;
   image: string;
@@ -23,31 +28,68 @@ export type CartLine = {
   quantity: number;
 };
 
+/** Satir kimligi urun ve varyanttan uretilir; ayni birlesim tek satirda toplanir. */
+export function buildLineId(
+  productSlug: string,
+  variantWeightGrams: number,
+): string {
+  return `${productSlug}--${variantWeightGrams}`;
+}
+
+/** Urun ve secilen varyanttan sepet satiri olusturur. */
+export function createCartLine(
+  product: Product,
+  variant: ProductVariant,
+  quantity = 1,
+): CartLine {
+  return {
+    id: buildLineId(product.slug, variant.weightGrams),
+    productSlug: product.slug,
+    variantWeightGrams: variant.weightGrams,
+    name: product.name,
+    variantLabel: `${variant.label}, ${variant.weightGrams}g`,
+    tag: product.badge,
+    image: product.image,
+    unitPriceInKurus: variant.priceInKurus,
+    quantity,
+  };
+}
+
 /**
- * Ornek sepet icerigi. Sepet kalicilik ve gercek urun baglantisi backend
- * fazinda gelecek; simdilik tasarimin dolu halini gosterebilmek icin duruyor.
+ * Satiri sepete ekler. Ayni urun+varyant zaten varsa adedini artirir,
+ * yoksa sona ekler. Adet ust sinirda kirpilir.
  */
-export const demoCartLines: CartLine[] = [
-  {
-    id: "line-1",
-    productSlug: "kestane-bali",
-    name: "Organik Kestane Balı",
-    variantLabel: "Cam Kavanoz, 850g",
-    tag: "Ham Bal",
-    image: stitchImages.sepet.kestaneBali,
-    unitPriceInKurus: 42000,
-    quantity: 1,
-  },
-  {
-    id: "line-2",
-    productSlug: "ham-cicek-bali",
-    name: "Çiçek Balı Harmanı",
-    variantLabel: "Petekli, 450g",
-    image: stitchImages.sepet.cicekBali,
-    unitPriceInKurus: 24000,
-    quantity: 1,
-  },
-];
+export function addLine(lines: CartLine[], newLine: CartLine): CartLine[] {
+  const existing = lines.find((line) => line.id === newLine.id);
+  if (!existing) {
+    return [...lines, { ...newLine, quantity: clampQuantity(newLine.quantity) }];
+  }
+  return lines.map((line) =>
+    line.id === newLine.id
+      ? { ...line, quantity: clampQuantity(line.quantity + newLine.quantity) }
+      : line,
+  );
+}
+
+/** Adedi dogrudan ayarlar. 1'in altina inerse satir silinir. */
+export function setLineQuantity(
+  lines: CartLine[],
+  lineId: string,
+  quantity: number,
+): CartLine[] {
+  if (quantity < 1) return removeLine(lines, lineId);
+  return lines.map((line) =>
+    line.id === lineId ? { ...line, quantity: clampQuantity(quantity) } : line,
+  );
+}
+
+export function removeLine(lines: CartLine[], lineId: string): CartLine[] {
+  return lines.filter((line) => line.id !== lineId);
+}
+
+function clampQuantity(quantity: number): number {
+  return Math.min(MAX_LINE_QUANTITY, Math.max(1, Math.floor(quantity)));
+}
 
 export type CartTotals = {
   itemCount: number;

@@ -1,4 +1,5 @@
 import { stitchImages } from "@/lib/images";
+import type { IconName } from "@/lib/icons";
 
 /**
  * Hesap ekrani verisi.
@@ -13,7 +14,7 @@ export type AccountSection = {
   slug: string;
   href: string;
   label: string;
-  icon: string;
+  icon: IconName;
 };
 
 /** Yan menudeki ana bolumler (tasarimdaki SideNavBar). */

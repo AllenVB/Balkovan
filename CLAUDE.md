@@ -27,7 +27,12 @@ Tutarlar **kuruş cinsinden integer** tutulur, float kullanılmaz. Biçimleme ya
 ## Veri
 
 Katalog `src/lib/products.ts`, görsel adresleri `src/lib/images.ts`, sepet kuralları
-`src/lib/cart.ts`, hesap/üyelik `src/lib/account.ts`. Bileşenlerin içine sabit ürün/görsel/fiyat gömme — bu dosyalar
+`src/lib/cart.ts`, sepetin tarayıcıdaki hâli `src/lib/cart-storage.ts`,
+hesap/üyelik `src/lib/account.ts`.
+
+Sepet mantığı (ekleme, adet, toplam) `lib/cart.ts` içinde **saf fonksiyon**;
+bileşenler durumu `components/cart/cart-provider.tsx` üzerinden okur. Backend
+gelince yalnızca `cart-storage.ts` sunucu çağrılarıyla değişecek. Bileşenlerin içine sabit ürün/görsel/fiyat gömme — bu dosyalar
 backend gelince tek noktadan değişecek.
 
 Kargo eşiği ve ücreti `src/lib/cart.ts` içindeki sabitlerdir; başka yerde
@@ -40,6 +45,10 @@ tekrarlanmaz.
 - Ortak yerleşim `src/components/layout/`, ürün `src/components/product/`.
 - İkonlar `src/components/ui/icon.tsx` (Material Symbols) üzerinden; ham
   `<span className="material-symbols-outlined">` yazma.
+- **Yeni ikon kullanmadan önce `src/lib/icons.ts` listesine ekle.** Tarayıcıya
+  yalnızca listedeki ikonlar indiriliyor (tam font ~3.9 MB, alt küme ~48 KB).
+  Liste `IconName` tipini de ürettiği için listede olmayan ad derleme hatası
+  verir — ikon sessizce kaybolmaz.
 - Genişlik/kenar boşluğu için `src/components/ui/container.tsx`.
 
 ## Test
@@ -62,3 +71,11 @@ gelince şunları karşılaştır ve **sistemdeki hâli kazanır**:
   projede tek ad `warm-shadow`.
 - **Palet dışı renk:** Tailwind default renkleri (`emerald-500` gibi) doğrudan
   kullanılmaz; önce `globals.css`'e token olarak eklenir (`--color-success`).
+
+## Mobil
+
+Tasarımlar mobil menü içermiyor: ana menü `md` altında gizleniyor ve yerine bir
+şey gelmiyor. Bu yüzden `site-header.tsx` içinde açılır bir mobil menü, hesap
+ekranlarında ise yan menünün yerine yatay kaydırılan bir şerit var. Yeni bir
+bölüm eklerken mobilde nasıl ulaşılacağını da çöz — `md:hidden` ile gizleyip
+bırakma.

@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import type { IconName } from "@/lib/icons";
 import { clsx } from "clsx";
 import { Icon } from "@/components/ui/icon";
+import { AddToCartButton } from "@/components/cart/add-to-cart-button";
 import { formatPrice } from "@/lib/format";
 import type { Product } from "@/lib/products";
 
@@ -165,13 +167,14 @@ export function ProductPurchase({ product }: { product: Product }) {
           </button>
         </div>
 
-        <button
-          type="button"
+        <AddToCartButton
+          product={product}
+          variant={selectedVariant}
+          quantity={quantity}
+          icon="shopping_bag"
+          label="Sepete Ekle"
           className="flex-grow bg-primary hover:bg-primary-container text-on-primary font-bold rounded-lg h-14 flex items-center justify-center gap-2 shadow-md warm-shadow-hover hover:scale-[1.01] transition-all duration-200"
-        >
-          <Icon name="shopping_bag" />
-          Sepete Ekle
-        </button>
+        />
       </div>
 
       {/* Ozellikler */}
@@ -222,7 +225,7 @@ function SpecItem({
   label,
   value,
 }: {
-  icon: string;
+  icon: IconName;
   label: string;
   value: string;
 }) {
