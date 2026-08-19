@@ -9,7 +9,10 @@
  * tipini urettigi icin, listede olmayan bir ikon adi kullanmak derleme
  * hatasi verir — ikonun sessizce kaybolmasi mumkun degil.
  *
- * Liste alfabetik tutulur.
+ * LISTE ALFABETIK OLMAK ZORUNDA: Google Fonts `icon_names` parametresini
+ * sirali bekliyor; tek bir sira hatasi istegi 400'e dusuruyor ve o zaman
+ * HICBIR ikon yuklenmiyor, hepsi ligature metni olarak ("shopping_cart" gibi)
+ * gorunuyor. icons.test.ts bunu dogruluyor.
  */
 export const iconNames = [
   "add",
@@ -27,7 +30,6 @@ export const iconNames = [
   "credit_card",
   "delete",
   "eco",
-  "favorite",
   "filter_alt_off",
   "history",
   "hive",
@@ -44,8 +46,8 @@ export const iconNames = [
   "person",
   "photo_camera",
   "play_arrow",
-  "redeem",
   "receipt_long",
+  "redeem",
   "remove",
   "scale",
   "science",
@@ -58,7 +60,6 @@ export const iconNames = [
   "star",
   "stars",
   "storefront",
-  "support_agent",
   "thermostat",
   "verified",
   "water_drop",
