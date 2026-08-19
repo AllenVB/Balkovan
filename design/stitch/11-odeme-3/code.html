@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html class="light" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Balkovan - Teslimat ve Kargo</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&amp;family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                            "on-secondary-fixed-variant": "#783100",
+                            "surface-variant": "#faddc4",
+                            "on-primary": "#ffffff",
+                            "on-secondary-fixed": "#341100",
+                            "outline-variant": "#dbc2ae",
+                            "secondary-container": "#fd965e",
+                            "outline": "#887362",
+                            "surface-container-highest": "#faddc4",
+                            "on-surface": "#271909",
+                            "on-secondary-container": "#732f00",
+                            "inverse-surface": "#3e2d1c",
+                            "on-error-container": "#93000a",
+                            "primary-fixed": "#ffdcbf",
+                            "secondary-fixed": "#ffdbcb",
+                            "on-error": "#ffffff",
+                            "surface-bright": "#fff8f4",
+                            "surface-container-high": "#ffe3cb",
+                            "secondary": "#984715",
+                            "on-tertiary-container": "#434034",
+                            "tertiary-fixed": "#e9e2d2",
+                            "surface-dim": "#f2d5bc",
+                            "on-surface-variant": "#554334",
+                            "on-primary-fixed-variant": "#6a3b00",
+                            "on-primary-container": "#603500",
+                            "surface": "#fff8f4",
+                            "on-tertiary-fixed": "#1e1c12",
+                            "error-container": "#ffdad6",
+                            "primary-fixed-dim": "#ffb873",
+                            "on-tertiary-fixed-variant": "#4a473b",
+                            "on-primary-fixed": "#2d1600",
+                            "surface-container-low": "#fff1e7",
+                            "background": "#fff8f4",
+                            "primary-container": "#f9930a",
+                            "inverse-on-surface": "#ffeee0",
+                            "surface-container": "#ffead9",
+                            "on-background": "#271909",
+                            "tertiary": "#625e52",
+                            "inverse-primary": "#ffb873",
+                            "on-secondary": "#ffffff",
+                            "secondary-fixed-dim": "#ffb690",
+                            "error": "#ba1a1a",
+                            "primary": "#8c5000",
+                            "on-tertiary": "#ffffff",
+                            "surface-tint": "#8c5000",
+                            "tertiary-fixed-dim": "#ccc6b7",
+                            "tertiary-container": "#b1ab9d",
+                            "surface-container-lowest": "#ffffff"
+                    },
+                    "borderRadius": {
+                            "DEFAULT": "0.25rem",
+                            "lg": "0.5rem",
+                            "xl": "0.75rem",
+                            "full": "9999px"
+                    },
+                    "spacing": {
+                            "container-max": "1280px",
+                            "stack-sm": "12px",
+                            "gutter": "24px",
+                            "stack-md": "24px",
+                            "margin-mobile": "16px",
+                            "stack-lg": "48px",
+                            "margin-desktop": "40px",
+                            "base": "8px"
+                    },
+                    "fontFamily": {
+                            "label-md": ["Inter"],
+                            "display-lg-mobile": ["Fraunces"],
+                            "headline-md": ["Fraunces"],
+                            "body-md": ["Inter"],
+                            "headline-sm": ["Fraunces"],
+                            "display-lg": ["Fraunces"],
+                            "body-lg": ["Inter"],
+                            "price-display": ["Inter"]
+                    },
+                    "fontSize": {
+                            "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                            "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                            "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                            "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                            "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                            "price-display": ["20px", {"lineHeight": "24px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Custom Input Styles to match Design System */
+        .ds-input {
+            width: 100%;
+            background-color: transparent;
+            border: 2px solid #dbc2ae; /* outline-variant */
+            border-radius: 0.5rem; /* lg */
+            padding: 0.75rem 1rem;
+            color: #271909; /* on-surface */
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            transition: all 0.2s ease-in-out;
+            appearance: none;
+        }
+        .ds-input:focus {
+            outline: none;
+            border-color: #8c5000; /* primary */
+            box-shadow: 0 0 0 4px rgba(255, 220, 191, 0.4); /* primary-fixed glow */
+        }
+        .ds-input::placeholder {
+            color: #887362; /* outline */
+        }
+        .ds-label {
+            display: block;
+            color: #554334; /* on-surface-variant */
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+        
+        /* Hide scrollbar for cleaner look */
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+        
+        /* Subtle texture watermark */
+        .texture-bg {
+            background-image: radial-gradient(#dbc2ae 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.1;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface antialiased font-body-md overflow-x-hidden pb-32">
+<div class="texture-bg"></div>
+<!-- Transactional TopAppBar (Navigation Shell Suppressed per rules, contextual back navigation added) -->
+<header class="fixed top-0 left-0 right-0 bg-surface/95 backdrop-blur-md z-40">
+<div class="flex items-center px-margin-mobile h-16 w-full">
+<button class="p-2 -ml-2 text-on-surface hover:text-primary transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">arrow_back</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm text-primary flex-1 text-center pr-8 tracking-tight">Teslimat</h1>
+</div>
+<!-- Progress Steps -->
+<div class="flex items-center justify-center gap-2 pb-4 px-margin-mobile">
+<div class="flex items-center">
+<div class="w-6 h-6 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-md text-[12px]">1</div>
+<span class="ml-2 font-label-md text-label-md text-primary">Adres</span>
+</div>
+<div class="w-8 h-[2px] bg-outline-variant/50 rounded-full"></div>
+<div class="flex items-center opacity-50">
+<div class="w-6 h-6 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center font-label-md text-[12px]">2</div>
+<span class="ml-2 font-label-md text-label-md text-on-surface-variant">Ödeme</span>
+</div>
+</div>
+<!-- Separator Shadow -->
+<div class="h-4 w-full bg-gradient-to-b from-shadow-lg to-transparent opacity-5"></div>
+</header>
+<main class="relative z-10 pt-28 px-margin-mobile flex flex-col gap-stack-lg max-w-lg mx-auto">
+<!-- Address Form Section -->
+<section class="flex flex-col gap-stack-md">
+<div class="flex items-end justify-between">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Teslimat Adresi</h2>
+<button class="font-label-md text-label-md text-primary underline decoration-primary/30 underline-offset-4">Kayıtlı Adresler</button>
+</div>
+<form class="flex flex-col gap-stack-sm bg-surface-container-lowest p-5 rounded-xl border border-outline-variant shadow-[0_4px_20px_rgba(70,25,3,0.03)] relative overflow-hidden">
+<!-- Decorative top bar indicating form area -->
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary-fixed-dim to-primary/20"></div>
+<div class="grid grid-cols-2 gap-4 mt-2">
+<div>
+<label class="ds-label" for="firstName">Ad</label>
+<input class="ds-input" id="firstName" placeholder="Adınız" type="text"/>
+</div>
+<div>
+<label class="ds-label" for="lastName">Soyad</label>
+<input class="ds-input" id="lastName" placeholder="Soyadınız" type="text"/>
+</div>
+</div>
+<div>
+<label class="ds-label" for="phone">Cep Telefonu</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant font-body-md">+90</span>
+<input class="ds-input pl-12" id="phone" placeholder="5XX XXX XX XX" type="tel"/>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="ds-label" for="city">İl</label>
+<div class="relative">
+<select class="ds-input pr-10 appearance-none bg-surface" id="city">
+<option disabled="" selected="" value="">Seçiniz</option>
+<option value="34">İstanbul</option>
+<option value="06">Ankara</option>
+<option value="35">İzmir</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+</div>
+</div>
+<div>
+<label class="ds-label" for="district">İlçe</label>
+<div class="relative">
+<select class="ds-input pr-10 appearance-none bg-surface" id="district">
+<option disabled="" selected="" value="">Seçiniz</option>
+<option value="1">Kadıköy</option>
+<option value="2">Beşiktaş</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+</div>
+</div>
+</div>
+<div>
+<label class="ds-label" for="addressDetail">Açık Adres</label>
+<textarea class="ds-input resize-none" id="addressDetail" placeholder="Mahalle, sokak, apartman ve daire no..." rows="3"></textarea>
+</div>
+<div>
+<label class="ds-label" for="addressTitle">Adres Başlığı</label>
+<input class="ds-input" id="addressTitle" placeholder="Örn: Evim, İş Yerim" type="text"/>
+</div>
+<div class="flex items-center gap-3 mt-2">
+<input checked="" class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary bg-surface cursor-pointer" id="saveAddress" type="checkbox"/>
+<label class="font-body-md text-body-md text-on-surface-variant cursor-pointer" for="saveAddress">Bu adresi sonraki alışverişlerim için kaydet</label>
+</div>
+</form>
+</section>
+<!-- Shipping Method Section -->
+<section class="flex flex-col gap-stack-sm pb-8">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Kargo Seçimi</h2>
+<div class="flex flex-col gap-3">
+<!-- Shipping Option 1 (Selected) -->
+<label class="relative flex items-center p-4 border-2 border-primary bg-surface-container-low rounded-xl cursor-pointer shadow-[0_4px_20px_rgba(70,25,3,0.06)] transition-all">
+<input checked="" class="sr-only" name="shippingMethod" type="radio" value="yurtici"/>
+<div class="w-6 h-6 rounded-full border-2 border-primary flex items-center justify-center mr-4 bg-on-primary">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+</div>
+<div class="flex-1 flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-surface-container-highest flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Yurtiçi Kargo</span>
+<span class="text-[13px] text-on-surface-variant">1-3 İş günü içinde teslim</span>
+</div>
+</div>
+<span class="font-price-display text-price-display text-on-surface">₺49,90</span>
+</label>
+<!-- Shipping Option 2 -->
+<label class="relative flex items-center p-4 border-2 border-transparent bg-surface-container-lowest rounded-xl cursor-pointer hover:bg-surface-container-low/50 transition-all shadow-sm">
+<input class="sr-only" name="shippingMethod" type="radio" value="aras"/>
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center mr-4">
+<div class="w-3 h-3 rounded-full bg-transparent"></div>
+</div>
+<div class="flex-1 flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-surface-container-high flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">inventory_2</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Aras Kargo</span>
+<span class="text-[13px] text-on-surface-variant">2-4 İş günü içinde teslim</span>
+</div>
+</div>
+<span class="font-price-display text-price-display text-on-surface">₺45,00</span>
+</label>
+</div>
+</section>
+</main>
+<!-- Contextual Checkout Bottom Bar (Semantic Shell Rule application: Replaces global nav with contextual action) -->
+<div class="fixed bottom-0 left-0 w-full bg-surface-container-lowest border-t border-outline-variant shadow-[0_-8px_30px_rgba(70,25,3,0.08)] z-50 rounded-t-2xl pb-safe">
+<div class="px-margin-mobile py-4 flex items-center justify-between gap-4 max-w-lg mx-auto">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface-variant">Ödenecek Tutar</span>
+<span class="font-price-display text-[24px] font-bold text-on-surface">₺849,90</span>
+</div>
+<button class="flex-1 bg-primary text-on-primary py-4 px-6 rounded-xl font-label-md text-label-md shadow-sm flex justify-center items-center gap-2 hover:bg-primary-fixed-variant hover:scale-[1.02] transition-all active:scale-[0.98]">
+                Ödeme Bilgilerine Geç
+                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'wght' 600;">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Script for interactive radio buttons (visual only for demo) -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const labels = document.querySelectorAll('label:has(input[type="radio"])');
+            labels.forEach(label => {
+                const radio = label.querySelector('input[type="radio"]');
+                radio.addEventListener('change', () => {
+                    // Reset all
+                    labels.forEach(l => {
+                        l.classList.remove('border-primary', 'bg-surface-container-low');
+                        l.classList.add('border-transparent', 'bg-surface-container-lowest');
+                        const innerCircle = l.querySelector('div > div');
+                        innerCircle.classList.remove('bg-primary');
+                        innerCircle.classList.add('bg-transparent');
+                        const outerCircle = l.querySelector('div.rounded-full');
+                        outerCircle.classList.remove('border-primary', 'bg-on-primary');
+                        outerCircle.classList.add('border-outline-variant');
+                        const iconBox = l.querySelector('.flex-1 > div');
+                        iconBox.classList.remove('bg-surface-container-highest', 'text-secondary');
+                        iconBox.classList.add('bg-surface-container-high', 'text-on-surface-variant');
+                        const icon = l.querySelector('span.material-symbols-outlined');
+                        icon.style.fontVariationSettings = "'FILL' 0";
+                    });
+
+                    // Set active
+                    if (radio.checked) {
+                        label.classList.remove('border-transparent', 'bg-surface-container-lowest');
+                        label.classList.add('border-primary', 'bg-surface-container-low');
+                        const innerCircle = label.querySelector('div > div');
+                        innerCircle.classList.remove('bg-transparent');
+                        innerCircle.classList.add('bg-primary');
+                        const outerCircle = label.querySelector('div.rounded-full');
+                        outerCircle.classList.remove('border-outline-variant');
+                        outerCircle.classList.add('border-primary', 'bg-on-primary');
+                        const iconBox = label.querySelector('.flex-1 > div');
+                        iconBox.classList.remove('bg-surface-container-high', 'text-on-surface-variant');
+                        iconBox.classList.add('bg-surface-container-highest', 'text-secondary');
+                        const icon = label.querySelector('span.material-symbols-outlined');
+                        icon.style.fontVariationSettings = "'FILL' 1";
+                    }
+                });
+            });
+        });
+    </script>
+</body></html>

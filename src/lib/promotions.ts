@@ -108,6 +108,8 @@ export type DiscountOptions = {
   loyaltyPoints?: number;
   /** Musteri puanlarini bu siparişte kullanmayi sectiyse true. */
   useLoyaltyPoints?: boolean;
+  /** Secilen kargo secenegi (lib/checkout.ts). Toplamlarda kullanilir. */
+  shippingOptionId?: string | null;
 };
 
 export function calculateDiscounts(

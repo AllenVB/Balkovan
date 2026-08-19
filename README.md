@@ -46,6 +46,9 @@ oraya elle taşındı — yeni ekran geldiğinde class isimleri birebir kullanı
 | `/urunler` | Ürün listesi (`?kategori=` ile filtre) |
 | `/urunler/[slug]` | Ürün detayı |
 | `/sepet` | Sepet |
+| `/odeme` | Ödeme adım 1 — adres ve kargo |
+| `/odeme/kart` | Ödeme adım 2 — kart bilgileri |
+| `/odeme/onay` | Sipariş onayı |
 | `/kampanyalar` | Kampanyalar |
 | `/hakkimizda` | Hakkımızda |
 | `/iletisim` | İletişim |
@@ -78,7 +81,11 @@ oraya elle taşındı — yeni ekran geldiğinde class isimleri birebir kullanı
 - **İletişim bilgileri** `src/lib/site.ts` içinde tek kaynaktan: WhatsApp
   numarası (+90 544 453 01 25), telefon ve e-posta. İletişim sayfası ve hesap
   ekranı buradan besleniyor.
-- **Ödeme** hiç başlamadı (iyzico planlandı).
+- **Ödeme akışı** ekranları hazır (adres & kargo → kart → onay) ama **ödeme
+  altyapısı bağlı değil**. Sipariş yalnızca tarayıcıda oluşuyor, kart bilgisi
+  hiçbir yere gönderilmiyor; kullanıcıya da bu ekranda açıkça söyleniyor.
+  Gerçek entegrasyonda iyzico'nun barındırdığı ödeme formu kullanılmalı —
+  kart verisi kendi sunucumuzdan geçerse PCI-DSS yükümlülüğü doğar.
 - **Hesap ekranı** örnek üye verisiyle çalışıyor (`src/lib/account.ts`);
   kimlik doğrulama yok, sayfa herkese açık. Alt bölümlerin (siparişlerim,
   profil, adreslerim, favorilerim, ödeme yöntemleri, destek) tasarımı henüz

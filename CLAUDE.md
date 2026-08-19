@@ -60,6 +60,35 @@ testi de ekle.
 Kargo eşiği **indirim sonrası** tutara bakar (müşterinin gerçekte ödeyeceği
 tutar). Burası doğrudan para hesabı — her kural değişikliği testle birlikte gelir.
 
+## Ödeme akışı
+
+`/odeme` (adres & kargo) → `/odeme/kart` (ödeme) → `/odeme/onay`.
+
+Kurallar `src/lib/checkout.ts`, tarayıcıdaki durum `src/lib/checkout-storage.ts`,
+okuma `components/checkout/use-checkout.ts` üzerinden. Adres doğrulaması zod
+şeması (`addressSchema`) ile; aynı şema backend gelince sunucuda da kullanılacak.
+
+**Kargo ücreti tek kaynak:** `shippingOptions` (Aras 49,90 / Yurtiçi 59,90).
+Sepet toplamları da bu seçimi okur — `CartProvider` kargo seçimini
+`checkout-storage`'dan alır, böylece sepet ve ödeme özeti aynı tutarı gösterir.
+Ücretsiz kargo eşiği aşılırsa seçilen kargo bedava olur.
+
+**Akış korumaları:** sepet boşsa `/odeme`'ye girilemez, adres yoksa
+`/odeme/kart`'a girilemez, tamamlanmış sipariş yoksa `/odeme/onay`'a girilemez.
+
+**Navigasyon:** Tasarım ödeme adımlarında site menüsünü bilerek gizliyor.
+`components/layout/app-chrome.tsx` `/odeme` altında header/footer/alt menüyü
+render etmez; çıkış yolu adımların kendi geri bağlantısıdır.
+
+### ⚠️ Kart verisi
+
+`payment-form.tsx` yalnızca tasarımın karşılığı — kart bilgisi hiçbir yere
+gönderilmiyor. **Gerçek ödemede kart verisi kendi sunucumuzdan geçmemeli;**
+iyzico'nun barındırdığı ödeme formu (Checkout Form / iframe) kullanılmalı,
+aksi halde PCI-DSS yükümlülüğü bize geçer. Sipariş oluşturulurken sunucu
+fiyatı ve tüm indirimleri **yeniden hesaplamalı**; tarayıcıdan gelen tutara
+güvenilmez.
+
 ## Bal Puanı
 
 `src/lib/loyalty.ts` tek kaynak: 10 puan = 1 ₺, sipariş tutarının yarısı kadar

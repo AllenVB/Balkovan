@@ -8,10 +8,12 @@ import {
   MAX_LINE_QUANTITY,
   removeLine,
   setLineQuantity,
-  SHIPPING_FEE_KURUS,
   type CartLine,
 } from "@/lib/cart";
 import type { Product, ProductVariant } from "@/lib/products";
+import { getShippingOption, shippingOptions } from "@/lib/checkout";
+
+const defaultShippingFee = getShippingOption().feeInKurus;
 
 function line(overrides: Partial<CartLine> = {}): CartLine {
   return {
@@ -147,9 +149,9 @@ describe("calculateCartTotals", () => {
       line({ unitPriceInKurus: FREE_SHIPPING_THRESHOLD_KURUS - 1, quantity: 1 }),
     ]);
 
-    expect(totals.shippingInKurus).toBe(SHIPPING_FEE_KURUS);
+    expect(totals.shippingInKurus).toBe(defaultShippingFee);
     expect(totals.totalInKurus).toBe(
-      FREE_SHIPPING_THRESHOLD_KURUS - 1 + SHIPPING_FEE_KURUS,
+      FREE_SHIPPING_THRESHOLD_KURUS - 1 + defaultShippingFee,
     );
   });
 
@@ -183,9 +185,36 @@ describe("calculateCartTotals", () => {
 
   it("esik adet artisiyla asilinca kargo bedavaya doner", () => {
     const lines = [line({ unitPriceInKurus: 80000, quantity: 1 })];
-    expect(calculateCartTotals(lines).shippingInKurus).toBe(SHIPPING_FEE_KURUS);
+    expect(calculateCartTotals(lines).shippingInKurus).toBe(defaultShippingFee);
 
     const increased = setLineQuantity(lines, "kestane-bali--450", 2);
     expect(calculateCartTotals(increased).shippingInKurus).toBe(0);
+  });
+});
+
+describe("kargo secenekleri", () => {
+  it("secilen kargonun ucreti uygulanir", () => {
+    const yurtici = shippingOptions.find((o) => o.id === "yurtici")!;
+    const totals = calculateCartTotals([line({ unitPriceInKurus: 10000 })], {
+      shippingOptionId: "yurtici",
+    });
+
+    expect(totals.shippingInKurus).toBe(yurtici.feeInKurus);
+    expect(totals.shippingOptionId).toBe("yurtici");
+  });
+
+  it("bilinmeyen kargo kimligi varsayilana duser", () => {
+    const totals = calculateCartTotals([line({ unitPriceInKurus: 10000 })], {
+      shippingOptionId: "yok-boyle-kargo",
+    });
+    expect(totals.shippingInKurus).toBe(defaultShippingFee);
+  });
+
+  it("ucretsiz kargo esigi asilinca secilen kargo da bedava olur", () => {
+    const totals = calculateCartTotals(
+      [line({ unitPriceInKurus: FREE_SHIPPING_THRESHOLD_KURUS })],
+      { shippingOptionId: "yurtici" },
+    );
+    expect(totals.shippingInKurus).toBe(0);
   });
 });

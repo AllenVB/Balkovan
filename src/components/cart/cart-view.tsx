@@ -267,12 +267,12 @@ export function CartView() {
             ) : null}
           </div>
 
-          <button
-            type="button"
+          <Link
+            href="/odeme"
             className="w-full py-4 bg-amber-deep text-on-primary rounded-xl font-label-md text-lg font-bold hover:bg-primary transition-colors flex items-center justify-center gap-2"
           >
             Ödemeye Geç <Icon name="arrow_forward" />
-          </button>
+          </Link>
         </div>
 
         <LoyaltyPointsBox />

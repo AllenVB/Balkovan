@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Fraunces, Inter } from "next/font/google";
-import { SiteHeader } from "@/components/layout/site-header";
-import { SiteFooter } from "@/components/layout/site-footer";
-import { BottomNav } from "@/components/layout/bottom-nav";
+import { AppChrome } from "@/components/layout/app-chrome";
 import { CartProvider } from "@/components/cart/cart-provider";
 import { materialSymbolsHref } from "@/lib/icons";
 import "./globals.css";
@@ -52,13 +50,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="bg-background text-on-background font-body-md min-h-full flex flex-col">
         <CartProvider>
-          <SiteHeader />
-          <main className="flex-grow">{children}</main>
-          <SiteFooter />
-          <BottomNav />
+          <AppChrome>{children}</AppChrome>
         </CartProvider>
-        {/* Mobil alt navigasyon sabit konumlu; icerigin altinda kalmamasi icin bosluk */}
-        <div className="h-20 md:hidden" aria-hidden="true" />
       </body>
     </html>
   );

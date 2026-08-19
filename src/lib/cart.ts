@@ -5,6 +5,7 @@ import {
   type DiscountOptions,
 } from "@/lib/promotions";
 import { calculateEarnedPoints } from "@/lib/loyalty";
+import { getShippingOption } from "@/lib/checkout";
 
 /**
  * Kargo kurallari.
@@ -15,7 +16,6 @@ import { calculateEarnedPoints } from "@/lib/loyalty";
  * netlestiginde yalnizca burasi degisecek.
  */
 export const FREE_SHIPPING_THRESHOLD_KURUS = 150000;
-export const SHIPPING_FEE_KURUS = 4500;
 
 /** Bir satirda izin verilen en fazla adet. */
 export const MAX_LINE_QUANTITY = 99;
@@ -102,6 +102,8 @@ function clampQuantity(quantity: number): number {
 
 export type CartTotals = {
   itemCount: number;
+  /** Kargo ucretinin hangi secenekten geldigi. */
+  shippingOptionId: string;
   subtotalInKurus: number;
   /** Uygulanan kampanyalar; sepet ozetinde satir satir gosterilir. */
   discounts: AppliedDiscount[];
@@ -148,9 +150,12 @@ export function calculateCartTotals(
   const qualifiesForFreeShipping =
     discountedSubtotalInKurus >= FREE_SHIPPING_THRESHOLD_KURUS;
 
-  // Bos sepete kargo yazilmaz.
+  // Bos sepete kargo yazilmaz. Esik asilirsa secilen kargo bedava olur.
+  const shippingOption = getShippingOption(options?.shippingOptionId);
   const shippingInKurus =
-    subtotalInKurus === 0 || qualifiesForFreeShipping ? 0 : SHIPPING_FEE_KURUS;
+    subtotalInKurus === 0 || qualifiesForFreeShipping
+      ? 0
+      : shippingOption.feeInKurus;
 
   const remainingForFreeShippingInKurus = qualifiesForFreeShipping
     ? 0
@@ -163,6 +168,7 @@ export function calculateCartTotals(
 
   return {
     itemCount,
+    shippingOptionId: shippingOption.id,
     subtotalInKurus,
     discounts,
     discountTotalInKurus,

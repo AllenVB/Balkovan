@@ -1,0 +1,396 @@
+<!DOCTYPE html><html class="light" lang="tr" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Balkovan - Ödeme</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&amp;family=Inter:wght@400..700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed-variant": "#783100",
+                      "surface-variant": "#faddc4",
+                      "on-primary": "#ffffff",
+                      "on-secondary-fixed": "#341100",
+                      "outline-variant": "#dbc2ae",
+                      "secondary-container": "#fd965e",
+                      "outline": "#887362",
+                      "surface-container-highest": "#faddc4",
+                      "on-surface": "#271909",
+                      "on-secondary-container": "#732f00",
+                      "inverse-surface": "#3e2d1c",
+                      "on-error-container": "#93000a",
+                      "primary-fixed": "#ffdcbf",
+                      "secondary-fixed": "#ffdbcb",
+                      "on-error": "#ffffff",
+                      "surface-bright": "#fff8f4",
+                      "surface-container-high": "#ffe3cb",
+                      "secondary": "#984715",
+                      "on-tertiary-container": "#434034",
+                      "tertiary-fixed": "#e9e2d2",
+                      "surface-dim": "#f2d5bc",
+                      "on-surface-variant": "#554334",
+                      "on-primary-fixed-variant": "#6a3b00",
+                      "on-primary-container": "#603500",
+                      "surface": "#fff8f4",
+                      "on-tertiary-fixed": "#1e1c12",
+                      "error-container": "#ffdad6",
+                      "primary-fixed-dim": "#ffb873",
+                      "on-tertiary-fixed-variant": "#4a473b",
+                      "on-primary-fixed": "#2d1600",
+                      "surface-container-low": "#fff1e7",
+                      "background": "#fff8f4",
+                      "primary-container": "#f9930a",
+                      "inverse-on-surface": "#ffeee0",
+                      "surface-container": "#ffead9",
+                      "on-background": "#271909",
+                      "tertiary": "#625e52",
+                      "inverse-primary": "#ffb873",
+                      "on-secondary": "#ffffff",
+                      "secondary-fixed-dim": "#ffb690",
+                      "error": "#ba1a1a",
+                      "primary": "#8c5000",
+                      "on-tertiary": "#ffffff",
+                      "surface-tint": "#8c5000",
+                      "tertiary-fixed-dim": "#ccc6b7",
+                      "tertiary-container": "#b1ab9d",
+                      "surface-container-lowest": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "container-max": "1280px",
+                      "stack-sm": "12px",
+                      "gutter": "24px",
+                      "stack-md": "24px",
+                      "margin-mobile": "16px",
+                      "stack-lg": "48px",
+                      "margin-desktop": "40px",
+                      "base": "8px"
+              },
+              "fontFamily": {
+                      "label-md": [
+                              "Inter"
+                      ],
+                      "display-lg-mobile": [
+                              "Fraunces"
+                      ],
+                      "headline-md": [
+                              "Fraunces"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "headline-sm": [
+                              "Fraunces"
+                      ],
+                      "display-lg": [
+                              "Fraunces"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "price-display": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "display-lg-mobile": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-sm": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "price-display": [
+                              "20px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        /* Honeycomb Pattern */
+        .bg-honeycomb {
+            background-image: url("data:image/svg+xml,%3Csvg width='24' height='40' viewBox='0 0 24 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23dbc2ae' fill-opacity='0.15' fill-rule='evenodd'%3E%3Cpath d='M0 40c5.523 0 10-4.477 10-10 0-5.522-4.477-10-10-10v20zm12-20c-5.523 0-10-4.477-10-10 0-5.522 4.477-10 10-10 5.523 0 10 4.478 10 10 0 5.523-4.477 10-10 10zM12 40c-5.523 0-10-4.477-10-10 0-5.522 4.477-10 10-10 5.523 0 10 4.478 10 10 0 5.523-4.477 10-10 10z'/%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        /* Custom Input Styles */
+        .input-field {
+            @apply w-full bg-surface-container-lowest border-2 border-outline-variant rounded-lg px-4 py-3 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors;
+        }
+        .input-label {
+            @apply block font-label-md text-label-md text-on-surface-variant mb-2;
+        }
+        
+        /* Ambient Shadow */
+        .shadow-ambient {
+            box-shadow: 0 4px 20px rgba(70, 25, 3, 0.06);
+        }
+        
+        /* Hover lift */
+        .hover-lift {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .hover-lift:hover {
+            transform: scale(1.01);
+            box-shadow: 0 8px 30px rgba(70, 25, 3, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md antialiased bg-honeycomb">
+<!-- TopNavBar (Hidden on Mobile) -->
+<header class="hidden md:flex flex-col bg-surface dark:bg-background border-b border-outline-variant dark:border-outline shadow-sm dark:shadow-none w-full sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-margin-desktop max-w-container-max mx-auto h-20">
+<div class="font-display-lg text-display-lg text-primary dark:text-primary-fixed tracking-tight">
+                Balkovan
+            </div>
+<nav class="flex gap-8">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors font-label-md text-label-md hover:bg-surface-container-low dark:hover:bg-surface-dim transition-all scale-101 duration-200 ease-in-out px-3 py-2 rounded-md" href="#">Ürünler</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors font-label-md text-label-md hover:bg-surface-container-low dark:hover:bg-surface-dim transition-all scale-101 duration-200 ease-in-out px-3 py-2 rounded-md" href="#">Kampanyalar</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors font-label-md text-label-md hover:bg-surface-container-low dark:hover:bg-surface-dim transition-all scale-101 duration-200 ease-in-out px-3 py-2 rounded-md" href="#">Hakkımızda</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors font-label-md text-label-md hover:bg-surface-container-low dark:hover:bg-surface-dim transition-all scale-101 duration-200 ease-in-out px-3 py-2 rounded-md" href="#">İletişim</a>
+</nav>
+<div class="flex gap-4 text-primary dark:text-primary-fixed-dim">
+<button class="hover:bg-surface-container-low dark:hover:bg-surface-dim p-2 rounded-full transition-all scale-101 duration-200 ease-in-out flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+</button>
+<button class="hover:bg-surface-container-low dark:hover:bg-surface-dim p-2 rounded-full transition-all scale-101 duration-200 ease-in-out flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-md md:py-stack-lg">
+<!-- Checkout Progress -->
+<div class="w-full max-w-3xl mx-auto mb-stack-lg hidden md:block">
+<div class="flex items-center justify-between relative">
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-surface-container-highest rounded-full -z-10"></div>
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-1/2 h-1 bg-primary rounded-full -z-10"></div>
+<div class="flex flex-col items-center bg-background px-4">
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-md text-label-md mb-2">
+<span class="material-symbols-outlined text-sm">check</span>
+</div>
+<span class="font-label-md text-label-md text-primary">Teslimat</span>
+</div>
+<div class="flex flex-col items-center bg-background px-4">
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-md text-label-md mb-2">2</div>
+<span class="font-label-md text-label-md text-primary font-bold">Ödeme</span>
+</div>
+<div class="flex flex-col items-center bg-background px-4">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-label-md text-label-md mb-2">3</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Onay</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col lg:flex-row gap-gutter">
+<!-- Left Column: Payment Form -->
+<div class="w-full lg:w-2/3 flex flex-col gap-stack-md">
+<div class="bg-surface-container-lowest rounded-xl shadow-ambient p-6 md:p-8 border border-outline-variant hover-lift">
+<div class="flex items-center justify-between mb-8">
+<h1 class="font-headline-md text-headline-md text-on-surface">Güvenli Ödeme</h1>
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="lock">lock</span>
+</div>
+<form action="#" class="flex flex-col gap-6" method="POST">
+<!-- Card Name -->
+<div class="flex flex-col gap-2 max-w-md">
+<label class="input-label" for="cardName">Kart Üzerindeki İsim</label>
+<input class="input-field" id="cardName" name="cardName" placeholder="Ad Soyad" required="" type="text">
+</div>
+<!-- Card Number -->
+<div>
+<label class="input-label" for="cardNumber">Kart Numarası</label>
+<div class="relative">
+<input class="input-field pl-12" id="cardNumber" maxlength="19" name="cardNumber" placeholder="0000 0000 0000 0000" required="" type="text">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="credit_card">credit_card</span>
+</div>
+</div>
+<!-- Expiry & CVC -->
+<div class="flex gap-6 flex-wrap">
+<div class="w-full md:w-1/2">
+<label class="input-label" for="expiryDate">Son Kullanma Tarihi</label>
+<input class="input-field" id="expiryDate" maxlength="5" name="expiryDate" placeholder="AA/YY" required="" type="text">
+</div>
+<div class="w-full md:w-1/2">
+<label class="input-label" for="cvc">CVC</label>
+<div class="relative">
+<input class="input-field pr-12 pr-10" id="cvc" maxlength="3" name="cvc" placeholder="123" required="" type="text">
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm cursor-help" data-icon="info">info</span>
+</div>
+</div>
+</div>
+<!-- 3D Secure Checkbox -->
+<div class="mt-4 flex items-start gap-3 bg-surface-container-low p-4 rounded-lg border border-outline-variant">
+<input checked="" class="mt-1 w-5 h-5 text-primary bg-surface border-outline rounded focus:ring-primary focus:ring-2" id="3dsecure" name="3dsecure" type="checkbox">
+<div>
+<label class="font-label-md text-label-md text-on-surface font-semibold block" for="3dsecure">3D Secure ile Güvenli Öde</label>
+<p class="font-body-md text-sm text-on-surface-variant mt-1">Telefonunuza gelecek SMS kodu ile işleminizi güvenle onaylayın.</p>
+</div>
+</div>
+</form>
+</div>
+<!-- Trust Badges -->
+<div class="flex justify-center items-center gap-6 opacity-70 grayscale hover:grayscale-0 transition-all duration-300">
+<div class="font-label-md text-label-md text-on-surface-variant font-bold tracking-widest uppercase">SSL SECURE</div>
+<div class="h-6 w-px bg-outline-variant"></div>
+<div class="font-label-md text-label-md text-on-surface-variant font-bold tracking-widest uppercase">256-BIT ŞİFRELEME</div>
+</div>
+</div>
+<!-- Right Column: Order Summary (Sticky) -->
+<div class="w-full lg:w-1/3">
+<div class="bg-surface-container-lowest rounded-xl shadow-ambient p-6 md:p-8 border border-outline-variant sticky top-28">
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-6 border-b border-outline-variant pb-4">Sipariş Özeti</h2>
+<!-- Items -->
+<div class="flex flex-col gap-4 mb-6">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 bg-surface-container-high rounded-md flex items-center justify-center overflow-hidden">
+<img class="object-cover w-full h-full" data-alt="A small glass jar of premium raw organic honey, beautifully lit against a minimal cream background, emphasizing artisanal quality and golden color, warm lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAR5auMIrag9Ifx5rMl7v71V4kDGAj1pgZuQVR0rvsGbAza7B0SMfmEPHCwBgWnJKYL0JKRqMKsPQZiHChxWgrNcLhGvfmTClDT5afkp-42zI6wLbGoSRgqimuJnk0h2d_dA5ItTMg4Ry6XekTTUTCeGeB0gLtoFhe2sMXlcQw0miHua0Bi-zmMLDm1yd3Fvx0CU_TdulSzyNtm1EdVpUQnDVywwLkSB4DZ4jwnHjWN8NoPJZvnFsaKw">
+</div>
+<span class="font-body-md text-body-md text-on-surface">Ham Çiçek Balı 850g</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface">₺450</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 bg-surface-container-high rounded-md flex items-center justify-center overflow-hidden">
+<img class="object-cover w-full h-full" data-alt="A beautifully packaged small block of fresh honeycomb, resting on a wooden block against a minimal cream background, warm artisanal lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDupQIZTDkPwznXtgXeeAI7i_FKqlD5hrX7WVvHmw79paxpj4IxmTy0cU4K-EOwBHfb8zqu7htthxB8wKDrUhR4ojF2b0ybyKv0AgIfvXjuFq8RA6D_6mnBX22iz4SDXVJTceVYkbxmLZyz8j37bNjrZ4VYmuYEwwc5b0f_RPMbVrQDAFnU3ijRUYtown2xqR6cg5sKjaAb2ZhJ3QpNJCOKGf_4lqMx8IG-othCR4cD_N0PFegBJ0XTlg">
+</div>
+<span class="font-body-md text-body-md text-on-surface">Karakovan Petek Balı 500g</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface">₺620</span>
+</div>
+</div>
+<div class="border-t border-outline-variant pt-4 flex flex-col gap-2 mb-6">
+<div class="flex justify-between font-body-md text-body-md text-on-surface-variant">
+<span class="">Ara Toplam</span>
+<span class="">₺1070</span>
+</div>
+<div class="flex justify-between font-body-md text-body-md text-on-surface-variant">
+<span class="">Kargo</span>
+<span class="text-secondary font-medium">Ücretsiz</span>
+</div>
+</div>
+<div class="flex justify-between items-center font-price-display text-price-display text-primary font-bold mb-8">
+<span class="">Toplam</span>
+<span class="">₺1070</span>
+</div>
+<button class="w-full bg-primary hover:bg-primary-container text-on-primary hover:text-on-primary-container font-label-md text-label-md font-bold py-4 px-6 rounded-lg transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="lock">lock</span>
+                        Ödemeyi Tamamla
+                    </button>
+<p class="font-body-md text-xs text-center text-on-surface-variant mt-4">
+                        Ödemeyi tamamlayarak <a class="underline hover:text-primary" href="#">Mesafeli Satış Sözleşmesi</a>'ni onaylamış olursunuz.
+                    </p>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only - Suppressed per rules for Transactional screen) -->
+<!-- SUPPRESSED: Transactional/Checkout screen. Navigation shell hidden to prioritize content canvas. -->
+<!-- Footer -->
+<footer class="bg-surface-container-low dark:bg-surface-dim border-t border-outline-variant w-full py-stack-lg px-margin-desktop mt-auto">
+<div class="max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="font-headline-md text-headline-md text-primary">
+                Balkovan
+            </div>
+<div class="font-body-md text-body-md text-on-surface dark:text-on-surface-variant text-center md:text-left">
+                © 2024 Balkovan. Dürüst Üreticiden Sofranıza.
+            </div>
+<div class="flex gap-4 flex-wrap justify-center">
+<a class="text-on-surface-variant dark:text-on-tertiary-fixed-variant hover:text-secondary underline decoration-secondary-container transition-opacity duration-300 font-body-md text-body-md" href="#">Mesafeli Satış Sözleşmesi</a>
+<a class="text-on-surface-variant dark:text-on-tertiary-fixed-variant hover:text-secondary underline decoration-secondary-container transition-opacity duration-300 font-body-md text-body-md" href="#">Gizlilik Politikası</a>
+<a class="text-on-surface-variant dark:text-on-tertiary-fixed-variant hover:text-secondary underline decoration-secondary-container transition-opacity duration-300 font-body-md text-body-md" href="#">Teslimat ve İade</a>
+</div>
+</div>
+</footer>
+<script>
+        // Simple script for input formatting
+        document.getElementById('cardNumber').addEventListener('input', function (e) {
+            let target = e.target;
+            let value = target.value.replace(/\D/g, ''); // Remove non-digits
+            value = value.substring(0, 16); // Limit to 16 digits
+            
+            // Add spaces every 4 digits
+            let formatted = value.match(/.{1,4}/g)?.join(' ') || value;
+            target.value = formatted;
+        });
+
+        document.getElementById('expiryDate').addEventListener('input', function (e) {
+            let target = e.target;
+            let value = target.value.replace(/\D/g, '');
+            if (value.length > 2) {
+                value = value.substring(0, 2) + '/' + value.substring(2, 4);
+            }
+            target.value = value;
+        });
+        
+        document.getElementById('cvc').addEventListener('input', function (e) {
+            let target = e.target;
+            target.value = target.value.replace(/\D/g, '').substring(0, 3);
+        });
+    </script>
+
+
+</body></html>

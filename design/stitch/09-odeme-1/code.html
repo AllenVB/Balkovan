@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+
+<html lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Balkovan - Adres ve Kargo</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#783100",
+                        "surface-variant": "#faddc4",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#341100",
+                        "outline-variant": "#dbc2ae",
+                        "secondary-container": "#fd965e",
+                        "outline": "#887362",
+                        "surface-container-highest": "#faddc4",
+                        "on-surface": "#271909",
+                        "on-secondary-container": "#732f00",
+                        "inverse-surface": "#3e2d1c",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#ffdcbf",
+                        "secondary-fixed": "#ffdbcb",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#fff8f4",
+                        "surface-container-high": "#ffe3cb",
+                        "secondary": "#984715",
+                        "on-tertiary-container": "#434034",
+                        "tertiary-fixed": "#e9e2d2",
+                        "surface-dim": "#f2d5bc",
+                        "on-surface-variant": "#554334",
+                        "on-primary-fixed-variant": "#6a3b00",
+                        "on-primary-container": "#603500",
+                        "surface": "#fff8f4",
+                        "on-tertiary-fixed": "#1e1c12",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#ffb873",
+                        "on-tertiary-fixed-variant": "#4a473b",
+                        "on-primary-fixed": "#2d1600",
+                        "surface-container-low": "#fff1e7",
+                        "background": "#fff8f4",
+                        "primary-container": "#f9930a",
+                        "inverse-on-surface": "#ffeee0",
+                        "surface-container": "#ffead9",
+                        "on-background": "#271909",
+                        "tertiary": "#625e52",
+                        "inverse-primary": "#ffb873",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#ffb690",
+                        "error": "#ba1a1a",
+                        "primary": "#8c5000",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#8c5000",
+                        "tertiary-fixed-dim": "#ccc6b7",
+                        "tertiary-container": "#b1ab9d",
+                        "surface-container-lowest": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "stack-sm": "12px",
+                        "gutter": "24px",
+                        "stack-md": "24px",
+                        "margin-mobile": "16px",
+                        "stack-lg": "48px",
+                        "margin-desktop": "40px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "display-lg-mobile": ["Fraunces"],
+                        "headline-md": ["Fraunces"],
+                        "body-md": ["Inter"],
+                        "headline-sm": ["Fraunces"],
+                        "display-lg": ["Fraunces"],
+                        "body-lg": ["Inter"],
+                        "price-display": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "headline-md": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-sm": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "price-display": ["20px", { "lineHeight": "24px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        /* Honeycomb pattern overlay for texture */
+        .bg-honeycomb {
+            background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 0l10 17.32h-20L20 0zm0 40l-10-17.32h20L20 40zm20-20l-10 17.32h-20L10 20l10-17.32h20L40 20z' fill='%23dbc2ae' fill-opacity='0.15' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body class="bg-honeycomb min-h-screen flex flex-col font-body-md text-body-md">
+<!-- Top Navigation (Hidden Nav - Transactional) -->
+<!-- As per instructions, this is a transactional page (checkout flow), so standard global nav is suppressed. 
+         Replacing with a simplified header focused on returning to cart and branding. -->
+<header class="bg-surface border-b border-outline-variant shadow-sm w-full z-50 py-4 px-margin-mobile md:px-margin-desktop">
+<div class="max-w-container-max mx-auto flex items-center justify-between">
+<a class="flex items-center text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined mr-2">arrow_back</span>
+<span class="font-label-md text-label-md">Sepete Dön</span>
+</a>
+<div class="font-headline-sm text-headline-sm text-primary tracking-tight font-bold">Balkovan</div>
+<div class="flex items-center text-on-surface-variant">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">lock</span>
+<span class="font-label-md text-label-md ml-2 hidden md:inline">Güvenli Ödeme</span>
+</div>
+</div>
+</header>
+<main class="flex-grow py-stack-lg px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full">
+<!-- Progress Indicator -->
+<div class="mb-stack-md flex items-center justify-center space-x-4">
+<div class="flex items-center text-primary">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold">1</div>
+<span class="ml-2 font-headline-sm text-headline-sm">Adres &amp; Kargo</span>
+</div>
+<div class="w-12 h-px bg-outline-variant"></div>
+<div class="flex items-center text-on-surface-variant opacity-50">
+<div class="w-8 h-8 rounded-full border-2 border-outline-variant flex items-center justify-center">2</div>
+<span class="ml-2 font-headline-sm text-headline-sm">Ödeme</span>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Form & Shipping -->
+<div class="lg:col-span-8 space-y-stack-md">
+<!-- Address Section -->
+<section class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(70,25,3,0.06)] border border-outline-variant">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-stack-sm flex items-center">
+<span class="material-symbols-outlined mr-2 text-primary">location_on</span>
+                        Teslimat Adresi
+                    </h2>
+<form class="space-y-4">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- First Name -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1" for="firstName">Adınız</label>
+<input class="w-full bg-surface rounded-lg border-2 border-outline focus:border-primary focus:ring-1 focus:ring-primary-container p-3 text-on-surface font-body-md transition-all duration-200" id="firstName" placeholder="Örn: Ayşe" type="text"/>
+</div>
+<!-- Last Name -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1" for="lastName">Soyadınız</label>
+<input class="w-full bg-surface rounded-lg border-2 border-outline focus:border-primary focus:ring-1 focus:ring-primary-container p-3 text-on-surface font-body-md transition-all duration-200" id="lastName" placeholder="Örn: Yılmaz" type="text"/>
+</div>
+</div>
+<!-- Phone -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1" for="phone">Telefon Numarası</label>
+<div class="flex">
+<span class="inline-flex items-center px-4 rounded-l-lg border-2 border-r-0 border-outline bg-surface-container-low text-on-surface-variant font-label-md">+90</span>
+<input class="w-full rounded-r-lg bg-surface border-2 border-outline focus:border-primary focus:ring-1 focus:ring-primary-container p-3 text-on-surface font-body-md transition-all duration-200" id="phone" placeholder="5xx xxx xx xx" type="tel"/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- City -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1" for="city">İl</label>
+<select class="w-full bg-surface rounded-lg border-2 border-outline focus:border-primary focus:ring-1 focus:ring-primary-container p-3 text-on-surface font-body-md appearance-none cursor-pointer" id="city">
+<option disabled="" selected="" value="">İl Seçiniz</option>
+<option value="34">İstanbul</option>
+<option value="06">Ankara</option>
+<option value="35">İzmir</option>
+</select>
+</div>
+<!-- District -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1" for="district">İlçe</label>
+<select class="w-full bg-surface rounded-lg border-2 border-outline focus:border-primary focus:ring-1 focus:ring-primary-container p-3 text-on-surface font-body-md appearance-none cursor-pointer disabled:opacity-50" disabled="" id="district">
+<option disabled="" selected="" value="">Önce İl Seçiniz</option>
+</select>
+</div>
+</div>
+<!-- Full Address -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1" for="address">Açık Adres</label>
+<textarea class="w-full bg-surface rounded-lg border-2 border-outline focus:border-primary focus:ring-1 focus:ring-primary-container p-3 text-on-surface font-body-md transition-all duration-200" id="address" placeholder="Mahalle, sokak, bina ve daire numarası detaylarını giriniz..." rows="3"></textarea>
+</div>
+<!-- Address Title -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1" for="addressTitle">Adres Başlığı</label>
+<input class="w-full bg-surface rounded-lg border-2 border-outline focus:border-primary focus:ring-1 focus:ring-primary-container p-3 text-on-surface font-body-md transition-all duration-200" id="addressTitle" placeholder="Örn: Evim, İş Yerim" type="text"/>
+</div>
+</form>
+</section>
+<!-- Shipping Options Section -->
+<section class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(70,25,3,0.06)] border border-outline-variant">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-stack-sm flex items-center">
+<span class="material-symbols-outlined mr-2 text-primary">local_shipping</span>
+                        Kargo Seçimi
+                    </h2>
+<div class="bg-surface-container-low border border-primary-fixed-dim rounded-lg p-4 mb-4 flex items-start">
+<span class="material-symbols-outlined text-primary mt-0.5 mr-3" style="font-variation-settings: 'FILL' 1;">verified</span>
+<p class="font-body-md text-on-surface-variant">Tüm kargolarımız dürüst üreticiden doğrudan size ulaşmak üzere, korunaklı petek ambalajlarla özenle hazırlanır.</p>
+</div>
+<div class="space-y-4">
+<!-- Aras Kargo Option -->
+<label class="relative flex items-center p-4 cursor-pointer rounded-lg border-2 border-outline hover:bg-surface-container-high transition-colors group">
+<input checked="" class="peer sr-only" name="shipping" type="radio" value="aras"/>
+<div class="w-6 h-6 rounded-full border-2 border-outline peer-checked:border-primary peer-checked:border-[6px] mr-4 transition-all flex-shrink-0"></div>
+<div class="flex-grow">
+<div class="font-headline-sm text-headline-sm text-on-surface">Aras Kargo</div>
+<div class="font-body-md text-on-surface-variant mt-1">1-3 iş günü içinde teslimat</div>
+</div>
+<div class="font-price-display text-price-display text-on-surface font-bold text-right">
+                                49,90 TL
+                            </div>
+<div class="absolute inset-0 border-2 border-transparent peer-checked:border-primary rounded-lg pointer-events-none"></div>
+</label>
+<!-- Yurtiçi Kargo Option -->
+<label class="relative flex items-center p-4 cursor-pointer rounded-lg border-2 border-outline hover:bg-surface-container-high transition-colors group">
+<input class="peer sr-only" name="shipping" type="radio" value="yurtici"/>
+<div class="w-6 h-6 rounded-full border-2 border-outline peer-checked:border-primary peer-checked:border-[6px] mr-4 transition-all flex-shrink-0"></div>
+<div class="flex-grow">
+<div class="font-headline-sm text-headline-sm text-on-surface">Yurtiçi Kargo</div>
+<div class="font-body-md text-on-surface-variant mt-1">2-4 iş günü içinde teslimat</div>
+</div>
+<div class="font-price-display text-price-display text-on-surface font-bold text-right">
+                                59,90 TL
+                            </div>
+<div class="absolute inset-0 border-2 border-transparent peer-checked:border-primary rounded-lg pointer-events-none"></div>
+</label>
+</div>
+</section>
+</div>
+<!-- Right Column: Order Summary (Sticky) -->
+<div class="lg:col-span-4 relative">
+<div class="sticky top-stack-md">
+<section class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(70,25,3,0.06)] border border-outline-variant">
+<h2 class="font-headline-sm text-headline-sm text-on-surface border-b border-outline-variant pb-4 mb-4">Sipariş Özeti</h2>
+<!-- Items -->
+<div class="space-y-4 mb-6">
+<div class="flex justify-between items-start">
+<div>
+<div class="font-label-md text-label-md text-on-surface">Ham Çiçek Balı x2</div>
+<div class="text-sm text-on-surface-variant mt-0.5">850g Cam Kavanoz</div>
+</div>
+<div class="font-body-md text-on-surface">540,00 TL</div>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<div class="font-label-md text-label-md text-on-surface">Organik Polen x1</div>
+<div class="text-sm text-on-surface-variant mt-0.5">200g</div>
+</div>
+<div class="font-body-md text-on-surface">185,00 TL</div>
+</div>
+</div>
+<div class="border-t border-outline-variant pt-4 space-y-3">
+<div class="flex justify-between text-on-surface-variant">
+<span>Ara Toplam</span>
+<span>725,00 TL</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span>Kargo (Aras Kargo)</span>
+<span>49,90 TL</span>
+</div>
+<div class="flex justify-between text-primary-container font-medium">
+<span>Sepette %10 İndirim</span>
+<span>-72,50 TL</span>
+</div>
+</div>
+<div class="border-t border-outline-variant mt-4 pt-4">
+<div class="flex justify-between items-center mb-6">
+<span class="font-headline-sm text-headline-sm text-on-surface">Toplam</span>
+<span class="font-display-lg-mobile text-display-lg-mobile text-primary">702,40 TL</span>
+</div>
+<button class="w-full bg-primary text-on-primary font-label-md text-label-md font-bold py-4 rounded-xl hover:bg-on-secondary-fixed-variant shadow-md hover:shadow-lg transition-all duration-200 transform hover:scale-[1.01] flex justify-center items-center">
+                                Ödemeye Geç
+                                <span class="material-symbols-outlined ml-2">arrow_forward</span>
+</button>
+<p class="text-center text-xs text-on-surface-variant mt-4 flex items-center justify-center">
+<span class="material-symbols-outlined text-sm mr-1">security</span>
+                                256-bit SSL ile güvenli alışveriş
+                            </p>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer (Simplified for checkout flow) -->
+<footer class="bg-surface-container-low border-t border-outline-variant mt-auto py-stack-md text-center">
+<p class="font-body-md text-body-md text-on-surface-variant">© 2024 Balkovan. Dürüst Üreticiden Sofranıza.</p>
+</footer>
+</body></html>

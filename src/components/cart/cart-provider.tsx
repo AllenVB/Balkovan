@@ -31,6 +31,11 @@ import {
 } from "@/lib/cart-storage";
 import { demoAccount } from "@/lib/account";
 import { findCoupon } from "@/lib/promotions";
+import {
+  getShippingServerSnapshot,
+  getShippingSnapshot,
+  subscribeToCheckout,
+} from "@/lib/checkout-storage";
 import type { Product, ProductVariant } from "@/lib/products";
 
 type CartContextValue = {
@@ -138,6 +143,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
   // backend fazinda buraya baglanacak.
   const availablePoints = demoAccount.loyaltyPoints;
 
+  // Kargo secimi odeme adiminda yapiliyor ama toplamlar tek yerden geliyor;
+  // secim degisince sepet ve ozet birlikte guncellensin.
+  const shippingOptionId = useSyncExternalStore(
+    subscribeToCheckout,
+    getShippingSnapshot,
+    getShippingServerSnapshot,
+  );
+
   const value = useMemo<CartContextValue>(
     () => ({
       lines,
@@ -145,6 +158,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         couponCode,
         loyaltyPoints: availablePoints,
         useLoyaltyPoints,
+        shippingOptionId,
       }),
       isReady,
       addProduct,
@@ -161,6 +175,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     [
       lines,
       couponCode,
+      shippingOptionId,
       availablePoints,
       useLoyaltyPoints,
       setUseLoyaltyPoints,
