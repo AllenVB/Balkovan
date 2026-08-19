@@ -42,6 +42,11 @@ export type Product = {
   longDescription: string[];
   /** Detay sayfasi kucuk resimleri. Bos ise yalnizca ana gorsel gosterilir. */
   gallery: string[];
+  /**
+   * "3 Al 2 Ode" kampanyasina dahil mi. Isaretli urunlerde sepetteki her uc
+   * adetten en ucuzu bedava sayilir (bkz. lib/promotions.ts).
+   */
+  threeForTwo?: boolean;
   /** Breadcrumb'daki ara basamak. */
   breadcrumb: string;
 };
@@ -204,6 +209,7 @@ export const products: Product[] = [
     ],
     gallery: [],
     breadcrumb: "Hediye Setleri",
+    threeForTwo: true,
   },
 ];
 

@@ -11,6 +11,7 @@ import type { CartLine } from "@/lib/cart";
  * Backend geldiginde yalnizca bu dosya sunucu cagrilariyla degistirilecek.
  */
 const STORAGE_KEY = "balkovan.cart.v1";
+const COUPON_KEY = "balkovan.coupon.v1";
 
 const EMPTY: CartLine[] = [];
 
@@ -80,7 +81,7 @@ export function subscribeToCart(onChange: () => void): () => void {
   listeners.add(onChange);
   // Ayni site baska sekmede aciksa sepet orada da guncellensin.
   const onStorage = (event: StorageEvent) => {
-    if (event.key === STORAGE_KEY) onChange();
+    if (event.key === STORAGE_KEY || event.key === COUPON_KEY) onChange();
   };
   window.addEventListener("storage", onStorage);
   return () => {
@@ -98,5 +99,40 @@ export function writeCart(lines: CartLine[]): void {
   // Depoya yazsak da yazamasak da abonelere yeni degeri bildir.
   cachedRaw = JSON.stringify(lines);
   cachedLines = lines;
+  for (const listener of listeners) listener();
+}
+
+
+/* --- Kupon kodu ---------------------------------------------------------- */
+
+let cachedCoupon: string | null = null;
+let couponRead = false;
+
+export function getCouponSnapshot(): string | null {
+  try {
+    const value = window.localStorage.getItem(COUPON_KEY);
+    if (!couponRead || value !== cachedCoupon) {
+      cachedCoupon = value;
+      couponRead = true;
+    }
+  } catch {
+    cachedCoupon = null;
+  }
+  return cachedCoupon;
+}
+
+export function getCouponServerSnapshot(): string | null {
+  return null;
+}
+
+export function writeCoupon(code: string | null): void {
+  try {
+    if (code) window.localStorage.setItem(COUPON_KEY, code);
+    else window.localStorage.removeItem(COUPON_KEY);
+  } catch {
+    // Depolama kapali olabilir; kupon o oturum icin bellekte kalir.
+  }
+  cachedCoupon = code;
+  couponRead = true;
   for (const listener of listeners) listener();
 }

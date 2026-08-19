@@ -5,25 +5,20 @@ import type { IconName } from "@/lib/icons";
 import { clsx } from "clsx";
 import { Icon } from "@/components/ui/icon";
 import { AddToCartButton } from "@/components/cart/add-to-cart-button";
+import { useCart } from "@/components/cart/cart-provider";
+import { bulkTiers, maxBulkQuantity } from "@/lib/promotions";
 import { formatPrice } from "@/lib/format";
 import type { Product } from "@/lib/products";
-
-/**
- * Tasarimdaki toplu alim kademeleri. Backend geldiginde bu kurallar
- * sunucudan gelecek; simdilik gosterim tasarimdaki degerlerle sabit.
- */
-const bulkTiers = [
-  { minQuantity: 1, discountPercent: 0, label: "1 Adet" },
-  { minQuantity: 6, discountPercent: 5, label: "6 al %5" },
-  { minQuantity: 12, discountPercent: 10, label: "12 al %10" },
-] as const;
-
-const maxTierQuantity = bulkTiers[bulkTiers.length - 1].minQuantity;
 
 /** Urun detayinin sag sutunu: fiyat, gramaj secimi, adet ve sepete ekle. */
 export function ProductPurchase({ product }: { product: Product }) {
   const [variantIndex, setVariantIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const { totals } = useCart();
+
+  // Toplu alim indirimi sepetteki TOPLAM adede bakar, tek urune degil.
+  // Cubuk bu yuzden "sepettekiler + bu sayfada secilen adet" uzerinden dolar.
+  const projectedQuantity = totals.itemCount + quantity;
 
   const selectedVariant = product.variants[variantIndex] ?? product.variants[0];
   const unitPrice = selectedVariant?.priceInKurus ?? product.priceInKurus;
@@ -37,7 +32,10 @@ export function ProductPurchase({ product }: { product: Product }) {
         )
       : undefined;
 
-  const progressPercent = Math.min(100, (quantity / maxTierQuantity) * 100);
+  const progressPercent = Math.min(
+    100,
+    (projectedQuantity / maxBulkQuantity) * 100,
+  );
 
   return (
     <div className="lg:col-span-5 flex flex-col pt-4 lg:pt-0 lg:sticky lg:top-28">
@@ -74,7 +72,11 @@ export function ProductPurchase({ product }: { product: Product }) {
           <span className="flex items-center gap-1 font-bold text-primary">
             <Icon name="local_offer" className="text-sm" /> Toplu Alım İndirimi
           </span>
-          <span className="text-primary font-bold">%10&apos;a varan avantaj</span>
+          <span className="text-primary font-bold">
+            {totals.itemCount > 0
+              ? `Sepetinizde ${totals.itemCount} ürün var`
+              : "%10'a varan avantaj"}
+          </span>
         </div>
         <div className="w-full bg-surface-variant rounded-full h-2.5 mb-1 relative border border-primary/20">
           <div
@@ -85,17 +87,22 @@ export function ProductPurchase({ product }: { product: Product }) {
           <div className="absolute top-1/2 -translate-y-1/2 right-[5%] w-1.5 h-4 bg-background rounded-full z-10" />
         </div>
         <div className="flex justify-between text-xs mt-1 font-body-md">
-          {bulkTiers.map((tier) => (
-            <span
-              key={tier.label}
-              className={clsx(
-                "font-medium",
-                quantity >= tier.minQuantity ? "text-primary" : "text-outline",
-              )}
-            >
-              {tier.label}
-            </span>
-          ))}
+          <span className="font-medium text-outline">1 Adet</span>
+          {[...bulkTiers]
+            .sort((a, b) => a.minQuantity - b.minQuantity)
+            .map((tier) => (
+              <span
+                key={tier.label}
+                className={clsx(
+                  "font-medium",
+                  projectedQuantity >= tier.minQuantity
+                    ? "text-primary"
+                    : "text-outline",
+                )}
+              >
+                {tier.label}
+              </span>
+            ))}
         </div>
       </div>
 

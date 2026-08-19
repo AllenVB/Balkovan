@@ -63,6 +63,11 @@ oraya elle taşındı — yeni ekran geldiğinde class isimleri birebir kullanı
   tutulduğu için sayfa yenilense de durur. Kalıcı (hesaba bağlı) sepet backend
   fazında gelecek — değişecek tek dosya `src/lib/cart-storage.ts`.
 - **İletişim formu** doğrulama yapar, gönderim henüz bir servise bağlı değil.
+- **Kampanyalar** çalışıyor (`src/lib/promotions.ts`): 3 Al 2 Öde, toplu alım
+  (6+ %5, 12+ %10) ve `MERHABA15` kupon kodu. Sepette satır satır gösteriliyor.
+  **Uyarı:** kupon doğrulaması şu an tarayıcıda; kodlar herkese açık ve
+  "ilk siparişe özel" gibi kurallar uygulanamıyor. Backend gelince sunucuya
+  taşınmalı.
 - **Ödeme** hiç başlamadı (iyzico planlandı).
 - **Hesap ekranı** örnek üye verisiyle çalışıyor (`src/lib/account.ts`);
   kimlik doğrulama yok, sayfa herkese açık. Alt bölümlerin (siparişlerim,

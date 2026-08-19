@@ -4,12 +4,23 @@ import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@/components/ui/icon";
 import { useCart } from "@/components/cart/cart-provider";
+import { CouponForm } from "@/components/cart/coupon-form";
 import { formatPrice } from "@/lib/format";
 import { FREE_SHIPPING_THRESHOLD_KURUS, MAX_LINE_QUANTITY } from "@/lib/cart";
+import { nextBulkTier, THREE_FOR_TWO_GROUP_SIZE } from "@/lib/promotions";
 
 /** Sepet ekrani. Satirlar CartProvider'dan gelir; adet ve silme oraya yazar. */
 export function CartView() {
   const { lines, totals, isReady, setQuantity, removeLine } = useCart();
+  const upcomingTier = nextBulkTier(totals.itemCount);
+  const threeForTwoQuantity = lines
+    .filter((line) => line.threeForTwo)
+    .reduce((sum, line) => sum + line.quantity, 0);
+  const untilNextFreeItem =
+    threeForTwoQuantity > 0
+      ? THREE_FOR_TWO_GROUP_SIZE -
+        (threeForTwoQuantity % THREE_FOR_TWO_GROUP_SIZE)
+      : 0;
 
   // Sepet tarayici deposundan okunana kadar bos/dolu karari verilemez;
   // aksi halde dolu sepette bir an "sepetiniz bos" yaniyor.
@@ -74,10 +85,35 @@ export function CartView() {
             />
           </div>
           <p className="font-body-md text-xs text-ink-muted mt-2 text-right">
-            Sepet Tutarı: {formatPrice(totals.subtotalInKurus)} /{" "}
+            Sepet Tutarı: {formatPrice(totals.discountedSubtotalInKurus)} /{" "}
             {formatPrice(FREE_SHIPPING_THRESHOLD_KURUS)}
           </p>
         </div>
+
+        {/* Kampanya ilerlemesi: bir sonraki kademeye ne kaldigini soyler. */}
+        {upcomingTier || untilNextFreeItem > 0 ? (
+          <div className="bg-primary-fixed border-2 border-primary rounded-xl p-4 flex flex-col gap-2">
+            {upcomingTier ? (
+              <p className="flex items-center gap-2 font-label-md text-label-md text-on-primary-fixed">
+                <Icon name="local_offer" className="text-primary text-sm" />
+                <span>
+                  <strong>{upcomingTier.remaining} ürün</strong> daha ekleyin,
+                  tüm sepette <strong>%{upcomingTier.discountPercent}</strong>{" "}
+                  indirim kazanın.
+                </span>
+              </p>
+            ) : null}
+            {untilNextFreeItem > 0 && untilNextFreeItem < THREE_FOR_TWO_GROUP_SIZE ? (
+              <p className="flex items-center gap-2 font-label-md text-label-md text-on-primary-fixed">
+                <Icon name="card_giftcard" className="text-primary text-sm" />
+                <span>
+                  <strong>{untilNextFreeItem} hediye seti</strong> daha ekleyin,
+                  biri <strong>bedava</strong> olsun.
+                </span>
+              </p>
+            ) : null}
+          </div>
+        ) : null}
 
         {/* Urun listesi */}
         <ul className="bg-comb rounded-xl border border-honey-100 warm-shadow overflow-hidden">
@@ -115,11 +151,19 @@ export function CartView() {
                     <p className="font-body-md text-sm text-ink-muted">
                       {line.variantLabel}
                     </p>
-                    {line.tag ? (
-                      <div className="mt-2 inline-block px-2 py-1 bg-honey-50 text-honey-800 rounded-md font-label-md text-xs border border-honey-200">
-                        {line.tag}
-                      </div>
-                    ) : null}
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {line.tag ? (
+                        <span className="inline-block px-2 py-1 bg-honey-50 text-honey-800 rounded-md font-label-md text-xs border border-honey-200">
+                          {line.tag}
+                        </span>
+                      ) : null}
+                      {line.threeForTwo ? (
+                        <span className="inline-flex items-center gap-1 px-2 py-1 bg-primary-container text-on-primary-container rounded-md font-label-md text-xs font-bold">
+                          <Icon name="card_giftcard" className="text-xs" />
+                          3 Al 2 Öde
+                        </span>
+                      ) : null}
+                    </div>
                   </div>
                   <button
                     type="button"
@@ -177,6 +221,19 @@ export function CartView() {
               <dt>Ara Toplam ({totals.itemCount} Ürün)</dt>
               <dd>{formatPrice(totals.subtotalInKurus)}</dd>
             </div>
+            {totals.discounts.map((discount) => (
+              <div
+                key={discount.id}
+                className="flex justify-between text-primary font-medium bg-surface-container-high p-2 rounded-md"
+              >
+                <dt className="flex items-center gap-1">
+                  <Icon name={discount.icon} className="text-sm" />
+                  {discount.label}
+                </dt>
+                <dd>-{formatPrice(discount.amountInKurus)}</dd>
+              </div>
+            ))}
+
             <div className="flex justify-between text-on-surface-variant">
               <dt>Kargo</dt>
               <dd>
@@ -187,13 +244,20 @@ export function CartView() {
             </div>
           </dl>
 
-          <div className="border-t border-honey-200 pt-4 flex justify-between items-center">
-            <span className="font-label-md text-label-md text-on-background">
-              Genel Toplam
-            </span>
-            <span className="font-price-display text-2xl text-amber-deep font-semibold">
-              {formatPrice(totals.totalInKurus)}
-            </span>
+          <div className="border-t border-honey-200 pt-4 flex flex-col gap-1">
+            <div className="flex justify-between items-center">
+              <span className="font-label-md text-label-md text-on-background">
+                Genel Toplam
+              </span>
+              <span className="font-price-display text-2xl text-amber-deep font-semibold">
+                {formatPrice(totals.totalInKurus)}
+              </span>
+            </div>
+            {totals.discountTotalInKurus > 0 ? (
+              <p className="text-right font-label-md text-label-md text-primary">
+                Bu siparişte {formatPrice(totals.discountTotalInKurus)} kazandınız
+              </p>
+            ) : null}
           </div>
 
           <button
@@ -204,29 +268,7 @@ export function CartView() {
           </button>
         </div>
 
-        {/* Indirim kodu */}
-        <div className="bg-comb rounded-xl p-6 border border-honey-100 warm-shadow flex flex-col gap-4">
-          <label
-            className="font-label-md text-label-md text-on-background"
-            htmlFor="coupon_code"
-          >
-            İndirim Kodu / Hediye Çeki
-          </label>
-          <div className="flex gap-2">
-            <input
-              id="coupon_code"
-              type="text"
-              placeholder="Kod giriniz"
-              className="flex-grow border-2 border-honey-200 rounded-lg px-4 py-2 bg-background focus:border-honey-500 focus:ring-0 focus:outline-none font-body-md text-on-background"
-            />
-            <button
-              type="button"
-              className="px-4 py-2 bg-surface-variant text-on-surface-variant rounded-lg font-label-md text-label-md font-semibold hover:bg-surface-container-highest transition-colors border border-honey-200"
-            >
-              Uygula
-            </button>
-          </div>
-        </div>
+        <CouponForm />
       </aside>
     </div>
   );

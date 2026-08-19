@@ -38,6 +38,26 @@ backend gelince tek noktadan değişecek.
 Kargo eşiği ve ücreti `src/lib/cart.ts` içindeki sabitlerdir; başka yerde
 tekrarlanmaz.
 
+## Kampanyalar
+
+Tüm indirim kuralları `src/lib/promotions.ts` içinde, saf fonksiyon olarak.
+Sıra ve öncelik şöyle:
+
+1. **3 Al 2 Öde** — yalnızca `products.ts`'te `threeForTwo: true` işaretli
+   ürünlerde. Her üç adetten **en ucuzu** bedava; farklı kampanyalı ürünler
+   birlikte sayılır.
+2. **Toplu alım** — sepetteki **toplam** adede göre 6+ ise %5, 12+ ise %10.
+   Ürünlerin aynı olması gerekmez.
+3. **Kupon** — önceki indirimler düşüldükten sonraki tutara uygulanır.
+
+**Değiştirilmemesi gereken kural:** 3 Al 2 Öde alan ürünler toplu alım
+yüzdesine **girmez** — aynı ürüne iki indirim binmez. Eşik yine tüm sepetin
+adedinden hesaplanır, indirim yalnızca kampanyasız satırlara uygulanır.
+
+Kargo eşiği **indirim sonrası** tutara bakar (müşterinin gerçekte ödeyeceği
+tutar). Yeni kampanya eklerken `promotions.test.ts`'e karşılık gelen testi de
+ekle — burası doğrudan para hesabı.
+
 ## Bileşenler
 
 - Varsayılan Server Component. `"use client"` yalnızca gerçekten durum/olay

@@ -1,4 +1,5 @@
 import type { Product, ProductVariant } from "@/lib/products";
+import { calculateDiscounts, type AppliedDiscount } from "@/lib/promotions";
 
 /**
  * Kargo kurallari.
@@ -26,6 +27,8 @@ export type CartLine = {
   image: string;
   unitPriceInKurus: number;
   quantity: number;
+  /** Urun "3 Al 2 Ode" kampanyasina dahil mi (bkz. lib/promotions.ts). */
+  threeForTwo?: boolean;
 };
 
 /** Satir kimligi urun ve varyanttan uretilir; ayni birlesim tek satirda toplanir. */
@@ -52,6 +55,7 @@ export function createCartLine(
     image: product.image,
     unitPriceInKurus: variant.priceInKurus,
     quantity,
+    threeForTwo: product.threeForTwo,
   };
 }
 
@@ -94,6 +98,11 @@ function clampQuantity(quantity: number): number {
 export type CartTotals = {
   itemCount: number;
   subtotalInKurus: number;
+  /** Uygulanan kampanyalar; sepet ozetinde satir satir gosterilir. */
+  discounts: AppliedDiscount[];
+  discountTotalInKurus: number;
+  /** Indirimler dusuldukten sonraki urun tutari. */
+  discountedSubtotalInKurus: number;
   shippingInKurus: number;
   /** Ucretsiz kargoya kalan tutar; esik asildiysa 0. */
   remainingForFreeShippingInKurus: number;
@@ -106,15 +115,31 @@ export type CartTotals = {
  * Sepet toplamlarini hesaplar. Saf fonksiyon: backend geldiginde ayni kural
  * sunucuda da kullanilabilsin diye bilesenlerden bagimsiz tutuldu.
  */
-export function calculateCartTotals(lines: CartLine[]): CartTotals {
+export function calculateCartTotals(
+  lines: CartLine[],
+  couponCode?: string | null,
+): CartTotals {
   const itemCount = lines.reduce((sum, line) => sum + line.quantity, 0);
   const subtotalInKurus = lines.reduce(
     (sum, line) => sum + line.unitPriceInKurus * line.quantity,
     0,
   );
 
+  const discounts = calculateDiscounts(lines, couponCode);
+  const discountTotalInKurus = discounts.reduce(
+    (sum, discount) => sum + discount.amountInKurus,
+    0,
+  );
+  // Indirimler urun tutarini asamaz; sepet eksiye dusmez.
+  const discountedSubtotalInKurus = Math.max(
+    0,
+    subtotalInKurus - discountTotalInKurus,
+  );
+
+  // Kargo esigi indirim SONRASI tutara bakar; musteri gercekte ne odeyecekse
+  // esik ona gore degerlendirilir.
   const qualifiesForFreeShipping =
-    subtotalInKurus >= FREE_SHIPPING_THRESHOLD_KURUS;
+    discountedSubtotalInKurus >= FREE_SHIPPING_THRESHOLD_KURUS;
 
   // Bos sepete kargo yazilmaz.
   const shippingInKurus =
@@ -122,19 +147,22 @@ export function calculateCartTotals(lines: CartLine[]): CartTotals {
 
   const remainingForFreeShippingInKurus = qualifiesForFreeShipping
     ? 0
-    : FREE_SHIPPING_THRESHOLD_KURUS - subtotalInKurus;
+    : FREE_SHIPPING_THRESHOLD_KURUS - discountedSubtotalInKurus;
 
   const freeShippingProgressPercent = Math.min(
     100,
-    Math.round((subtotalInKurus / FREE_SHIPPING_THRESHOLD_KURUS) * 100),
+    Math.round((discountedSubtotalInKurus / FREE_SHIPPING_THRESHOLD_KURUS) * 100),
   );
 
   return {
     itemCount,
     subtotalInKurus,
+    discounts,
+    discountTotalInKurus,
+    discountedSubtotalInKurus,
     shippingInKurus,
     remainingForFreeShippingInKurus,
     freeShippingProgressPercent,
-    totalInKurus: subtotalInKurus + shippingInKurus,
+    totalInKurus: discountedSubtotalInKurus + shippingInKurus,
   };
 }

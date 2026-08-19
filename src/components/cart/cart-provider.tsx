@@ -20,9 +20,13 @@ import {
 import {
   getCartServerSnapshot,
   getCartSnapshot,
+  getCouponServerSnapshot,
+  getCouponSnapshot,
   subscribeToCart,
   writeCart,
+  writeCoupon,
 } from "@/lib/cart-storage";
+import { findCoupon } from "@/lib/promotions";
 import type { Product, ProductVariant } from "@/lib/products";
 
 type CartContextValue = {
@@ -42,6 +46,11 @@ type CartContextValue = {
   setQuantity: (lineId: string, quantity: number) => void;
   removeLine: (lineId: string) => void;
   clear: () => void;
+  /** Uygulanmis kupon kodu; yoksa null. */
+  couponCode: string | null;
+  /** Kod gecerliyse uygular ve true doner; gecersizse hicbir sey yapmaz. */
+  applyCoupon: (code: string) => boolean;
+  removeCoupon: () => void;
 };
 
 const CartContext = createContext<CartContextValue | null>(null);
@@ -85,19 +94,50 @@ export function CartProvider({ children }: { children: ReactNode }) {
     writeCart(removeLineFrom(getCartSnapshot(), lineId));
   }, []);
 
-  const clear = useCallback(() => writeCart([]), []);
+  const clear = useCallback(() => {
+    writeCart([]);
+    writeCoupon(null);
+  }, []);
+
+  const couponCode = useSyncExternalStore(
+    subscribeToCart,
+    getCouponSnapshot,
+    getCouponServerSnapshot,
+  );
+
+  const applyCoupon = useCallback((code: string) => {
+    const coupon = findCoupon(code);
+    if (!coupon) return false;
+    writeCoupon(coupon.code);
+    return true;
+  }, []);
+
+  const removeCoupon = useCallback(() => writeCoupon(null), []);
 
   const value = useMemo<CartContextValue>(
     () => ({
       lines,
-      totals: calculateCartTotals(lines),
+      totals: calculateCartTotals(lines, couponCode),
       isReady,
       addProduct,
       setQuantity,
       removeLine,
       clear,
+      couponCode,
+      applyCoupon,
+      removeCoupon,
     }),
-    [lines, isReady, addProduct, setQuantity, removeLine, clear],
+    [
+      lines,
+      couponCode,
+      isReady,
+      addProduct,
+      setQuantity,
+      removeLine,
+      clear,
+      applyCoupon,
+      removeCoupon,
+    ],
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
