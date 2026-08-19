@@ -19,6 +19,7 @@ export const iconNames = [
   "calendar_today",
   "call",
   "card_giftcard",
+  "chat",
   "check",
   "check_circle",
   "chevron_right",

@@ -1,5 +1,6 @@
 import { stitchImages } from "@/lib/images";
 import type { IconName } from "@/lib/icons";
+import { whatsappHref } from "@/lib/site";
 
 /**
  * Hesap ekrani verisi.
@@ -39,14 +40,12 @@ export const accountSections: AccountSection[] = [
   },
 ];
 
-/** Tasarimdaki "Hizli Islemler" karolari. */
-export const quickActions: AccountSection[] = [
-  {
-    slug: "favorilerim",
-    href: "/hesabim/favorilerim",
-    label: "Favorilerim",
-    icon: "favorite",
-  },
+/**
+ * Tasarimdaki "Hizli Islemler" karolari.
+ *
+ * Destek karosu site disina (WhatsApp) cikar; digerleri hesap alt sayfalaridir.
+ */
+export const quickActions: (AccountSection & { external?: boolean })[] = [
   {
     slug: "adreslerim",
     href: "/hesabim/adreslerim",
@@ -60,17 +59,21 @@ export const quickActions: AccountSection[] = [
     icon: "credit_card",
   },
   {
-    slug: "destek",
-    href: "/hesabim/destek",
-    label: "Canlı Destek",
-    icon: "support_agent",
+    slug: "whatsapp",
+    href: whatsappHref,
+    label: "WhatsApp Destek",
+    icon: "chat",
+    external: true,
   },
 ];
 
-/** Yan menu + hizli islemlerin tamami; alt sayfa route'lari buradan uretilir. */
+/**
+ * Hesap alt sayfalarinin tamami; /hesabim/[bolum] route'lari buradan uretilir.
+ * Site disina cikan karolar (WhatsApp) dahil edilmez.
+ */
 export const allAccountSections: AccountSection[] = [
   ...accountSections,
-  ...quickActions,
+  ...quickActions.filter((section) => !section.external),
 ];
 
 export function getAccountSection(slug: string): AccountSection | undefined {

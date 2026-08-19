@@ -48,15 +48,30 @@ Sıra ve öncelik şöyle:
    birlikte sayılır.
 2. **Toplu alım** — sepetteki **toplam** adede göre 6+ ise %5, 12+ ise %10.
    Ürünlerin aynı olması gerekmez.
-3. **Kupon** — önceki indirimler düşüldükten sonraki tutara uygulanır.
+3. **Kupon** — önceki indirimler düşüldükten sonraki tutara.
+4. **Bal Puanı** — en sonda; kuralları `src/lib/loyalty.ts`'te.
 
-**Değiştirilmemesi gereken kural:** 3 Al 2 Öde alan ürünler toplu alım
-yüzdesine **girmez** — aynı ürüne iki indirim binmez. Eşik yine tüm sepetin
-adedinden hesaplanır, indirim yalnızca kampanyasız satırlara uygulanır.
+**İndirimler üst üste biner.** 3 Al 2 Öde alan ürünler toplu alım yüzdesini de
+alır; her kademe bir öncekinden kalan tutara uygulanır. Bu bilinçli bir karar —
+müşteride "daha da ucuza alıyorum" hissi yaratmak için. Bileşik etki yüksek
+olabildiğinden yeni kampanya eklerken `promotions.test.ts`'e bileşik senaryo
+testi de ekle.
 
 Kargo eşiği **indirim sonrası** tutara bakar (müşterinin gerçekte ödeyeceği
-tutar). Yeni kampanya eklerken `promotions.test.ts`'e karşılık gelen testi de
-ekle — burası doğrudan para hesabı.
+tutar). Burası doğrudan para hesabı — her kural değişikliği testle birlikte gelir.
+
+## Bal Puanı
+
+`src/lib/loyalty.ts` tek kaynak: 10 puan = 1 ₺, sipariş tutarının yarısı kadar
+puan kazanılır, puanla sepetin en fazla **%25**'i ödenebilir. Üç sınır birlikte
+uygulanır (kullanıcının puanı, %25 tavanı, kalan tutar) ve yalnızca gerçekten
+kullanılan puan düşülür.
+
+## Yorumlar
+
+`src/lib/testimonials.ts` — anasayfa ve Hakkımızda aynı kaynağı kullanır.
+**Bunlar örnek veridir**; yayına çıkmadan önce gerçek yorumlarla değiştirilmeli,
+aksi halde tüketiciyi yanıltıcı beyan sayılır.
 
 ## Bileşenler
 

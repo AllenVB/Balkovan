@@ -64,10 +64,19 @@ oraya elle taşındı — yeni ekran geldiğinde class isimleri birebir kullanı
   fazında gelecek — değişecek tek dosya `src/lib/cart-storage.ts`.
 - **İletişim formu** doğrulama yapar, gönderim henüz bir servise bağlı değil.
 - **Kampanyalar** çalışıyor (`src/lib/promotions.ts`): 3 Al 2 Öde, toplu alım
-  (6+ %5, 12+ %10) ve `MERHABA15` kupon kodu. Sepette satır satır gösteriliyor.
+  (6+ %5, 12+ %10), `MERHABA15` kupon kodu ve Bal Puanı. Hepsi **üst üste
+  binebiliyor**; sepette satır satır gösteriliyor.
   **Uyarı:** kupon doğrulaması şu an tarayıcıda; kodlar herkese açık ve
   "ilk siparişe özel" gibi kurallar uygulanamıyor. Backend gelince sunucuya
   taşınmalı.
+- **Bal Puanı** (`src/lib/loyalty.ts`): 10 puan = 1 ₺, sipariş tutarının yarısı
+  kadar puan kazanılır, sepetin en fazla %25'i puanla ödenebilir. Puan bakiyesi
+  şu an örnek hesaptan geliyor; gerçek kazanım/harcama backend işi.
+- **Müşteri yorumları** (`src/lib/testimonials.ts`) anasayfa ve Hakkımızda'da
+  ortalama puanla birlikte gösteriliyor. **Örnek veridir**, yayından önce
+  gerçek yorumlarla değiştirilmeli.
+- **WhatsApp destek** numarası `src/lib/site.ts` içinde yer tutucu
+  (`905551234567`) — gerçek numara gelince tek satır değişecek.
 - **Ödeme** hiç başlamadı (iyzico planlandı).
 - **Hesap ekranı** örnek üye verisiyle çalışıyor (`src/lib/account.ts`);
   kimlik doğrulama yok, sayfa herkese açık. Alt bölümlerin (siparişlerim,

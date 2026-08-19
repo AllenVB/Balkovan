@@ -12,6 +12,7 @@ import type { CartLine } from "@/lib/cart";
  */
 const STORAGE_KEY = "balkovan.cart.v1";
 const COUPON_KEY = "balkovan.coupon.v1";
+const USE_POINTS_KEY = "balkovan.usePoints.v1";
 
 const EMPTY: CartLine[] = [];
 
@@ -81,7 +82,13 @@ export function subscribeToCart(onChange: () => void): () => void {
   listeners.add(onChange);
   // Ayni site baska sekmede aciksa sepet orada da guncellensin.
   const onStorage = (event: StorageEvent) => {
-    if (event.key === STORAGE_KEY || event.key === COUPON_KEY) onChange();
+    if (
+      event.key === STORAGE_KEY ||
+      event.key === COUPON_KEY ||
+      event.key === USE_POINTS_KEY
+    ) {
+      onChange();
+    }
   };
   window.addEventListener("storage", onStorage);
   return () => {
@@ -134,5 +141,34 @@ export function writeCoupon(code: string | null): void {
   }
   cachedCoupon = code;
   couponRead = true;
+  for (const listener of listeners) listener();
+}
+
+
+/* --- Bal puani kullanimi ------------------------------------------------- */
+
+let cachedUsePoints = false;
+
+export function getUsePointsSnapshot(): boolean {
+  try {
+    cachedUsePoints = window.localStorage.getItem(USE_POINTS_KEY) === "1";
+  } catch {
+    cachedUsePoints = false;
+  }
+  return cachedUsePoints;
+}
+
+export function getUsePointsServerSnapshot(): boolean {
+  return false;
+}
+
+export function writeUsePoints(value: boolean): void {
+  try {
+    if (value) window.localStorage.setItem(USE_POINTS_KEY, "1");
+    else window.localStorage.removeItem(USE_POINTS_KEY);
+  } catch {
+    // Depolama kapali olabilir.
+  }
+  cachedUsePoints = value;
   for (const listener of listeners) listener();
 }

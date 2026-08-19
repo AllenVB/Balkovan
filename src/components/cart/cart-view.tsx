@@ -5,7 +5,8 @@ import Link from "next/link";
 import { Icon } from "@/components/ui/icon";
 import { useCart } from "@/components/cart/cart-provider";
 import { CouponForm } from "@/components/cart/coupon-form";
-import { formatPrice } from "@/lib/format";
+import { LoyaltyPointsBox } from "@/components/cart/loyalty-points-box";
+import { formatNumber, formatPrice } from "@/lib/format";
 import { FREE_SHIPPING_THRESHOLD_KURUS, MAX_LINE_QUANTITY } from "@/lib/cart";
 import { nextBulkTier, THREE_FOR_TWO_GROUP_SIZE } from "@/lib/promotions";
 
@@ -258,6 +259,12 @@ export function CartView() {
                 Bu siparişte {formatPrice(totals.discountTotalInKurus)} kazandınız
               </p>
             ) : null}
+            {totals.earnedPoints > 0 ? (
+              <p className="flex items-center justify-end gap-1 font-label-md text-label-md text-on-surface-variant">
+                <Icon name="stars" filled className="text-primary text-sm" />
+                {formatNumber(totals.earnedPoints)} bal puanı kazanacaksınız
+              </p>
+            ) : null}
           </div>
 
           <button
@@ -268,6 +275,7 @@ export function CartView() {
           </button>
         </div>
 
+        <LoyaltyPointsBox />
         <CouponForm />
       </aside>
     </div>

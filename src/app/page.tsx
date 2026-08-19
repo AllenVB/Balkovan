@@ -7,6 +7,8 @@ import { Newsletter } from "@/components/layout/newsletter";
 import { ProductCard } from "@/components/product/product-card";
 import { featuredProducts } from "@/lib/products";
 import { stitchImages } from "@/lib/images";
+import { RatingStars } from "@/components/review/rating-stars";
+import { averageRating, reviewCount, testimonials } from "@/lib/testimonials";
 
 const campaigns: {
   icon: IconName;
@@ -62,23 +64,6 @@ const categories = [
   },
 ];
 
-const testimonials = [
-  {
-    quote:
-      "Balların tadı harika, gerçekten doğal olduğunu hissedebiliyorsunuz. Kargo da çok hızlıydı.",
-    author: "Ahmet Yılmaz",
-  },
-  {
-    quote:
-      "Kestane balı favorim oldu. Yoğun aroması ve kıvamı tam istediğim gibi. Teşekkürler Balkovan!",
-    author: "Zeynep Kaya",
-  },
-  {
-    quote:
-      "Hediye setlerinden aldım, paketleme çok özenliydi. Arkadaşım da çok beğendi.",
-    author: "Caner Demir",
-  },
-];
 
 const productionSteps: {
   icon: IconName;
@@ -247,23 +232,27 @@ export default function HomePage() {
       {/* Müşteri Yorumları */}
       <section className="py-stack-lg bg-surface-container-lowest border-t border-honey-100">
         <Container>
-          <h2 className="font-headline-md text-headline-md text-on-background mb-8 text-center">
-            Müşteri Yorumları
-          </h2>
+          <div className="flex flex-col items-center gap-2 mb-8">
+            <h2 className="font-headline-md text-headline-md text-on-background text-center">
+              Müşteri Yorumları
+            </h2>
+            <div className="flex items-center gap-3">
+              <RatingStars rating={averageRating} />
+              <span className="font-label-md text-label-md text-on-surface-variant">
+                {averageRating.toLocaleString("tr-TR", {
+                  minimumFractionDigits: 1,
+                })}{" "}
+                / 5 · {reviewCount} değerlendirme
+              </span>
+            </div>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
-            {testimonials.map((testimonial) => (
+            {testimonials.slice(0, 3).map((testimonial) => (
               <figure
-                key={testimonial.author}
+                key={testimonial.id}
                 className="bg-surface p-8 rounded-3xl warm-shadow border border-honey-100"
               >
-                <div
-                  className="flex text-amber-deep mb-4"
-                  aria-label="5 üzerinden 5 yıldız"
-                >
-                  {Array.from({ length: 5 }).map((_, index) => (
-                    <Icon key={index} name="star" filled />
-                  ))}
-                </div>
+                <RatingStars rating={testimonial.rating} className="mb-4" />
                 <blockquote className="font-body-md text-body-md text-on-surface-variant mb-6 italic">
                   {`"${testimonial.quote}"`}
                 </blockquote>
@@ -273,6 +262,12 @@ export default function HomePage() {
               </figure>
             ))}
           </div>
+          <Link
+            href="/hakkimizda"
+            className="font-label-md text-label-md text-primary font-bold hover:text-amber-deep flex items-center justify-center gap-2 mt-8"
+          >
+            Tüm Yorumları Gör <Icon name="arrow_forward" className="text-sm" />
+          </Link>
         </Container>
       </section>
 

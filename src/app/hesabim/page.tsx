@@ -162,22 +162,39 @@ export default function AccountPage() {
         <h2 className="font-headline-sm text-headline-sm text-on-background mb-4">
           Hızlı İşlemler
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {quickActions.map((action) => (
-            <Link
-              key={action.href}
-              href={action.href}
-              className="flex flex-col items-center justify-center gap-2 p-4 rounded-lg bg-surface-bright hover:bg-surface-variant border border-outline-variant/30 transition-colors duration-200 text-on-surface-variant hover:text-primary group"
-            >
-              <Icon
-                name={action.icon}
-                className="text-2xl group-hover:scale-110 transition-transform"
-              />
-              <span className="font-label-md text-label-md text-center">
-                {action.label}
-              </span>
-            </Link>
-          ))}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          {quickActions.map((action) => {
+            const className =
+              "flex flex-col items-center justify-center gap-2 p-4 rounded-lg bg-surface-bright hover:bg-surface-variant border border-outline-variant/30 transition-colors duration-200 text-on-surface-variant hover:text-primary group";
+            const content = (
+              <>
+                <Icon
+                  name={action.icon}
+                  className="text-2xl group-hover:scale-110 transition-transform"
+                />
+                <span className="font-label-md text-label-md text-center">
+                  {action.label}
+                </span>
+              </>
+            );
+
+            // WhatsApp site disina cikar; yeni sekmede acilir.
+            return action.external ? (
+              <a
+                key={action.slug}
+                href={action.href}
+                target="_blank"
+                rel="noreferrer noopener"
+                className={className}
+              >
+                {content}
+              </a>
+            ) : (
+              <Link key={action.slug} href={action.href} className={className}>
+                {content}
+              </Link>
+            );
+          })}
         </div>
       </section>
     </>

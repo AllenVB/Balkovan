@@ -1,5 +1,10 @@
 import type { Product, ProductVariant } from "@/lib/products";
-import { calculateDiscounts, type AppliedDiscount } from "@/lib/promotions";
+import {
+  calculateDiscounts,
+  type AppliedDiscount,
+  type DiscountOptions,
+} from "@/lib/promotions";
+import { calculateEarnedPoints } from "@/lib/loyalty";
 
 /**
  * Kargo kurallari.
@@ -109,6 +114,8 @@ export type CartTotals = {
   /** Esige ne kadar yaklasildigi, 0-100 arasi. Ilerleme cubugu icin. */
   freeShippingProgressPercent: number;
   totalInKurus: number;
+  /** Bu siparisten kazanilacak bal puani. */
+  earnedPoints: number;
 };
 
 /**
@@ -117,7 +124,7 @@ export type CartTotals = {
  */
 export function calculateCartTotals(
   lines: CartLine[],
-  couponCode?: string | null,
+  options?: DiscountOptions | null,
 ): CartTotals {
   const itemCount = lines.reduce((sum, line) => sum + line.quantity, 0);
   const subtotalInKurus = lines.reduce(
@@ -125,7 +132,7 @@ export function calculateCartTotals(
     0,
   );
 
-  const discounts = calculateDiscounts(lines, couponCode);
+  const discounts = calculateDiscounts(lines, options);
   const discountTotalInKurus = discounts.reduce(
     (sum, discount) => sum + discount.amountInKurus,
     0,
@@ -164,5 +171,7 @@ export function calculateCartTotals(
     remainingForFreeShippingInKurus,
     freeShippingProgressPercent,
     totalInKurus: discountedSubtotalInKurus + shippingInKurus,
+    // Puan yalnizca urun tutari uzerinden kazanilir; kargo bedeli sayilmaz.
+    earnedPoints: calculateEarnedPoints(discountedSubtotalInKurus),
   };
 }

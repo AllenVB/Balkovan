@@ -1,18 +1,23 @@
 import type { CartLine } from "@/lib/cart";
 import type { IconName } from "@/lib/icons";
+import { calculatePointsUsage } from "@/lib/loyalty";
 
 /**
  * Sepet kampanyalari.
  *
- * Uc kampanya var ve su sirayla uygulanir:
+ * Dort kampanya var ve su sirayla uygulanir:
  *   1. 3 Al 2 Ode  - yalnizca isaretli urunlerde (products.ts > threeForTwo)
  *   2. Toplu alim  - sepetteki toplam adede gore %5 / %10
  *   3. Kupon kodu  - kalan tutara
+ *   4. Bal Puani   - kalan tutara, sepetin en fazla %25'i kadar
  *
- * KURAL: 3 Al 2 Ode uygulanan urunler toplu alim yuzdesine GIRMEZ. Ayni urune
- * iki indirim birden binmez. Toplu alim esigi yine sepetteki toplam adetten
- * hesaplanir; yalnizca indirimin uygulandigi tutar kampanyasiz satirlarla
- * sinirlidir.
+ * KURAL: Indirimler UST USTE BINER. 3 Al 2 Ode alan urunler de toplu alim
+ * yuzdesini alir; her kademe bir onceki indirim dusuldukten sonraki tutara
+ * uygulanir. Amac musteride "daha da ucuza aliyorum" hissi yaratmak.
+ *
+ * DIKKAT: Hepsi ust uste binince toplam iskonto yuksek olabiliyor (12 hediye
+ * seti + kupon + puan senaryosunda liste fiyatinin yarisina kadar inebilir).
+ * Yeni kampanya eklerken bilesik etkiyi promotions.test.ts ile dogrula.
  *
  * Hepsi saf fonksiyon: backend geldiginde ayni kurallar sunucuda calisacak.
  */
@@ -97,10 +102,25 @@ export function findBulkTier(totalQuantity: number) {
  * Sepete uygulanan tum indirimleri sirayla hesaplar.
  * Donen tutarlar pozitiftir; ara toplamdan dusulur.
  */
+export type DiscountOptions = {
+  couponCode?: string | null;
+  /** Kullanicinin elindeki toplam bal puani. */
+  loyaltyPoints?: number;
+  /** Musteri puanlarini bu siparişte kullanmayi sectiyse true. */
+  useLoyaltyPoints?: boolean;
+};
+
 export function calculateDiscounts(
   lines: CartLine[],
-  couponCode?: string | null,
+  options?: DiscountOptions | null,
 ): AppliedDiscount[] {
+  // null da kabul edilir: varsayilan parametre yalnizca undefined'i karsilar,
+  // cagiranin elinde cogu zaman "kupon yoksa null" gibi bir deger oluyor.
+  const {
+    couponCode,
+    loyaltyPoints = 0,
+    useLoyaltyPoints = false,
+  } = options ?? {};
   const discounts: AppliedDiscount[] = [];
 
   const subtotal = lines.reduce(
@@ -120,15 +140,11 @@ export function calculateDiscounts(
     });
   }
 
-  // 2) Toplu alim - yalnizca kampanyasiz satirlarin tutarina
+  // 2) Toplu alim - 3 Al 2 Ode dusuldukten sonraki tutara, TUM urunlere
   const tier = findBulkTier(totalQuantity);
   if (tier) {
-    const regularSubtotal = lines
-      .filter((line) => !line.threeForTwo)
-      .reduce((sum, line) => sum + line.unitPriceInKurus * line.quantity, 0);
-    const bulkAmount = Math.round(
-      (regularSubtotal * tier.discountPercent) / 100,
-    );
+    const afterGift = Math.max(0, subtotal - threeForTwo);
+    const bulkAmount = Math.round((afterGift * tier.discountPercent) / 100);
     if (bulkAmount > 0) {
       discounts.push({
         id: "bulk",
@@ -154,6 +170,21 @@ export function calculateDiscounts(
         label: `Kupon: ${coupon.code}`,
         icon: "local_offer",
         amountInKurus: couponAmount,
+      });
+    }
+  }
+
+  // 4) Bal Puani - en sonda, kalan tutarin en fazla %25'i
+  if (useLoyaltyPoints && loyaltyPoints > 0) {
+    const spent = discounts.reduce((sum, d) => sum + d.amountInKurus, 0);
+    const remaining = Math.max(0, subtotal - spent);
+    const usage = calculatePointsUsage(loyaltyPoints, remaining, subtotal);
+    if (usage.discountInKurus > 0) {
+      discounts.push({
+        id: "loyalty-points",
+        label: `Bal Puanı (${usage.points} puan)`,
+        icon: "stars",
+        amountInKurus: usage.discountInKurus,
       });
     }
   }

@@ -22,10 +22,14 @@ import {
   getCartSnapshot,
   getCouponServerSnapshot,
   getCouponSnapshot,
+  getUsePointsServerSnapshot,
+  getUsePointsSnapshot,
   subscribeToCart,
   writeCart,
   writeCoupon,
+  writeUsePoints,
 } from "@/lib/cart-storage";
+import { demoAccount } from "@/lib/account";
 import { findCoupon } from "@/lib/promotions";
 import type { Product, ProductVariant } from "@/lib/products";
 
@@ -51,6 +55,10 @@ type CartContextValue = {
   /** Kod gecerliyse uygular ve true doner; gecersizse hicbir sey yapmaz. */
   applyCoupon: (code: string) => boolean;
   removeCoupon: () => void;
+  /** Musterinin elindeki bal puani. */
+  availablePoints: number;
+  useLoyaltyPoints: boolean;
+  setUseLoyaltyPoints: (value: boolean) => void;
 };
 
 const CartContext = createContext<CartContextValue | null>(null);
@@ -97,6 +105,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const clear = useCallback(() => {
     writeCart([]);
     writeCoupon(null);
+    writeUsePoints(false);
   }, []);
 
   const couponCode = useSyncExternalStore(
@@ -114,10 +123,29 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const removeCoupon = useCallback(() => writeCoupon(null), []);
 
+  const useLoyaltyPoints = useSyncExternalStore(
+    subscribeToCart,
+    getUsePointsSnapshot,
+    getUsePointsServerSnapshot,
+  );
+
+  const setUseLoyaltyPoints = useCallback(
+    (value: boolean) => writeUsePoints(value),
+    [],
+  );
+
+  // Puan bakiyesi su an ornek hesaptan geliyor; oturum acan gercek kullanici
+  // backend fazinda buraya baglanacak.
+  const availablePoints = demoAccount.loyaltyPoints;
+
   const value = useMemo<CartContextValue>(
     () => ({
       lines,
-      totals: calculateCartTotals(lines, couponCode),
+      totals: calculateCartTotals(lines, {
+        couponCode,
+        loyaltyPoints: availablePoints,
+        useLoyaltyPoints,
+      }),
       isReady,
       addProduct,
       setQuantity,
@@ -126,10 +154,16 @@ export function CartProvider({ children }: { children: ReactNode }) {
       couponCode,
       applyCoupon,
       removeCoupon,
+      availablePoints,
+      useLoyaltyPoints,
+      setUseLoyaltyPoints,
     }),
     [
       lines,
       couponCode,
+      availablePoints,
+      useLoyaltyPoints,
+      setUseLoyaltyPoints,
       isReady,
       addProduct,
       setQuantity,
