@@ -5,6 +5,13 @@ import { Icon } from "@/components/ui/icon";
 import { ContactForm } from "@/components/contact/contact-form";
 import { Newsletter } from "@/components/layout/newsletter";
 import { stitchImages } from "@/lib/images";
+import {
+  CONTACT_EMAIL,
+  PHONE_HREF,
+  SUPPORT_HOURS,
+  WHATSAPP_DISPLAY,
+  whatsappHref,
+} from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "İletişim",
@@ -26,13 +33,13 @@ const contactDetails: {
   {
     icon: "call",
     title: "Telefon",
-    lines: ["+90 (555) 123 45 67"],
-    note: "(Pzt-Cum, 09:00 - 18:00)",
+    lines: [WHATSAPP_DISPLAY],
+    note: SUPPORT_HOURS,
   },
   {
     icon: "mail",
     title: "E-posta",
-    lines: ["merhaba@balkovan.com.tr"],
+    lines: [CONTACT_EMAIL],
   },
 ];
 
@@ -93,7 +100,20 @@ export default function ContactPage() {
                       {detail.lines.map((line, index) => (
                         <span key={line}>
                           {index > 0 ? <br /> : null}
-                          {line}
+                          {detail.icon === "call" ? (
+                            <a href={PHONE_HREF} className="hover:text-primary">
+                              {line}
+                            </a>
+                          ) : detail.icon === "mail" ? (
+                            <a
+                              href={`mailto:${CONTACT_EMAIL}`}
+                              className="hover:text-primary"
+                            >
+                              {line}
+                            </a>
+                          ) : (
+                            line
+                          )}
                         </span>
                       ))}
                       {detail.note ? (
@@ -107,6 +127,16 @@ export default function ContactPage() {
                 </div>
               ))}
             </div>
+
+            <a
+              href={whatsappHref}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="mt-8 flex items-center justify-center gap-2 w-full bg-primary text-on-primary font-label-md text-label-md font-bold px-6 py-4 rounded-xl hover:bg-primary-container transition-colors"
+            >
+              <Icon name="chat" />
+              WhatsApp&apos;tan Yazın
+            </a>
 
             <div className="mt-10 pt-8 border-t border-surface-variant">
               <h3 className="font-label-md text-label-md font-semibold text-on-surface mb-4">

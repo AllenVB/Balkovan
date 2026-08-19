@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Icon } from "@/components/ui/icon";
+import { CONTACT_EMAIL } from "@/lib/site";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Adınızı ve soyadınızı yazın."),
@@ -126,10 +127,10 @@ export function ContactForm() {
         >
           Mesaj gönderimi henüz etkin değil. Bize doğrudan{" "}
           <a
-            href="mailto:merhaba@balkovan.com.tr"
+            href={`mailto:${CONTACT_EMAIL}`}
             className="font-bold underline hover:text-primary"
           >
-            merhaba@balkovan.com.tr
+            {CONTACT_EMAIL}
           </a>{" "}
           adresinden ulaşabilirsiniz.
         </p>

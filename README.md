@@ -75,8 +75,9 @@ oraya elle taşındı — yeni ekran geldiğinde class isimleri birebir kullanı
 - **Müşteri yorumları** (`src/lib/testimonials.ts`) anasayfa ve Hakkımızda'da
   ortalama puanla birlikte gösteriliyor. **Örnek veridir**, yayından önce
   gerçek yorumlarla değiştirilmeli.
-- **WhatsApp destek** numarası `src/lib/site.ts` içinde yer tutucu
-  (`905551234567`) — gerçek numara gelince tek satır değişecek.
+- **İletişim bilgileri** `src/lib/site.ts` içinde tek kaynaktan: WhatsApp
+  numarası (+90 544 453 01 25), telefon ve e-posta. İletişim sayfası ve hesap
+  ekranı buradan besleniyor.
 - **Ödeme** hiç başlamadı (iyzico planlandı).
 - **Hesap ekranı** örnek üye verisiyle çalışıyor (`src/lib/account.ts`);
   kimlik doğrulama yok, sayfa herkese açık. Alt bölümlerin (siparişlerim,
