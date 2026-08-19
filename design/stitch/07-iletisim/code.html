@@ -1,0 +1,369 @@
+<!DOCTYPE html><html lang="tr"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>İletişim - Balkovan</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-container": "#f9930a",
+                      "surface-container-low": "#fff1e7",
+                      "outline": "#887362",
+                      "on-secondary-fixed-variant": "#783100",
+                      "tertiary": "#625e52",
+                      "secondary-container": "#fd965e",
+                      "on-surface": "#271909",
+                      "tertiary-container": "#b1ab9d",
+                      "on-secondary": "#ffffff",
+                      "on-tertiary-fixed-variant": "#4a473b",
+                      "primary-fixed": "#ffdcbf",
+                      "surface-container-highest": "#faddc4",
+                      "on-surface-variant": "#554334",
+                      "surface-bright": "#fff8f4",
+                      "inverse-primary": "#ffb873",
+                      "surface": "#fff8f4",
+                      "tertiary-fixed": "#e9e2d2",
+                      "surface-dim": "#f2d5bc",
+                      "secondary": "#984715",
+                      "secondary-fixed": "#ffdbcb",
+                      "tertiary-fixed-dim": "#ccc6b7",
+                      "primary-fixed-dim": "#ffb873",
+                      "on-primary-container": "#603500",
+                      "secondary-fixed-dim": "#ffb690",
+                      "inverse-on-surface": "#ffeee0",
+                      "surface-container-high": "#ffe3cb",
+                      "on-secondary-fixed": "#341100",
+                      "on-error": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "on-secondary-container": "#732f00",
+                      "error-container": "#ffdad6",
+                      "on-tertiary-container": "#434034",
+                      "primary": "#8c5000",
+                      "background": "#fff8f4",
+                      "on-tertiary-fixed": "#1e1c12",
+                      "error": "#ba1a1a",
+                      "on-primary": "#ffffff",
+                      "on-background": "#271909",
+                      "on-primary-fixed-variant": "#6a3b00",
+                      "surface-container": "#ffead9",
+                      "on-primary-fixed": "#2d1600",
+                      "surface-container-lowest": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "surface-tint": "#8c5000",
+                      "outline-variant": "#dbc2ae",
+                      "surface-variant": "#faddc4",
+                      "inverse-surface": "#3e2d1c"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "stack-lg": "48px",
+                      "base": "8px",
+                      "stack-md": "24px",
+                      "stack-sm": "12px",
+                      "container-max": "1280px",
+                      "margin-desktop": "40px",
+                      "margin-mobile": "16px"
+              },
+              "fontFamily": {
+                      "headline-md": [
+                              "Fraunces"
+                      ],
+                      "label-md": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "headline-sm": [
+                              "Fraunces"
+                      ],
+                      "price-display": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Fraunces"
+                      ],
+                      "display-lg-mobile": [
+                              "Fraunces"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "headline-md": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-sm": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "price-display": [
+                              "20px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "display-lg-mobile": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .honeycomb-pattern {
+            background-color: #fff8f4;
+            background-image: url("data:image/svg+xml,%3Csvg width='40' height='69' viewBox='0 0 40 69' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 34.5c0-1.2.5-2.4 1.4-3.2L17.5 17c1.3-1.2 3.3-1.2 4.6 0l16.1 14.3c.9.8 1.4 2 1.4 3.2v34.5c0 1.2-.5 2.4-1.4 3.2L22.1 86.5c-1.3 1.2-3.3 1.2-4.6 0L1.4 72.2C.5 71.4 0 70.2 0 69V34.5z' fill='%23f9930a' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+        
+        .warm-shadow {
+            box-shadow: 0 4px 20px rgba(70, 25, 3, 0.06);
+        }
+        
+        .warm-shadow-hover:hover {
+            box-shadow: 0 8px 30px rgba(70, 25, 3, 0.1);
+            transform: scale(1.01);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md honeycomb-pattern min-h-screen flex flex-col antialiased">
+<!-- TopNavBar -->
+<nav class="bg-background dark:bg-inverse-surface docked full-width top-0 shadow-[0_4px_20px_rgba(70,25,3,0.06)] z-50 sticky">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto h-20">
+<a class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary tracking-tight" href="#">
+                Balkovan
+            </a>
+<!-- Desktop Nav -->
+<ul class="hidden md:flex space-x-8 items-center">
+<li><a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200 font-label-md text-label-md" href="#">Ürünler</a></li>
+<li><a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200 font-label-md text-label-md" href="#">Kampanyalar</a></li>
+<li><a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200 font-label-md text-label-md" href="#">Hakkımızda</a></li>
+<li><a class="text-primary dark:text-primary-fixed-dim border-b-2 border-primary font-bold pb-1 font-label-md text-label-md" href="#">İletişim</a></li>
+</ul>
+<div class="flex items-center space-x-4">
+<button aria-label="person" class="text-primary dark:text-inverse-primary hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200 scale-105 transition-transform duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">person</span>
+</button>
+<button aria-label="shopping_cart" class="text-primary dark:text-inverse-primary hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200 scale-105 transition-transform duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">shopping_cart</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow">
+<!-- Hero Section -->
+<section class="relative w-full h-[40vh] min-h-[300px] md:h-[50vh] flex items-center justify-center overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover" data-alt="A sweeping, golden-hour landscape photograph of lush, green high-altitude meadows nestled in the majestic mountains of Erzurum, Turkey. Wooden beehives are carefully arranged across the rolling hills, glowing warmly in the soft, honey-colored sunlight. The scene embodies a pure, artisanal, and natural aesthetic, conveying tranquility and the pristine origins of raw honey." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOtq-IEPDKU_h-Xib4xnL5ddc91im-XnJK5Ii4TzW7PMfwpTcc6OskJfP_1ntqpHhkNQiYoGQl3ytg4qAtMFdslueDcn2klUjWtiguJAAU4UYrSDg2hr-CNsLRfPRr1OqCMNYWOnDGm8pN3KjQZMmjKjehvkDB8YwYVpqtyAaC_lHk2O1uEK3UBei_iusslne-S1fbGui246mZ9aL3gS3t1L7Z2YWcVa05jUkXNbpvlxd67DsWTNfFLQ">
+<div class="absolute inset-0 bg-on-background/40"></div>
+</div>
+<div class="relative z-10 text-center px-margin-mobile md:px-margin-desktop max-w-3xl mx-auto">
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-primary mb-4 drop-shadow-md">Bize Ulaşın</h1>
+<p class="font-body-lg text-body-lg text-surface-container-lowest opacity-90">Doğanın kalbinden sofranıza uzanan bu tatlı yolculukta her türlü soru, öneri ve siparişleriniz için buradayız.</p>
+</div>
+</section>
+<!-- Contact Content Area -->
+<section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg relative z-20 -mt-12 md:-mt-24">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Contact Information Card -->
+<div class="lg:col-span-5 bg-surface-container-lowest rounded-xl warm-shadow p-6 md:p-10 flex flex-col h-full border border-surface-variant">
+<h2 class="font-headline-sm text-headline-sm text-primary mb-6">İletişim Bilgileri</h2>
+<div class="space-y-8 flex-grow">
+<div class="flex items-start">
+<span class="material-symbols-outlined text-secondary-container mt-1 mr-4" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<div>
+<h3 class="font-label-md text-label-md font-semibold text-on-surface mb-1">Adres</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Şenkaya Yaylaları, Balcılar Köyü Yolu Üzeri<br>No: 42, Erzurum / Türkiye</p>
+</div>
+</div>
+<div class="flex items-start">
+<span class="material-symbols-outlined text-secondary-container mt-1 mr-4" style="font-variation-settings: 'FILL' 1;">call</span>
+<div>
+<h3 class="font-label-md text-label-md font-semibold text-on-surface mb-1">Telefon</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">+90 (555) 123 45 67<br><span class="text-sm opacity-80">(Pzt-Cum, 09:00 - 18:00)</span></p>
+</div>
+</div>
+<div class="flex items-start">
+<span class="material-symbols-outlined text-secondary-container mt-1 mr-4" style="font-variation-settings: 'FILL' 1;">mail</span>
+<div>
+<h3 class="font-label-md text-label-md font-semibold text-on-surface mb-1">E-posta</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">merhaba@balkovan.com.tr</p>
+</div>
+</div>
+</div>
+<div class="mt-10 pt-8 border-t border-surface-variant">
+<h3 class="font-label-md text-label-md font-semibold text-on-surface mb-4">Bizi Takip Edin</h3>
+<div class="flex space-x-4">
+<a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary hover:bg-primary hover:text-on-primary transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">share</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary hover:bg-primary hover:text-on-primary transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">photo_camera</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary hover:bg-primary hover:text-on-primary transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">play_arrow</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Contact Form -->
+<div class="lg:col-span-7 bg-surface-container-lowest rounded-xl warm-shadow p-6 md:p-10 border border-surface-variant mt-8 lg:mt-0">
+<h2 class="font-headline-sm text-headline-sm text-primary mb-2">Bize Mesaj Gönderin</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8">Arılarımız kadar çalışkanız; mesajlarınıza en kısa sürede dönüş yapacağız.</p>
+<form class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="name">Adınız Soyadınız</label>
+<input class="w-full bg-surface-bright border-2 border-outline-variant rounded-lg px-4 py-3 font-body-md text-body-md text-on-surface focus:border-primary-container focus:ring-0 focus:outline-none transition-colors" id="name" name="name" placeholder="Ahmet Yılmaz" type="text">
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="email">E-posta Adresiniz</label>
+<input class="w-full bg-surface-bright border-2 border-outline-variant rounded-lg px-4 py-3 font-body-md text-body-md text-on-surface focus:border-primary-container focus:ring-0 focus:outline-none transition-colors" id="email" name="email" placeholder="ahmet@ornek.com" type="email">
+</div>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="subject">Konu</label>
+<select class="w-full bg-surface-bright border-2 border-outline-variant rounded-lg px-4 py-3 font-body-md text-body-md text-on-surface focus:border-primary-container focus:ring-0 focus:outline-none transition-colors appearance-none" id="subject" name="subject">
+<option disabled="" selected="" value="">Lütfen bir konu seçin</option>
+<option value="siparis">Sipariş Durumu</option>
+<option value="toptan">Toptan Alım</option>
+<option value="urun">Ürünler Hakkında Bilgi</option>
+<option value="diger">Diğer</option>
+</select>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="message">Mesajınız</label>
+<textarea class="w-full bg-surface-bright border-2 border-outline-variant rounded-lg px-4 py-3 font-body-md text-body-md text-on-surface focus:border-primary-container focus:ring-0 focus:outline-none transition-colors resize-y" id="message" name="message" placeholder="Size nasıl yardımcı olabiliriz?" rows="5"></textarea>
+</div>
+<div class="pt-2">
+<button class="w-full md:w-auto px-8 py-4 bg-primary text-on-primary rounded-xl font-label-md text-label-md font-semibold hover:bg-on-primary-container transition-colors duration-300 flex items-center justify-center warm-shadow-hover" type="submit">
+<span>Mesajı Gönder</span>
+<span class="material-symbols-outlined ml-2 text-sm" style="font-variation-settings: 'FILL' 0;">send</span>
+</button>
+</div>
+</form>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low dark:bg-inverse-surface full-width flat no shadows">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-desktop py-stack-lg max-w-container-max mx-auto">
+<!-- Brand -->
+<div class="col-span-1 md:col-span-1 flex flex-col space-y-4">
+<span class="font-headline-sm text-headline-sm font-bold text-primary dark:text-inverse-primary tracking-tight">Balkovan</span>
+<p class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant">Doğanın en tatlı mucizesi, kovanından sofranıza.</p>
+</div>
+<!-- Links -->
+<div class="col-span-1 md:col-span-2 flex flex-col md:flex-row gap-8 justify-around">
+<div class="flex flex-col space-y-3 opacity-80 hover:opacity-100 transition-opacity">
+<span class="font-label-md text-label-md font-bold text-on-surface dark:text-surface-bright mb-2">Müşteri Hizmetleri</span>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim underline transition-all" href="#">S.S.S.</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim underline transition-all" href="#">Kargo ve Teslimat</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim underline transition-all" href="#">İade Koşulları</a>
+</div>
+<div class="flex flex-col space-y-3 opacity-80 hover:opacity-100 transition-opacity">
+<span class="font-label-md text-label-md font-bold text-on-surface dark:text-surface-bright mb-2">Kurumsal</span>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim underline transition-all" href="#">Hakkımızda</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim underline transition-all" href="#">Sertifikalarımız</a>
+<a class="text-primary dark:text-primary-fixed-dim font-bold font-body-md text-body-md hover:text-primary dark:hover:text-primary-fixed-dim underline transition-all" href="#">İletişim</a>
+</div>
+<div class="flex flex-col space-y-3 opacity-80 hover:opacity-100 transition-opacity">
+<span class="font-label-md text-label-md font-bold text-on-surface dark:text-surface-bright mb-2">Sosyal Medya</span>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim underline transition-all" href="#">Instagram</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim underline transition-all" href="#">Facebook</a>
+</div>
+</div>
+<!-- Newsletter -->
+<div class="col-span-1 md:col-span-1 flex flex-col space-y-4 opacity-80 hover:opacity-100 transition-opacity">
+<span class="font-label-md text-label-md font-bold text-on-surface dark:text-surface-bright">Newsletter Signup</span>
+<p class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant text-sm">Yeni hasat dönemlerinden ve kampanyalardan haberdar olun.</p>
+<div class="flex mt-2">
+<input class="bg-surface-bright border border-outline-variant rounded-l-lg px-3 py-2 w-full font-body-md text-sm focus:outline-none focus:border-primary" placeholder="E-posta adresiniz" type="email">
+<button class="bg-primary text-on-primary rounded-r-lg px-4 py-2 font-label-md text-sm hover:bg-on-primary-container transition-colors">Kayıt Ol</button>
+</div>
+</div>
+<div class="col-span-1 md:col-span-4 mt-12 pt-6 border-t border-outline-variant/30 text-center">
+<p class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant text-sm">© 2024 Balkovan. Tüm Hakları Saklıdır. [Firma Unvanı]</p>
+</div>
+</div>
+</footer>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 pb-safe md:hidden bg-surface-container dark:bg-inverse-surface shadow-[0_-4px_20px_rgba(70,25,3,0.06)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-variant scale-95 active:scale-90 transition-transform rounded-xl" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">storefront</span>
+<span class="font-label-md text-label-md text-xs">Mağaza</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-variant scale-95 active:scale-90 transition-transform rounded-xl" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">shopping_basket</span>
+<span class="font-label-md text-label-md text-xs">Sepetim</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-variant scale-95 active:scale-90 transition-transform rounded-xl" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">favorite</span>
+<span class="font-label-md text-label-md text-xs">Favorilerim</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-variant scale-95 active:scale-90 transition-transform rounded-xl" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">person</span>
+<span class="font-label-md text-label-md text-xs">Hesabım</span>
+</a>
+<!-- Note: None of the bottom nav items are strictly 'Contact Us', so none are active. 'Mağaza' or 'Hesabım' might be closest in a real app, but semantically none match perfectly. Left them all inactive as per intent fallback rules for transactional/informational pages if they don't map to primary bottom nav destinations. -->
+</nav>
+</body></html>

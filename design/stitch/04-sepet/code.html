@@ -1,0 +1,364 @@
+<!DOCTYPE html><html lang="tr"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Sepetim - Balkovan</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "background": "#fff8f4",
+                      "inverse-primary": "#ffb873",
+                      "surface-dim": "#f2d5bc",
+                      "on-primary-container": "#603500",
+                      "tertiary": "#625e52",
+                      "on-primary": "#ffffff",
+                      "surface-container-highest": "#faddc4",
+                      "primary-fixed-dim": "#ffb873",
+                      "surface-container": "#ffead9",
+                      "tertiary-fixed": "#e9e2d2",
+                      "tertiary-container": "#b1ab9d",
+                      "error": "#ba1a1a",
+                      "on-secondary-fixed-variant": "#783100",
+                      "on-tertiary-fixed": "#1e1c12",
+                      "surface-bright": "#fff8f4",
+                      "primary-fixed": "#ffdcbf",
+                      "primary-container": "#f9930a",
+                      "secondary-fixed": "#ffdbcb",
+                      "inverse-on-surface": "#ffeee0",
+                      "surface-tint": "#8c5000",
+                      "on-tertiary": "#ffffff",
+                      "on-tertiary-container": "#434034",
+                      "primary": "#8c5000",
+                      "on-background": "#271909",
+                      "on-secondary": "#ffffff",
+                      "on-secondary-container": "#732f00",
+                      "outline-variant": "#dbc2ae",
+                      "secondary-fixed-dim": "#ffb690",
+                      "tertiary-fixed-dim": "#ccc6b7",
+                      "inverse-surface": "#3e2d1c",
+                      "surface-container-high": "#ffe3cb",
+                      "surface-variant": "#faddc4",
+                      "on-surface-variant": "#554334",
+                      "error-container": "#ffdad6",
+                      "outline": "#887362",
+                      "on-error-container": "#93000a",
+                      "on-secondary-fixed": "#341100",
+                      "surface-container-low": "#fff1e7",
+                      "on-tertiary-fixed-variant": "#4a473b",
+                      "on-error": "#ffffff",
+                      "on-primary-fixed": "#2d1600",
+                      "on-surface": "#271909",
+                      "secondary-container": "#fd965e",
+                      "on-primary-fixed-variant": "#6a3b00",
+                      "secondary": "#984715",
+                      "surface-container-lowest": "#ffffff",
+                      "surface": "#fff8f4",
+                      
+                      "amber-deep": "#8c5000",
+                      "honey-50": "#fff8f4",
+                      "honey-100": "#ffead9",
+                      "honey-200": "#faddc4",
+                      "honey-500": "#f9930a",
+                      "honey-800": "#603500",
+                      "honey-900": "#271909",
+                      "cream": "#fff8f4",
+                      "comb": "#fff1e7",
+                      "ink-muted": "#554334"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-mobile": "16px",
+                      "stack-md": "24px",
+                      "stack-sm": "12px",
+                      "gutter": "24px",
+                      "margin-desktop": "40px",
+                      "container-max": "1280px",
+                      "stack-lg": "48px",
+                      "base": "8px"
+              },
+              "fontFamily": {
+                      "body-md": ["Inter"],
+                      "label-md": ["Inter"],
+                      "display-lg-mobile": ["Fraunces"],
+                      "headline-sm": ["Fraunces"],
+                      "headline-md": ["Fraunces"],
+                      "display-lg": ["Fraunces"],
+                      "body-lg": ["Inter"],
+                      "price-display": ["Inter"]
+              },
+              "fontSize": {
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                      "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "price-display": ["20px", {"lineHeight": "24px", "fontWeight": "600"}]
+              }
+            },
+          }
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            background-image: radial-gradient(theme('colors.surface-container-high') 1px, transparent 0);
+            background-size: 40px 40px;
+            background-position: -19px -19px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .honeycomb-pattern {
+             background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 0L40 11.547v23.094L20 46.188 0 34.641V11.547z' fill='%23ffead9' fill-opacity='0.2' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+
+        .ambient-shadow {
+            box-shadow: 0 4px 20px rgba(70, 25, 3, 0.06);
+        }
+        
+        .hover-lift {
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+        }
+        
+        .hover-lift:hover {
+            transform: scale(1.01);
+            box-shadow: 0 8px 30px rgba(70, 25, 3, 0.08);
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md text-on-background relative">
+<!-- TopNavBar (Shared Component) -->
+<header class="bg-background dark:bg-inverse-surface shadow-[0_4px_20px_rgba(70,25,3,0.06)] docked full-width top-0 sticky z-40 transition-transform duration-300" id="top-nav">
+<div class="flex justify-between items-center w-full px-margin-desktop max-w-container-max mx-auto h-20">
+<!-- Logo -->
+<div class="flex items-center gap-2 font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary cursor-pointer hover:scale-105 transition-transform duration-200">
+<img alt="Balkovan Logo" class="h-12 w-12 object-contain rounded-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHdx8SBjIw-aG8c4aTgnOdjvTpqqHiSugphKg0RZ6hZbEUAw9j4040q8SX7Rwn915QZnvEK4V3fUMD1qJUKhPnPfCEE4MKDvNBddbqXvDX11-gYhiCAENmMhgPl_Go6gGudfyiCRtBMMF_ZUd6Mx3ySAzNGp_-ej5QSo1Mgg64T4ZRY7Es8MUxfIcmzB3H_C4ZHqCGfn2vcvQram-qZSOQsnfqDphMTVqNx2KwX38jMjRnDYXsZ8Un1w">
+<span>Balkovan</span>
+</div>
+<!-- Nav Links (Desktop) -->
+<nav class="hidden md:flex gap-8"><a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="/">Ana Sayfa</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#">Ürünler</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#">Kampanyalar</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#">Hakkımızda</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#">İletişim</a>
+</nav>
+<!-- Trailing Icons -->
+<div class="flex gap-4 items-center text-primary dark:text-inverse-primary">
+<button aria-label="Hesabım" class="hover:scale-105 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</button>
+<button aria-label="Sepetim" class="hover:scale-105 transition-transform duration-200 relative text-primary dark:text-primary-fixed-dim border-b-2 border-primary font-bold pb-1">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="absolute -top-2 -right-2 bg-error text-on-error rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">2</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow w-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-stack-md md:py-stack-lg flex flex-col lg:flex-row gap-gutter">
+<!-- Cart Items Section (Left) -->
+<section class="flex-1 flex flex-col gap-stack-md">
+<h1 class="font-headline-md text-headline-md text-primary mb-2 hidden md:block">Sepetim (2 Ürün)</h1>
+<!-- Free Shipping Progress -->
+<div class="bg-comb rounded-xl p-4 md:p-6 border border-honey-100 ambient-shadow">
+<div class="flex justify-between items-end mb-2">
+<div class="font-label-md text-label-md text-on-surface-variant">Ücretsiz kargoya <span class="font-bold text-primary">340,00 ₺</span> kaldı</div>
+<span class="material-symbols-outlined text-primary" data-icon="local_shipping">local_shipping</span>
+</div>
+<div class="w-full bg-surface-variant rounded-full h-3 border border-honey-200 shadow-inner overflow-hidden">
+<div class="bg-primary h-3 rounded-full transition-all duration-500" style="width: 45%"></div>
+</div>
+<p class="font-body-md text-xs text-ink-muted mt-2 text-right">Sepet Tutarı: 660,00 ₺ / 1000,00 ₺</p>
+</div>
+<!-- Item List -->
+<div class="bg-comb rounded-xl border border-honey-100 ambient-shadow overflow-hidden">
+<!-- Item 1 -->
+<div class="flex flex-col sm:flex-row p-4 md:p-6 gap-4 border-b border-honey-100 hover:bg-surface-container-low transition-colors duration-200">
+<div class="w-24 h-24 sm:w-32 sm:h-32 rounded-lg bg-surface-container-high bg-cover bg-center flex items-center justify-center overflow-hidden shrink-0" data-alt="A beautiful studio shot of a jar of raw organic chestnut honey on a rustic wooden table. The lighting is warm and natural, emphasizing the rich, dark amber color of the honey. The background is softly blurred, evoking a serene, artisanal feel consistent with a tactile minimalist aesthetic. Subtle earthy tones and a soft ambient shadow complete the composition." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDPu3wu8BtTGt-yrX_Eu_-17zrhDZ0C6ajedYpftYjEFhsfCstihHg8chhQqe9PRXAOEXnCZBi_u-9unHHzZM1C-1mx2GZAi3v_X5LFd-_z--zJMXM5IjUr5C10bjPBS4bMBDafTA5-LWym9MmEv__RYR81xlvVw9LyrA6lhaELauw6EaA1i3DCuO_DarbFS1nWkQ3zXt0j7uOo9XMjDR7UHaAQOlLjqurqsnUtX5zmRjF5TxBvnY88CA')">
+</div>
+<div class="flex flex-col flex-grow justify-between">
+<div class="flex justify-between items-start gap-4">
+<div>
+<h3 class="font-label-md text-lg text-on-background font-semibold">Organik Kestane Balı</h3>
+<p class="font-body-md text-sm text-ink-muted">Cam Kavanoz, 850g</p>
+<div class="mt-2 inline-block px-2 py-1 bg-honey-50 text-honey-800 rounded-md font-label-md text-xs border border-honey-200">Ham Bal</div>
+</div>
+<button aria-label="Ürünü Sil" class="text-on-surface-variant hover:text-error transition-colors p-1 rounded-full hover:bg-error-container">
+<span class="material-symbols-outlined text-lg" data-icon="delete">delete</span>
+</button>
+</div>
+<div class="flex justify-between items-end mt-4 sm:mt-0">
+<div class="flex items-center border border-honey-200 rounded-lg bg-background">
+<button aria-label="Azalt" class="px-3 py-1 text-primary hover:bg-honey-100 rounded-l-lg transition-colors">-</button>
+<span class="px-3 py-1 font-label-md text-label-md font-semibold w-10 text-center">1</span>
+<button aria-label="Artır" class="px-3 py-1 text-primary hover:bg-honey-100 rounded-r-lg transition-colors">+</button>
+</div>
+<div class="text-right">
+<p class="font-price-display text-price-display text-on-background">420,00 ₺</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex flex-col sm:flex-row p-4 md:p-6 gap-4 hover:bg-surface-container-low transition-colors duration-200">
+<div class="w-24 h-24 sm:w-32 sm:h-32 rounded-lg bg-surface-container-high bg-cover bg-center flex items-center justify-center overflow-hidden shrink-0" data-alt="A close-up product photograph of a small hexagonal glass jar filled with bright, golden wildflower honey. The jar is set against a clean, warm cream background with a subtle honeycomb shadow pattern. The lighting highlights the clarity and glowing golden hues of the honey, presenting an honest, premium artisanal product." style="background-image: url('https://lh3.googleusercontent.com/aida/AP1WRLvs3zHr3Kxwa2Wji2i6qyGfhYfzSrej4JCy370kOJOfKOWD961bBx1bek-Yk6eCI05lyK3PR1G1NW7q1uQ5gQBR7XOLTvvl4cBgjwDYUBwMlHlSMpstwfXY5SVvebJ7sEhwSNY1hpsKPW4ELGHsq7ui4jgW9FxtPKXCPp8sI2c89onjl3p1KtQ56qY2-Lr7BuXi9nNJ_m7OY3q3tR74KsxdFtk9QxpSG_23SAJikrzknpuX8h4VNORvBdKq')">
+</div>
+<div class="flex flex-col flex-grow justify-between">
+<div class="flex justify-between items-start gap-4">
+<div>
+<h3 class="font-label-md text-lg text-on-background font-semibold">Çiçek Balı Harmanı</h3>
+<p class="font-body-md text-sm text-ink-muted">Petekli, 450g</p>
+</div>
+<button aria-label="Ürünü Sil" class="text-on-surface-variant hover:text-error transition-colors p-1 rounded-full hover:bg-error-container">
+<span class="material-symbols-outlined text-lg" data-icon="delete">delete</span>
+</button>
+</div>
+<div class="flex justify-between items-end mt-4 sm:mt-0">
+<div class="flex items-center border border-honey-200 rounded-lg bg-background">
+<button aria-label="Azalt" class="px-3 py-1 text-primary hover:bg-honey-100 rounded-l-lg transition-colors">-</button>
+<span class="px-3 py-1 font-label-md text-label-md font-semibold w-10 text-center">1</span>
+<button aria-label="Artır" class="px-3 py-1 text-primary hover:bg-honey-100 rounded-r-lg transition-colors">+</button>
+</div>
+<div class="text-right">
+<p class="font-price-display text-price-display text-on-background">240,00 ₺</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Order Summary Section (Right) -->
+<aside class="w-full lg:w-96 flex flex-col gap-stack-md mt-stack-md lg:mt-0 lg:sticky lg:top-28 self-start">
+<div class="bg-comb rounded-xl p-6 border border-honey-100 shadow-[0_8px_30px_rgba(140,80,0,0.12)] flex flex-col gap-6">
+<h2 class="font-headline-sm text-headline-sm text-primary border-b border-honey-200 pb-4">Sipariş Özeti</h2>
+<!-- Breakdown -->
+<div class="flex flex-col gap-3 font-body-md text-sm">
+<div class="flex justify-between text-on-surface-variant">
+<span>Ara Toplam (2 Ürün)</span>
+<span>660,00 ₺</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span>Kargo</span>
+<span>45,00 ₺</span>
+</div>
+<!-- Discounts -->
+<div class="flex justify-between text-primary font-medium bg-surface-container-high p-2 rounded-md">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm" data-icon="loyalty">loyalty</span> Üyelere özel %10</span>
+<span>-66,00 ₺</span>
+</div>
+<div class="flex justify-between text-primary font-medium bg-surface-container-high p-2 rounded-md">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm" data-icon="local_offer">local_offer</span> Kupon: BALKOVAN100</span>
+<span>-100,00 ₺</span>
+</div>
+</div>
+<div class="border-t border-honey-200 pt-4 flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-background">Genel Toplam</span>
+<span class="font-price-display text-2xl text-amber-deep">539,00 ₺</span>
+</div>
+<button class="w-full py-4 bg-amber-deep text-on-primary rounded-xl font-label-md text-label-md text-lg font-bold hover:bg-primary transition-colors hover-lift flex items-center justify-center gap-2">
+                    Ödemeye Geç <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<!-- Coupon Input -->
+<div class="bg-comb rounded-xl p-6 border border-honey-100 ambient-shadow flex flex-col gap-4">
+<label class="font-label-md text-label-md text-on-background" for="coupon_code">İndirim Kodu / Hediye Çeki</label>
+<div class="flex gap-2">
+<input class="flex-grow border-2 border-honey-200 rounded-lg px-4 py-2 bg-background focus:border-honey-500 focus:ring-0 focus:outline-none font-body-md text-on-background" id="coupon_code" placeholder="Kod giriniz" type="text" value="BALKOVAN100">
+<button class="px-4 py-2 bg-surface-variant text-on-surface-variant rounded-lg font-label-md text-label-md font-semibold hover:bg-surface-container-highest transition-colors border border-honey-200">
+                        Uygulandı
+                    </button>
+</div>
+<!-- Conflict Alert -->
+<div class="mt-2 bg-error-container text-on-error-container p-3 rounded-lg flex items-start gap-3 border border-[#ffb4ab]">
+<span class="material-symbols-outlined shrink-0 mt-0.5" data-icon="info">info</span>
+<div class="font-body-md text-sm">
+                        Bu kod, otomatik indiriminizin yerine geçiyor ve <strong>45,00 ₺ daha az</strong> kazandırıyor. Kaldırmak ister misiniz?
+                        <button class="block mt-1 font-label-md text-error font-semibold hover:underline">Kodu Kaldır</button>
+</div>
+</div>
+</div>
+</aside>
+</main>
+<!-- BottomNavBar (Shared Component - Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 pb-safe md:hidden bg-surface-container dark:bg-inverse-surface shadow-[0_-4px_20px_rgba(70,25,3,0.06)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+<span class="font-label-md text-xs mt-1">Mağaza</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-xl px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-variant scale-95 active:scale-90 transition-transform relative" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_basket">shopping_basket</span>
+<span class="font-label-md text-xs mt-1">Sepetim</span>
+<span class="absolute top-1 right-2 w-2 h-2 bg-error rounded-full"></span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+<span class="font-label-md text-xs mt-1">Favorilerim</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-md text-xs mt-1">Hesabım</span>
+</a>
+</nav>
+<!-- Footer (Shared Component) -->
+<footer class="bg-surface-container-low dark:bg-inverse-surface mt-auto pb-20 md:pb-0">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-desktop py-stack-lg max-w-container-max mx-auto">
+<div class="col-span-1 md:col-span-1 flex flex-col gap-4">
+<div class="font-headline-sm text-headline-sm font-bold text-primary dark:text-inverse-primary opacity-80 hover:opacity-100 transition-opacity">
+                    Balkovan
+                </div>
+<p class="font-body-md text-sm text-on-surface-variant">Doğadan sofranıza, en saf haliyle.</p>
+</div>
+<div class="col-span-1 flex flex-col gap-2">
+<h4 class="font-label-md text-label-md font-bold text-primary dark:text-inverse-primary mb-2">Müşteri Hizmetleri</h4>
+<a class="font-body-md text-sm text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:underline transition-all" href="#">Sıkça Sorulan Sorular</a>
+<a class="font-body-md text-sm text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:underline transition-all" href="#">İade ve Değişim</a>
+<a class="font-body-md text-sm text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:underline transition-all" href="#">Kargo Takip</a>
+</div>
+<div class="col-span-1 flex flex-col gap-2">
+<h4 class="font-label-md text-label-md font-bold text-primary dark:text-inverse-primary mb-2">Kurumsal</h4>
+<a class="font-body-md text-sm text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:underline transition-all" href="#">Hakkımızda</a>
+<a class="font-body-md text-sm text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:underline transition-all" href="#">Üretim Sürecimiz</a>
+<a class="font-body-md text-sm text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:underline transition-all" href="#">İletişim</a>
+</div>
+<div class="col-span-1 flex flex-col gap-2">
+<h4 class="font-label-md text-label-md font-bold text-primary dark:text-inverse-primary mb-2">Bülten</h4>
+<p class="font-body-md text-xs text-on-surface-variant mb-2">Yeni hasatlardan ve kampanyalardan haberdar olun.</p>
+<div class="flex border border-honey-200 rounded-lg overflow-hidden">
+<input class="px-3 py-2 bg-background w-full font-body-md text-sm focus:outline-none" placeholder="E-posta adresiniz" type="email">
+<button aria-label="Abone Ol" class="bg-primary text-on-primary px-3 py-2">
+<span class="material-symbols-outlined text-sm" data-icon="send">send</span>
+</button>
+</div>
+</div>
+</div>
+<div class="border-t border-honey-200 py-4 text-center">
+<p class="font-body-md text-xs text-on-surface-variant">© 2024 Balkovan. Tüm Hakları Saklıdır. [Firma Unvanı]</p>
+</div>
+</footer>
+<script>
+        // Simple script to handle TopNav shadow on scroll
+        const topNav = document.getElementById('top-nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 10) {
+                topNav.classList.add('shadow-[0_4px_20px_rgba(70,25,3,0.06)]');
+            } else {
+                topNav.classList.remove('shadow-[0_4px_20px_rgba(70,25,3,0.06)]');
+            }
+        });
+    </script>
+</body></html>

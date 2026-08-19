@@ -1,0 +1,76 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import { Icon } from "@/components/ui/icon";
+import { ProductGallery } from "@/components/product/product-gallery";
+import { ProductPurchase } from "@/components/product/product-purchase";
+import { getProductBySlug, products } from "@/lib/products";
+
+export function generateStaticParams() {
+  return products.map((product) => ({ slug: product.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: PageProps<"/urunler/[slug]">): Promise<Metadata> {
+  const { slug } = await params;
+  const product = getProductBySlug(slug);
+  if (!product) return { title: "Ürün bulunamadı" };
+
+  return {
+    title: product.name,
+    description: product.description,
+  };
+}
+
+export default async function ProductDetailPage({
+  params,
+}: PageProps<"/urunler/[slug]">) {
+  const { slug } = await params;
+  const product = getProductBySlug(slug);
+  if (!product) notFound();
+
+  return (
+    <div className="w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg">
+      <nav aria-label="Breadcrumb" className="flex text-sm text-outline mb-stack-md font-label-md">
+        <ol className="inline-flex items-center space-x-1 md:space-x-2">
+          <li className="inline-flex items-center">
+            <Link
+              href="/urunler"
+              className="inline-flex items-center hover:text-primary transition-colors"
+            >
+              Mağaza
+            </Link>
+          </li>
+          <li>
+            <div className="flex items-center">
+              <Icon name="chevron_right" className="text-sm mx-1" />
+              <Link
+                href={`/urunler?kategori=${product.category}`}
+                className="hover:text-primary transition-colors"
+              >
+                {product.breadcrumb}
+              </Link>
+            </div>
+          </li>
+          <li aria-current="page">
+            <div className="flex items-center">
+              <Icon name="chevron_right" className="text-sm mx-1" />
+              <span className="text-on-surface">{product.name}</span>
+            </div>
+          </li>
+        </ol>
+      </nav>
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+        <ProductGallery
+          productName={product.name}
+          mainImage={product.image}
+          gallery={product.gallery}
+          badge={product.badge}
+        />
+        <ProductPurchase product={product} />
+      </div>
+    </div>
+  );
+}

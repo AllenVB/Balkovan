@@ -1,0 +1,321 @@
+<!DOCTYPE html><html class="light" lang="tr"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Kampanyalar - Balkovan</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-surface-variant": "#554334",
+                      "on-primary-container": "#603500",
+                      "inverse-surface": "#3e2d1c",
+                      "surface-container": "#ffead9",
+                      "secondary": "#984715",
+                      "surface-tint": "#8c5000",
+                      "secondary-fixed-dim": "#ffb690",
+                      "surface": "#fff8f4",
+                      "on-error-container": "#93000a",
+                      "primary-container": "#f9930a",
+                      "tertiary-fixed": "#e9e2d2",
+                      "secondary-container": "#fd965e",
+                      "on-secondary-fixed-variant": "#783100",
+                      "on-tertiary": "#ffffff",
+                      "background": "#fff8f4",
+                      "on-tertiary-container": "#434034",
+                      "on-error": "#ffffff",
+                      "primary-fixed-dim": "#ffb873",
+                      "surface-dim": "#f2d5bc",
+                      "surface-container-high": "#ffe3cb",
+                      "tertiary": "#625e52",
+                      "tertiary-container": "#b1ab9d",
+                      "outline": "#887362",
+                      "tertiary-fixed-dim": "#ccc6b7",
+                      "on-secondary-container": "#732f00",
+                      "on-tertiary-fixed-variant": "#4a473b",
+                      "on-primary-fixed-variant": "#6a3b00",
+                      "on-secondary-fixed": "#341100",
+                      "inverse-primary": "#ffb873",
+                      "on-primary-fixed": "#2d1600",
+                      "on-tertiary-fixed": "#1e1c12",
+                      "error": "#ba1a1a",
+                      "on-primary": "#ffffff",
+                      "primary-fixed": "#ffdcbf",
+                      "surface-variant": "#faddc4",
+                      "on-surface": "#271909",
+                      "on-secondary": "#ffffff",
+                      "primary": "#8c5000",
+                      "surface-container-lowest": "#ffffff",
+                      "outline-variant": "#dbc2ae",
+                      "on-background": "#271909",
+                      "surface-container-low": "#fff1e7",
+                      "inverse-on-surface": "#ffeee0",
+                      "surface-bright": "#fff8f4",
+                      "error-container": "#ffdad6",
+                      "secondary-fixed": "#ffdbcb",
+                      "surface-container-highest": "#faddc4"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-md": "24px",
+                      "container-max": "1280px",
+                      "base": "8px",
+                      "margin-desktop": "40px",
+                      "margin-mobile": "16px",
+                      "stack-lg": "48px",
+                      "stack-sm": "12px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "headline-md": [
+                              "Fraunces"
+                      ],
+                      "display-lg-mobile": [
+                              "Fraunces"
+                      ],
+                      "headline-sm": [
+                              "Fraunces"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Fraunces"
+                      ],
+                      "price-display": [
+                              "Inter"
+                      ],
+                      "label-md": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "headline-md": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg-mobile": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-sm": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "price-display": [
+                              "20px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .radial-bg {
+            background: radial-gradient(circle at top center, theme('colors.surface-container'), theme('colors.background'));
+        }
+        .copy-btn.copied {
+            background-color: theme('colors.primary');
+            color: theme('colors.on-primary');
+        }
+      </style>
+</head>
+<body class="bg-background text-on-background font-body-md radial-bg min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-background shadow-[0_4px_20px_rgba(70,25,3,0.06)] docked full-width top-0 z-50 hidden md:block">
+<div class="flex justify-between items-center w-full px-margin-desktop max-w-container-max mx-auto h-20">
+<div class="font-headline-md text-headline-md font-bold text-primary">
+                Balkovan
+            </div>
+<nav class="flex gap-gutter"><a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-label-md text-label-md" href="/">Ana Sayfa</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-label-md text-label-md" href="#">Ürünler</a>
+<a class="text-primary border-b-2 border-primary font-bold pb-1 hover:text-primary transition-colors duration-200 font-label-md text-label-md" href="#">Kampanyalar</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-label-md text-label-md" href="#">Hakkımızda</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-label-md text-label-md" href="#">İletişim</a>
+</nav>
+<div class="flex gap-4 text-primary">
+<button class="scale-105 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</button>
+<button class="scale-105 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex-grow px-margin-mobile md:px-margin-desktop py-stack-lg max-w-container-max mx-auto w-full">
+<div class="text-center mb-stack-lg"><h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-stack-md">Kampanyalarımız</h1><p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed">Doğal lezzetlere daha kolay ulaşmanız için hazırladığımız özel teklifler ve size özel fırsatlar.</p></div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-stack-lg"><!-- Campaign 1: Welcome Discount -->
+<div class="bg-surface-container-low rounded-xl p-8 border border-outline-variant shadow-sm hover:shadow-md transition-all duration-300 hover:scale-[1.02] flex flex-col group relative overflow-hidden min-h-[400px] h-full">
+<div class="absolute -right-8 -top-8 opacity-5 text-primary rotate-12 transition-transform group-hover:rotate-45 duration-700">
+<span class="material-symbols-outlined" style="font-size: 140px;">redeem</span>
+</div>
+<div class="mb-6 relative z-10">
+<div class="w-16 h-16 bg-primary-container rounded-full flex items-center justify-center text-on-primary-container mb-4 shadow-sm">
+<span class="material-symbols-outlined text-3xl">redeem</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-primary mb-2">Hoş Geldin İndirimi</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">İlk siparişinize özel %15 indirim fırsatı. Balkovan ailesine hoş geldiniz.</p>
+</div>
+<div class="mt-auto bg-surface-container rounded-lg p-4 flex justify-between items-center border border-outline-variant border-dashed">
+<span class="font-label-md text-label-md font-bold tracking-widest text-on-background uppercase" id="code-welcome">MERHABA15</span>
+<button class="copy-btn bg-primary text-on-primary hover:bg-surface-tint px-4 py-2 rounded-lg font-label-md text-label-md transition-colors font-bold" onclick="copyCode('code-welcome', this)">Kopyala</button>
+</div>
+</div>
+<!-- Campaign 2: Free Shipping -->
+<div class="bg-surface-container-low rounded-xl p-8 border border-outline-variant shadow-sm hover:shadow-md transition-all duration-300 hover:scale-[1.02] flex flex-col group relative overflow-hidden min-h-[400px] h-full">
+<div class="absolute -right-8 -top-8 opacity-5 text-primary rotate-12 transition-transform group-hover:-translate-x-4 duration-700">
+<span class="material-symbols-outlined" style="font-size: 140px;">local_shipping</span>
+</div>
+<div class="mb-6 relative z-10">
+<div class="w-16 h-16 bg-secondary-container rounded-full flex items-center justify-center text-on-secondary-container mb-4 shadow-sm">
+<span class="material-symbols-outlined text-3xl">local_shipping</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-primary mb-2">Ücretsiz Kargo</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">1500 TL ve üzeri tüm alışverişlerinizde kargo bizden. Sepetinizi hemen doldurun.</p>
+</div>
+<div class="mt-auto">
+<div class="bg-surface-container-high rounded-lg p-4 text-center font-label-md text-label-md text-on-surface-variant border border-outline-variant border-dashed font-bold">
+            Otomatik Uygulanır
+        </div>
+</div>
+</div>
+<!-- Campaign 3: Gift Sets -->
+<div class="bg-surface-container-low rounded-xl p-8 border border-outline-variant shadow-sm hover:shadow-md transition-all duration-300 hover:scale-[1.02] flex flex-col group relative overflow-hidden min-h-[400px] h-full">
+<div class="absolute -right-8 -top-8 opacity-5 text-primary rotate-12 transition-transform group-hover:scale-110 duration-700">
+<span class="material-symbols-outlined" style="font-size: 140px;">inventory_2</span>
+</div>
+<div class="mb-6 relative z-10">
+<div class="w-16 h-16 bg-tertiary-container rounded-full flex items-center justify-center text-on-tertiary-container mb-4 shadow-sm">
+<span class="material-symbols-outlined text-3xl">inventory_2</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-primary mb-2">3 Al 2 Öde</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Sevdiklerinize tatlı bir sürpriz yapın. Seçili hediye setlerinde sepette anında indirim.</p>
+</div>
+<div class="mt-auto bg-surface-container rounded-lg p-4 flex justify-between items-center border border-outline-variant border-dashed">
+<span class="font-label-md text-label-md font-bold tracking-widest text-on-background uppercase" id="code-gift">HEDIYE3</span>
+<button class="copy-btn bg-primary text-on-primary hover:bg-surface-tint px-4 py-2 rounded-lg font-label-md text-label-md transition-colors font-bold" onclick="copyCode('code-gift', this)">Kopyala</button>
+</div>
+</div></div>
+<!-- Featured Products Teaser -->
+<div class="mt-stack-lg text-center py-8"><h3 class="font-headline-sm text-headline-sm text-primary mb-stack-md">İndirimleri Değerlendirin</h3><div class="grid grid-cols-1 sm:grid-cols-3 gap-gutter max-w-4xl mx-auto mb-stack-lg"><div class="group cursor-pointer"><div class="aspect-square bg-cover bg-center rounded-2xl mb-3 shadow-sm group-hover:shadow-md transition-all duration-300 w-full overflow-hidden" style="background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuAToqsjhVnzeb_aDD4zIGQzPjPeRjvPg9YozE8mh49Bi85YZsxAQzUyg293Mj9MVtFc2XwvtNN2uKVZHo946qy3syrLKegIHaN6qOswq7c6ei_gvKuahkgoL8xumuTSsuC_AKzm9jWMQ3fn1OAIDSWTZIUfbvpeAE5CuiEGj9IY9Lz-J_3zfWInB4_QWflsIqfwTN6-ndikAMGqS2kb-Vw578qmnHXEawhLVUnk6aSlFtRDdGqtTrdGZQ&quot;);"></div><span class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">Çam Balı</span></div><div class="group cursor-pointer"><div class="aspect-square bg-cover bg-center rounded-2xl mb-3 shadow-sm group-hover:shadow-md transition-all duration-300 w-full overflow-hidden" style="background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuBIUIfAMW_BNg28xa7lxklDhyJachhrbw3amUJlI-bSfDDPTB4CsTmxvfiwVYxluG4H8MqkDkq82TiWKn2TZWDu1De2xNU9bIhJyUJQRJ4Hu8WUS1blPoPiL_GBkBxBKw8A7xueDtY9Pv29vMU-TCrFC8DVIdSjg88HSFKDy-4AGXJulcgdj7PjLXQdcSOAmSnLcO3CJEbQpND544viOcJQ42upCA_IxKaGjzn9YHtybKPih9oF1cKm6Q&quot;);"></div><span class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">Çiçek Balı</span></div><div class="group cursor-pointer"><div class="aspect-square bg-cover bg-center rounded-2xl mb-3 shadow-sm group-hover:shadow-md transition-all duration-300 w-full overflow-hidden" style="background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuC6LX0i_1iypIgfUpG_Ydxb8rTiWJPYPQzwha4nLlyYQAdble-pxvLgkf33Q3hTEfkNSEngcgY7VS3C4_3SeI922Gyb1_mKRxpgbuuN0JXedO_yZUBXUfGzKaNWaFGJr8el2v_n-7QIozqFEmxX9rzDZt9UnaXvT1B56EoLERgriqbr7d19FsxfrGbz5dYpPQR1XA2I5biidpM1dQeCji5DfKd40XpZof5wrFNey7ceT8pGisI1uOMG1Q&quot;);"></div><span class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">Hediye Seti</span></div></div><button class="bg-primary text-on-primary font-label-md text-label-md px-10 py-4 rounded-full hover:bg-surface-tint transition-all shadow-md hover:shadow-lg font-bold active:scale-95">Tüm Ürünleri Gör</button></div>
+</main>
+<!-- BottomNavBar -->
+<nav class="bg-surface-container shadow-[0_-4px_20px_rgba(70,25,3,0.06)] fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 pb-safe md:hidden rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+<span class="font-label-md text-label-md mt-1">Mağaza</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_basket">shopping_basket</span>
+<span class="font-label-md text-label-md mt-1">Sepetim</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+<span class="font-label-md text-label-md mt-1">Favorilerim</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-md text-label-md mt-1">Hesabım</span>
+</a>
+</nav>
+<!-- Footer -->
+<footer class="bg-surface-container-low full-width mt-auto hidden md:block">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-desktop py-stack-lg max-w-container-max mx-auto">
+<div>
+<div class="font-headline-sm text-headline-sm font-bold text-primary mb-4">Balkovan</div>
+<p class="font-body-md text-body-md text-on-surface-variant">© 2024 Balkovan. Tüm Hakları Saklıdır. [Firma Unvanı]</p>
+</div>
+<div>
+<a class="block text-on-surface-variant hover:text-primary underline transition-all opacity-80 hover:opacity-100 font-label-md text-label-md mb-2" href="#">Müşteri Hizmetleri</a>
+</div>
+<div>
+<a class="block text-on-surface-variant hover:text-primary underline transition-all opacity-80 hover:opacity-100 font-label-md text-label-md mb-2" href="#">Kurumsal</a>
+</div>
+<div>
+<a class="block text-on-surface-variant hover:text-primary underline transition-all opacity-80 hover:opacity-100 font-label-md text-label-md mb-2" href="#">Sosyal Medya</a>
+</div>
+<div>
+<a class="block text-on-surface-variant hover:text-primary underline transition-all opacity-80 hover:opacity-100 font-label-md text-label-md mb-2" href="#">Newsletter Signup</a>
+</div>
+</div>
+</footer>
+<script>
+        function copyCode(elementId, btnElement) {
+            const codeText = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(codeText).then(() => {
+                const originalText = btnElement.innerText;
+                btnElement.innerText = 'Kopyalandı!';
+                btnElement.classList.add('copied');
+                
+                setTimeout(() => {
+                    btnElement.innerText = originalText;
+                    btnElement.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+    </script>
+
+
+</body></html>

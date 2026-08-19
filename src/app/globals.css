@@ -1,0 +1,181 @@
+@import "tailwindcss";
+
+/*
+ * Balkovan Artisanal System
+ * Kaynak: design/stitch altindaki DESIGN.md ve code.html dosyalarindaki Tailwind v3 config.
+ * Stitch v3 config uretiyor; burada v4 @theme karsiligina cevrildi.
+ * Class isimleri tasarimla birebir ayni tutuldu (bg-surface, text-on-surface, px-margin-desktop ...).
+ */
+
+/* Stitch darkMode: "class" kullaniyor. v4 varsayilani prefers-color-scheme;
+   .dark sinifina baglamazsak kullanicinin sistemi koyu oldugunda tasarimda
+   bulunmayan yarim bir koyu palet devreye girer. Koyu palet tanimlanana kadar
+   dark: varyantlari boylece hic tetiklenmez. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* --- Material 3 rol renkleri --- */
+  --color-primary: #8c5000;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #f9930a;
+  --color-on-primary-container: #603500;
+  --color-inverse-primary: #ffb873;
+  --color-primary-fixed: #ffdcbf;
+  --color-primary-fixed-dim: #ffb873;
+  --color-on-primary-fixed: #2d1600;
+  --color-on-primary-fixed-variant: #6a3b00;
+
+  --color-secondary: #984715;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #fd965e;
+  --color-on-secondary-container: #732f00;
+  --color-secondary-fixed: #ffdbcb;
+  --color-secondary-fixed-dim: #ffb690;
+  --color-on-secondary-fixed: #341100;
+  --color-on-secondary-fixed-variant: #783100;
+
+  --color-tertiary: #625e52;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #b1ab9d;
+  --color-on-tertiary-container: #434034;
+  --color-tertiary-fixed: #e9e2d2;
+  --color-tertiary-fixed-dim: #ccc6b7;
+  --color-on-tertiary-fixed: #1e1c12;
+  --color-on-tertiary-fixed-variant: #4a473b;
+
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+
+  --color-background: #fff8f4;
+  --color-on-background: #271909;
+  --color-surface: #fff8f4;
+  --color-on-surface: #271909;
+  --color-surface-dim: #f2d5bc;
+  --color-surface-bright: #fff8f4;
+  --color-surface-variant: #faddc4;
+  --color-on-surface-variant: #554334;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #fff1e7;
+  --color-surface-container: #ffead9;
+  --color-surface-container-high: #ffe3cb;
+  --color-surface-container-highest: #faddc4;
+  --color-inverse-surface: #3e2d1c;
+  --color-inverse-on-surface: #ffeee0;
+  --color-surface-tint: #8c5000;
+
+  --color-outline: #887362;
+  --color-outline-variant: #dbc2ae;
+
+  /* --- Marka takma adlari (DESIGN.md prose'unda bu isimlerle geciyor) --- */
+  --color-cream: #fff8f4;
+  --color-comb: #ffead9;
+  --color-honey-50: #ffead9;
+  --color-honey-100: #ffe3cb;
+  --color-honey-200: #faddc4;
+  --color-honey-500: #f9930a;
+  --color-honey-800: #8c5000;
+  --color-honey-900: #603500;
+  --color-amber-deep: #8c5000;
+  --color-ink-muted: #554334;
+
+  /* --- Tipografi: Fraunces (baslik) + Inter (govde) --- */
+  --font-display-lg: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-display-lg-mobile: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-headline-md: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-headline-sm: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-body-lg: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-body-md: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-label-md: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-price-display: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --text-display-lg: 48px;
+  --text-display-lg--line-height: 56px;
+  --text-display-lg--letter-spacing: -0.02em;
+  --text-display-lg--font-weight: 700;
+
+  --text-display-lg-mobile: 32px;
+  --text-display-lg-mobile--line-height: 40px;
+  --text-display-lg-mobile--letter-spacing: -0.01em;
+  --text-display-lg-mobile--font-weight: 700;
+
+  --text-headline-md: 32px;
+  --text-headline-md--line-height: 40px;
+  --text-headline-md--font-weight: 600;
+
+  --text-headline-sm: 24px;
+  --text-headline-sm--line-height: 32px;
+  --text-headline-sm--font-weight: 600;
+
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 28px;
+  --text-body-lg--font-weight: 400;
+
+  --text-body-md: 16px;
+  --text-body-md--line-height: 24px;
+  --text-body-md--font-weight: 400;
+
+  --text-label-md: 14px;
+  --text-label-md--line-height: 20px;
+  --text-label-md--letter-spacing: 0.02em;
+  --text-label-md--font-weight: 500;
+
+  --text-price-display: 20px;
+  --text-price-display--line-height: 24px;
+  --text-price-display--font-weight: 600;
+
+  /* --- Spacing olcegi (8px tabanli) --- */
+  --spacing-base: 8px;
+  --spacing-stack-sm: 12px;
+  --spacing-stack-md: 24px;
+  --spacing-gutter: 24px;
+  --spacing-margin-mobile: 16px;
+  --spacing-margin-desktop: 40px;
+  --spacing-stack-lg: 48px;
+  --spacing-container-max: 1280px;
+
+  /* --- Kose yaricaplari ("Yumusatilmis Altigen") --- */
+  --radius-sm: 0.25rem;
+  --radius: 0.25rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-background);
+    color: var(--color-on-background);
+    font-family: var(--font-body-md);
+  }
+
+  /* Fiyatlar dikey hizalansin diye tabular rakamlar (DESIGN.md > Typography) */
+  .font-price-display,
+  .tabular-price {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer utilities {
+  /* DESIGN.md > Elevation: sert gri golge yerine sicak tonlu, cok yumusak golge */
+  .warm-shadow {
+    box-shadow: 0 4px 20px rgba(70, 25, 3, 0.06);
+  }
+  .warm-shadow-hover:hover {
+    box-shadow: 0 8px 30px rgba(70, 25, 3, 0.12);
+  }
+
+  /* Dusuk opakliktaki dekoratif zemin desenleri */
+  .honeycomb-bg {
+    background-image: url("data:image/svg+xml,%3Csvg width='40' height='69' viewBox='0 0 40 69' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 17.32l20-11.547 20 11.547v23.094l-20 11.547L0 40.414V17.32zm20 11.547L10 23.094v11.547l10 5.773 10-5.773V23.094l-10 5.773z' fill='%23faddc4' fill-opacity='0.15' fill-rule='evenodd'/%3E%3C/svg%3E");
+  }
+  .zig-zag-bg {
+    background-image: url("data:image/svg+xml,%3Csvg width='42' height='44' viewBox='0 0 42 44' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%238c5000' fill-opacity='0.15'%3E%3Cpath d='M0 0h42v44H0V0zm1 1h40v20H1V1zM0 23h20v20H0V23zm22 0h20v20H22V23z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .bg-honeycomb-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5' stroke='%238c5000' stroke-width='1' fill='none' fill-rule='evenodd' opacity='0.05'/%3E%3C/svg%3E");
+    background-size: 24px 24px;
+  }
+}

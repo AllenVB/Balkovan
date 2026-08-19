@@ -1,0 +1,567 @@
+<!DOCTYPE html><html class="light" lang="tr"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Balkovan - Orijinal bal, doğrudan arıcıdan</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&amp;family=Inter:wght@400..600&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "background": "#fff8f4",
+                        "inverse-primary": "#ffb873",
+                        "surface-dim": "#f2d5bc",
+                        "on-primary-container": "#603500",
+                        "tertiary": "#625e52",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#faddc4",
+                        "primary-fixed-dim": "#ffb873",
+                        "surface-container": "#ffead9",
+                        "tertiary-fixed": "#e9e2d2",
+                        "tertiary-container": "#b1ab9d",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#783100",
+                        "on-tertiary-fixed": "#1e1c12",
+                        "surface-bright": "#fff8f4",
+                        "primary-fixed": "#ffdcbf",
+                        "primary-container": "#f9930a",
+                        "secondary-fixed": "#ffdbcb",
+                        "inverse-on-surface": "#ffeee0",
+                        "surface-tint": "#8c5000",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-container": "#434034",
+                        "primary": "#8c5000",
+                        "on-background": "#271909",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-container": "#732f00",
+                        "outline-variant": "#dbc2ae",
+                        "secondary-fixed-dim": "#ffb690",
+                        "tertiary-fixed-dim": "#ccc6b7",
+                        "inverse-surface": "#3e2d1c",
+                        "surface-container-high": "#ffe3cb",
+                        "surface-variant": "#faddc4",
+                        "on-surface-variant": "#554334",
+                        "error-container": "#ffdad6",
+                        "outline": "#887362",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed": "#341100",
+                        "surface-container-low": "#fff1e7",
+                        "on-tertiary-fixed-variant": "#4a473b",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed": "#2d1600",
+                        "on-surface": "#271909",
+                        "secondary-container": "#fd965e",
+                        "on-primary-fixed-variant": "#6a3b00",
+                        "secondary": "#984715",
+                        "surface-container-lowest": "#ffffff",
+                        "surface": "#fff8f4",
+                        // Brand Aliases
+                        "cream": "#fff8f4",
+                        "comb": "#ffead9",
+                        "honey-50": "#ffead9",
+                        "honey-100": "#ffe3cb",
+                        "honey-200": "#faddc4",
+                        "honey-500": "#f9930a",
+                        "honey-800": "#8c5000",
+                        "honey-900": "#603500",
+                        "amber-deep": "#8c5000",
+                        "ink-muted": "#554334"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "stack-md": "24px",
+                        "stack-sm": "12px",
+                        "gutter": "24px",
+                        "margin-desktop": "40px",
+                        "container-max": "1280px",
+                        "stack-lg": "48px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "display-lg-mobile": ["Fraunces"],
+                        "headline-sm": ["Fraunces"],
+                        "headline-md": ["Fraunces"],
+                        "display-lg": ["Fraunces"],
+                        "body-lg": ["Inter"],
+                        "price-display": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "headline-sm": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-md": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "price-display": ["20px", { "lineHeight": "24px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .warm-shadow {
+            box-shadow: 0 4px 20px rgba(70, 25, 3, 0.06);
+        }
+        .warm-shadow-hover:hover {
+            box-shadow: 0 8px 30px rgba(70, 25, 3, 0.12);
+        }
+        .honeycomb-bg {
+            background-image: url("data:image/svg+xml,%3Csvg width='40' height='69' viewBox='0 0 40 69' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 17.32l20-11.547 20 11.547v23.094l-20 11.547L0 40.414V17.32zm20 11.547L10 23.094v11.547l10 5.773 10-5.773V23.094l-10 5.773z' fill='%23faddc4' fill-opacity='0.15' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+        .zig-zag-bg {
+            background-image: url("data:image/svg+xml,%3Csvg width='42' height='44' viewBox='0 0 42 44' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='Page-1' fill='none' fill-rule='evenodd'%3E%3Cg id='brick-wall' fill='%238c5000' fill-opacity='0.15'%3E%3Cpath d='M0 0h42v44H0V0zm1 1h40v20H1V1zM0 23h20v20H0V23zm22 0h20v20H22V23z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .bg-honeycomb-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5' stroke='%238c5000' stroke-width='1' fill='none' fill-rule='evenodd' opacity='0.05'/%3E%3C/svg%3E");
+            background-size: 24px 24px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col antialiased">
+<!-- Top Bar -->
+<div class="bg-primary text-on-primary text-center py-2 text-label-md font-label-md">
+        1.500 ₺ üzeri kargo bedava
+    </div>
+<!-- TopNavBar -->
+<header class="bg-background/90 backdrop-blur-md dark:bg-inverse-surface shadow-[0_4px_20px_rgba(70,25,3,0.06)] docked full-width top-0 sticky z-40">
+<div class="flex justify-between items-center w-full px-margin-desktop max-w-container-max mx-auto h-20">
+<div class="flex items-center gap-4">
+<img alt="Balkovan Logo" class="h-12 w-12 rounded-lg object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHdx8SBjIw-aG8c4aTgnOdjvTpqqHiSugphKg0RZ6hZbEUAw9j4040q8SX7Rwn915QZnvEK4V3fUMD1qJUKhPnPfCEE4MKDvNBddbqXvDX11-gYhiCAENmMhgPl_Go6gGudfyiCRtBMMF_ZUd6Mx3ySAzNGp_-ej5QSo1Mgg64T4ZRY7Es8MUxfIcmzB3H_C4ZHqCGfn2vcvQram-qZSOQsnfqDphMTVqNx2KwX38jMjRnDYXsZ8Un1w">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary hidden sm:block">Balkovan</span>
+</div>
+<nav class="hidden md:flex gap-gutter items-center">
+<a class="text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#">Ürünler</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#">Kampanyalar</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#">Hakkımızda</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#">İletişim</a>
+</nav>
+<div class="flex gap-4 items-center text-primary dark:text-inverse-primary">
+<button class="scale-105 transition-transform duration-200 hover:text-primary-container p-2 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">person</span>
+</button>
+<button class="scale-105 transition-transform duration-200 hover:text-primary-container p-2 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">shopping_cart</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex-grow">
+<!-- Hero Section -->
+<section class="py-stack-lg max-w-container-max mx-auto px-margin-mobile lg:px-margin-desktop mt-4 md:mt-8">
+<div class="rounded-3xl overflow-hidden relative min-h-[500px] lg:min-h-[600px] warm-shadow flex items-center justify-center">
+<img alt="Hero background" class="w-full h-full object-cover absolute inset-0" src="https://lh3.googleusercontent.com/aida/AP1WRLs9oF3p8m0UCJUK2Iqjf_zG3khL01e-D4TIZhuyFYCaujPwlFB-SeS_DuWe9Tlu-eUNC2num8Wjd-Bx8Ga34SVK4LG6zFyZRCguDjV5UEmbK6FpE6N0CILPc98-xClTSxcZs9bCAHfwm6gQNFZPG88jrTnPH57dXGzh7pNu0PyA3gNCvT5r5egB7ysahWQZMkVQrAzN-gMm2yddBvwnCJZmXQtBG5Cc8gK6OkRAWamfj0JqZIbPBVGtQic">
+<div class="absolute inset-0 bg-on-background/40"></div>
+<div class="relative z-10 text-center px-8 py-12 max-w-3xl flex flex-col items-center">
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-primary mb-6">
+                Orijinal bal, doğrudan arıcıdan.
+            </h1>
+<p class="font-body-lg text-body-lg text-on-primary/90 mb-10 max-w-xl">
+                Yaylalardan süzülen ham ve katkısız lezzet. Doğanın saf halini sofralarınıza taşıyoruz.
+            </p>
+<div class="flex flex-wrap gap-4 justify-center">
+<button class="bg-amber-deep text-on-primary font-label-md text-label-md font-bold px-8 py-4 rounded-full hover:bg-primary-container transition-colors warm-shadow">
+                    Ürünleri Keşfet
+                </button>
+<button class="bg-surface/20 backdrop-blur-md border border-surface/30 text-on-primary font-label-md text-label-md font-bold px-8 py-4 rounded-full hover:bg-surface/30 transition-colors">
+                    Hikayemiz
+                </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Active Campaigns -->
+<section class="py-stack-lg max-w-container-max mx-auto px-margin-mobile lg:px-margin-desktop">
+<h2 class="font-headline-md text-headline-md text-on-background mb-8 text-center">Kampanyalar</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="bg-surface-container-highest p-8 rounded-3xl warm-shadow warm-shadow-hover transition-all duration-300 transform hover:-translate-y-1">
+<div class="mb-6 bg-primary-container w-14 h-14 rounded-2xl flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-3xl">redeem</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm mb-3 text-on-background">Hoşgeldin İndirimi</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Yeni üyelere özel ilk alışverişte %15 indirim fırsatı.</p>
+<a class="font-label-md text-label-md text-primary font-bold hover:text-amber-deep flex items-center gap-2" href="#">Kodu Al <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+</div>
+<div class="bg-surface-container-highest p-8 rounded-3xl warm-shadow warm-shadow-hover transition-all duration-300 transform hover:-translate-y-1">
+<div class="mb-6 bg-secondary w-14 h-14 rounded-2xl flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-3xl">local_shipping</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm mb-3 text-on-background">Kargo Bedava</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">1500 TL ve üzeri tüm siparişlerinizde ücretsiz teslimat.</p>
+<a class="font-label-md text-label-md text-primary font-bold hover:text-amber-deep flex items-center gap-2" href="#">Detaylar <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+</div>
+<div class="bg-surface-container-highest p-8 rounded-3xl warm-shadow warm-shadow-hover transition-all duration-300 transform hover:-translate-y-1">
+<div class="mb-6 bg-tertiary w-14 h-14 rounded-2xl flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-3xl">card_giftcard</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm mb-3 text-on-background">Hediye Setleri</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Sevdiklerinize özel hazırlanan setlerde 3 al 2 öde.</p>
+<a class="font-label-md text-label-md text-primary font-bold hover:text-amber-deep flex items-center gap-2" href="#">Setleri İncele <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+</div>
+</div>
+</section>
+<!-- Featured Products -->
+<section class="bg-surface-container-lowest py-stack-lg border-t border-honey-100 border-b">
+<div class="max-w-container-max mx-auto px-margin-mobile lg:px-margin-desktop">
+<div class="flex justify-between items-end mb-10">
+<h2 class="font-headline-md text-headline-md text-on-background">Öne Çıkanlar</h2>
+<a class="font-label-md text-label-md text-primary font-bold hover:text-amber-deep hidden sm:flex items-center gap-2" href="#">Tümünü Gör <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Product Card 1 -->
+<div class="bg-surface border border-honey-100 rounded-3xl overflow-hidden warm-shadow-hover transition-all duration-300 transform hover:-translate-y-1 flex flex-col group">
+<div class="h-72 bg-surface-container-low relative flex items-center justify-center p-0 overflow-hidden">
+<img alt="Ham Çiçek Balı" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida/AP1WRLvs3zHr3Kxwa2Wji2i6qyGfhYfzSrej4JCy370kOJOfKOWD961bBx1bek-Yk6eCI05lyK3PR1G1NW7q1uQ5gQBR7XOLTvvl4cBgjwDYUBwMlHlSMpstwfXY5SVvebJ7sEhwSNY1hpsKPW4ELGHsq7ui4jgW9FxtPKXCPp8sI2c89onjl3p1KtQ56qY2-Lr7BuXi9nNJ_m7OY3q3tR74KsxdFtk9QxpSG_23SAJikrzknpuX8h4VNORvBdKq">
+</div>
+<div class="p-6 flex-grow flex flex-col justify-between bg-surface">
+<div>
+<span class="inline-block bg-honey-100 text-honey-900 text-[12px] font-bold px-3 py-1 rounded-full mb-3">Ham</span>
+<h3 class="font-headline-sm text-headline-sm text-on-background mb-2">Çiçek Balı</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 text-sm line-clamp-2">Yüksek rakımlı yaylalardan derlenen doğal şifa.</p>
+</div>
+<div class="flex justify-between items-center mt-auto pt-4 border-t border-honey-100">
+<span class="font-price-display text-price-display text-on-background">350 ₺</span>
+<button class="w-12 h-12 rounded-full bg-surface-container-highest text-amber-deep flex items-center justify-center hover:bg-amber-deep hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-surface border border-honey-100 rounded-3xl overflow-hidden warm-shadow-hover transition-all duration-300 transform hover:-translate-y-1 flex flex-col group">
+<div class="h-72 bg-surface-container-low relative flex items-center justify-center p-0 overflow-hidden">
+<img alt="Kestane Balı" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPu3wu8BtTGt-yrX_Eu_-17zrhDZ0C6ajedYpftYjEFhsfCstihHg8chhQqe9PRXAOEXnCZBi_u-9unHHzZM1C-1mx2GZAi3v_X5LFd-_z--zJMXM5IjUr5C10bjPBS4bMBDafTA5-LWym9MmEv__RYR81xlvVw9LyrA6lhaELauw6EaA1i3DCuO_DarbFS1nWkQ3zXt0j7uOo9XMjDR7UHaAQOlLjqurqsnUtX5zmRjF5TxBvnY88CA">
+</div>
+<div class="p-6 flex-grow flex flex-col justify-between bg-surface">
+<div>
+<span class="inline-block bg-honey-100 text-honey-900 text-[12px] font-bold px-3 py-1 rounded-full mb-3">Organik</span>
+<h3 class="font-headline-sm text-headline-sm text-on-background mb-2">Kestane Balı</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 text-sm line-clamp-2">Yoğun aromalı, Karadeniz ormanlarından özel hasat.</p>
+</div>
+<div class="flex justify-between items-center mt-auto pt-4 border-t border-honey-100">
+<span class="font-price-display text-price-display text-on-background">520 ₺</span>
+<button class="w-12 h-12 rounded-full bg-surface-container-highest text-amber-deep flex items-center justify-center hover:bg-amber-deep hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="bg-surface border border-honey-100 rounded-3xl overflow-hidden warm-shadow-hover transition-all duration-300 transform hover:-translate-y-1 flex flex-col group">
+<div class="h-72 bg-surface-container-low relative flex items-center justify-center p-0 overflow-hidden">
+<img alt="Kekik Balı" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSaBSLoGW7_ebNhQfJNuiegWgOrndVI7WgCN0MMLzOLy5VukBmHaoo_ECh0CdlZncROKlVsatwrigJ3r7a-aVZEUzrcaR_WW6BpHpT6HgUUK06oFvngJuD0z_6Zbjbn7JbipeABc1HeraMtZmbrHOJXIl-4JeSdfyK6y_dCs-SQfE6Kc5yjLPxDyL1hYHL17y5pcRDd6-JBR5oks-YN32teYgOjrX0BphPIhImqZd34lKQolGr5SQ_yw">
+</div>
+<div class="p-6 flex-grow flex flex-col justify-between bg-surface">
+<div>
+<span class="inline-block bg-honey-100 text-honey-900 text-[12px] font-bold px-3 py-1 rounded-full mb-3">Saf</span>
+<h3 class="font-headline-sm text-headline-sm text-on-background mb-2">Kekik Balı</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 text-sm line-clamp-2">Ferahlatıcı aromasıyla sofralarınızın vazgeçilmezi.</p>
+</div>
+<div class="flex justify-between items-center mt-auto pt-4 border-t border-honey-100">
+<span class="font-price-display text-price-display text-on-background">410 ₺</span>
+<button class="w-12 h-12 rounded-full bg-surface-container-highest text-amber-deep flex items-center justify-center hover:bg-amber-deep hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="bg-surface border border-honey-100 rounded-3xl overflow-hidden warm-shadow-hover transition-all duration-300 transform hover:-translate-y-1 flex flex-col group">
+<div class="h-72 bg-surface-container-low relative flex items-center justify-center p-0 overflow-hidden">
+<img alt="Çam Balı" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSaBSLoGW7_ebNhQfJNuiegWgOrndVI7WgCN0MMLzOLy5VukBmHaoo_ECh0CdlZncROKlVsatwrigJ3r7a-aVZEUzrcaR_WW6BpHpT6HgUUK06oFvngJuD0z_6Zbjbn7JbipeABc1HeraMtZmbrHOJXIl-4JeSdfyK6y_dCs-SQfE6Kc5yjLPxDyL1hYHL17y5pcRDd6-JBR5oks-YN32teYgOjrX0BphPIhImqZd34lKQolGr5SQ_yw">
+</div>
+<div class="p-6 flex-grow flex flex-col justify-between bg-surface">
+<div>
+<span class="inline-block bg-honey-100 text-honey-900 text-[12px] font-bold px-3 py-1 rounded-full mb-3">Yeni</span>
+<h3 class="font-headline-sm text-headline-sm text-on-background mb-2">Çam Balı</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 text-sm line-clamp-2">Ege'nin çam ormanlarından gelen eşsiz lezzet.</p>
+</div>
+<div class="flex justify-between items-center mt-auto pt-4 border-t border-honey-100">
+<span class="font-price-display text-price-display text-on-background">380 ₺</span>
+<button class="w-12 h-12 rounded-full bg-surface-container-highest text-amber-deep flex items-center justify-center hover:bg-amber-deep hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<a class="font-label-md text-label-md text-primary font-bold hover:underline block text-center mt-8 sm:hidden" href="#">Tümünü Gör</a>
+</div>
+</section>
+<!-- Category Grid -->
+<section class="py-stack-lg max-w-container-max mx-auto px-margin-mobile lg:px-margin-desktop">
+<h2 class="font-headline-md text-headline-md text-on-background mb-8">Kategoriler</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<a class="relative h-80 rounded-3xl overflow-hidden group block warm-shadow" href="#">
+<div class="bg-cover bg-center w-full h-full absolute inset-0 transition-transform duration-700 group-hover:scale-105" data-alt="A close up shot of a honeycomb dripping with fresh, golden liquid honey. The warm ambient lighting highlights the geometric hexagonal structures of the comb. The aesthetic is extremely detailed, appetizing, and natural, focusing on the raw organic texture of the honey." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAS-oB-SUth3t8fQUOm5gBwpT67Gceg4eXPknmQxUOLZYbC3nBFCzv3-McD_Z3dFAebmXX8UN1c5jYd9NTPTyucn4S2l699e8drYx39PLj_XA8PQAz7lhddEKsGV8eWifGPLgyIKPCS_AEjbTUfWjUnKJ6Wl3meEWFm3rFTAU__7S--HbyNn_E-dm_pBefIivX14nc4kr3Qdbr-sEMN89T24v9IdoXTMqlKxipg4vIlZfJImS3Obq8L2g')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/90 via-on-background/40 to-transparent"></div>
+<div class="absolute bottom-8 left-8">
+<h3 class="font-headline-md text-headline-md text-on-primary mb-2">Ham Ballar</h3>
+<p class="font-body-md text-body-md text-on-primary/90">Filtre edilmemiş saflık</p>
+</div>
+</a>
+<a class="relative h-80 rounded-3xl overflow-hidden group block warm-shadow" href="#">
+<img alt="Propolis &amp; Polen" class="w-full h-full object-cover absolute inset-0 transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida/AP1WRLsOhSsHbtShE6p6nBvRjyqbRzgyu0_fH-7HfBu6KEpdQOYi9vwQ2gK4kDrY5uum_T-ru_FYLJvTIW3L5yQyJJZyOtuVpG1rsJ0EjC8qWdXtou1dXcyJi8VFwiqPJFEv5qUXEtqyKRgUOHvahyE63JfyZDSStg4oWzypapEncgehEWT5uZc7FcGo8skuiTXKx6SKS0tdFG2ETBnzJZw9vemod3ibtfJDaPLAzlbkoq8dLmJ4ngri1bQ_-ocK">
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/90 via-on-background/40 to-transparent"></div>
+<div class="absolute bottom-8 left-8">
+<h3 class="font-headline-md text-headline-md text-on-primary mb-2">Propolis &amp; Polen</h3>
+<p class="font-body-md text-body-md text-on-primary/90">Doğal savunma kalkanı</p>
+</div>
+</a>
+<a class="relative h-80 rounded-3xl overflow-hidden group block warm-shadow md:col-span-2 lg:col-span-1" href="#">
+<div class="bg-cover bg-center w-full h-full absolute inset-0 transition-transform duration-700 group-hover:scale-105" data-alt="An elegantly arranged gift box containing assorted small jars of honey and beeswax candles. The box is wrapped with natural twine and sits on a clean, light cream surface. Warm, soft lighting emphasizes the premium, thoughtful nature of the gift set. The composition is minimalist and organic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBow4HJCKhE6AJ-GTZ8qsPnV_YgpuGcDJDEPTSZowCK-MgXeVuvzenH3jKM7A-m55AbKUYZBaTbiiHblmG4xFM7PnOn3k0MCL2uoR2Y_cSnMa_MCn9dj3t1k2dpDotx54LI5A9SAeVFyziII3WdgRldibYm46pmg4lBTNsp4mRMPJyk5uiVAOoVy6a8CqPsjyqli_77aupovqGYYP3E5xXYogKpCuLcwstGMhJvkthrH3iVAyYvnCs7fQ')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/90 via-on-background/40 to-transparent"></div>
+<div class="absolute bottom-8 left-8">
+<h3 class="font-headline-md text-headline-md text-on-primary mb-2">Hediye Setleri</h3>
+<p class="font-body-md text-body-md text-on-primary/90">Sevdiklerinize özel anlar</p>
+</div>
+</a>
+</div>
+</section><section class="py-stack-lg bg-surface-container-lowest border-t border-honey-100"><div class="max-w-container-max mx-auto px-margin-mobile lg:px-margin-desktop"><h2 class="font-headline-md text-headline-md text-on-background mb-8 text-center">Müşteri Yorumları</h2><div class="grid grid-cols-1 md:grid-cols-3 gap-gutter"><div class="bg-surface p-8 rounded-3xl warm-shadow border border-honey-100"><div class="flex text-amber-deep mb-4"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span></div><p class="font-body-md text-body-md text-on-surface-variant mb-6 italic">"Balların tadı harika, gerçekten doğal olduğunu hissedebiliyorsunuz. Kargo da çok hızlıydı."</p><div class="font-label-md text-label-md font-bold text-on-background">Ahmet Yılmaz</div></div><div class="bg-surface p-8 rounded-3xl warm-shadow border border-honey-100"><div class="flex text-amber-deep mb-4"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span></div><p class="font-body-md text-body-md text-on-surface-variant mb-6 italic">"Kestane balı favorim oldu. Yoğun aroması ve kıvamı tam istediğim gibi. Teşekkürler Balkovan!"</p><div class="font-label-md text-label-md font-bold text-on-background">Zeynep Kaya</div></div><div class="bg-surface p-8 rounded-3xl warm-shadow border border-honey-100"><div class="flex text-amber-deep mb-4"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span></div><p class="font-body-md text-body-md text-on-surface-variant mb-6 italic">"Hediye setlerinden aldım, paketleme çok özenliydi. Arkadaşım da çok beğendi."</p><div class="font-label-md text-label-md font-bold text-on-background">Caner Demir</div></div></div></div></section>
+<!-- Our Journey -->
+<section class="py-stack-lg max-w-container-max mx-auto px-margin-mobile lg:px-margin-desktop">
+<div class="rounded-3xl overflow-hidden relative h-[400px] lg:h-[500px] warm-shadow flex items-center justify-center">
+<img alt="Yolculuğumuz" class="w-full h-full object-cover absolute inset-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0ic-watZ-hDobu1GRqCs3VFWuMFI3TCpCegyBut720pP5al8d-29Lhbz8dzasCi0Y_m3SFo35R3SolXymESlvO1C7jhUsFqcF28OTCsKzue9BHOEegXDuuLzATaL_T5lOp2e9Kb-P590OHUjEEeJoMogT-AUqZN9Ytx2SCFErNzuaDUIqZzRqTmG_4z5EEQJX1Wv-ff_WOLkAV6rMlDuRqjYBkXckqQcPDMiV6Utuvh8JlcNLx7AvAQ">
+<div class="absolute inset-0 bg-on-background/40"></div>
+<div class="relative z-10 text-center px-4 max-w-2xl">
+<h2 class="font-headline-md text-headline-md text-on-primary mb-6">Yolculuğumuz</h2>
+<p class="font-body-lg text-body-lg text-on-primary/90">Doğanın kalbinde, arılarla iç içe başlayan hikayemiz, her geçen gün daha saf, daha doğal bir lezzet arayışıyla devam ediyor.</p>
+</div>
+</div>
+</section>
+<!-- How We Produce -->
+<section class="bg-surface-container-low py-stack-lg zig-zag-bg">
+<div class="max-w-container-max mx-auto px-margin-mobile lg:px-margin-desktop text-center">
+<h2 class="font-headline-md text-headline-md text-on-background mb-16">Nasıl Üretiyoruz</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-16">
+<div class="flex flex-col items-center bg-background/60 backdrop-blur-sm p-8 rounded-3xl">
+<div class="w-24 h-24 rounded-full bg-honey-100 flex items-center justify-center mb-8 text-amber-deep">
+<span class="material-symbols-outlined" style="font-size: 48px; font-variation-settings: 'wght' 300;">eco</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-background mb-4">Doğal Çevre</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xs">Kovanlarımızı, sanayiden ve tarımsal ilaçlamadan uzak, yüksek rakımlı bakir doğada konumlandırıyoruz.</p>
+</div>
+<div class="flex flex-col items-center bg-background/60 backdrop-blur-sm p-8 rounded-3xl">
+<div class="w-24 h-24 rounded-full bg-honey-100 flex items-center justify-center mb-8 text-amber-deep">
+<span class="material-symbols-outlined" style="font-size: 48px; font-variation-settings: 'wght' 300;">hive</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-background mb-4">Saygılı Hasat</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xs">Arıların ihtiyacı olan balı onlara bırakıyor, sadece fazlasını alarak döngüye saygı gösteriyoruz.</p>
+</div>
+<div class="flex flex-col items-center bg-background/60 backdrop-blur-sm p-8 rounded-3xl">
+<div class="w-24 h-24 rounded-full bg-honey-100 flex items-center justify-center mb-8 text-amber-deep">
+<span class="material-symbols-outlined" style="font-size: 48px; font-variation-settings: 'wght' 300;">water_drop</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-background mb-4">Isı İşlemsiz</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xs">Balı pastorize etmiyor, faydalı enzimlerini koruyarak doğrudan kavanozluyoruz.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- About Us Section -->
+<section class="relative bg-surface-container py-stack-lg px-margin-mobile md:px-margin-desktop bg-honeycomb-pattern">
+<div class="max-w-container-max mx-auto text-center relative z-10">
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-stack-md">Dürüst Üretici</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+                    Kovandan kavanoza uzanan, hiçbir ısıl işlem görmemiş, saf ve doğal yolculuğumuz.
+                </p>
+</div>
+</section>
+<!-- Meadow/Beehive Section -->
+<section class="py-stack-lg px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-lg items-center">
+<div class="order-2 md:order-1">
+<h2 class="font-headline-md text-headline-md text-primary mb-stack-sm">Doğanın Kalbinden</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-stack-md">
+                        Arılarımız, yüksek rakımlı yaylalarda, endüstriyel tarımdan uzak, binbir çeşit kır çiçeğinin bulunduğu tertemiz bir doğada nektar toplar. 
+                        Doğaya saygı duyarak, arıların hakkını arılara bırakıp, sadece fazlasını sizin için özenle alıyoruz.
+                    </p>
+<div class="flex items-center space-x-2 text-secondary">
+<span class="material-symbols-outlined" data-icon="park">park</span>
+<span class="font-label-md text-label-md">El Değmemiş Doğal Yaşam Alanı</span>
+</div>
+</div>
+<div class="order-1 md:order-2 rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(70,25,3,0.06)]">
+<img alt="Doğal Arı Kovanları" class="w-full h-auto object-cover transform hover:scale-101 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0ic-watZ-hDobu1GRqCs3VFWuMFI3TCpCegyBut720pP5al8d-29Lhbz8dzasCi0Y_m3SFo35R3SolXymESlvO1C7jhUsFqcF28OTCsKzue9BHOEegXDuuLzATaL_T5lOp2e9Kb-P590OHUjEEeJoMogT-AUqZN9Ytx2SCFErNzuaDUIqZzRqTmG_4z5EEQJX1Wv-ff_WOLkAV6rMlDuRqjYBkXckqQcPDMiV6Utuvh8JlcNLx7AvAQ">
+</div>
+</div>
+</section>
+<!-- Contact Us Hero Section -->
+<section class="relative w-full h-[409px] min-h-[300px] md:h-[512px] flex items-center justify-center overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover" data-alt="A sweeping, golden-hour landscape photograph of lush, green high-altitude meadows nestled in the majestic mountains of Erzurum, Turkey. Wooden beehives are carefully arranged across the rolling hills, glowing warmly in the soft, honey-colored sunlight. The scene embodies a pure, artisanal, and natural aesthetic, conveying tranquility and the pristine origins of raw honey." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOtq-IEPDKU_h-Xib4xnL5ddc91im-XnJK5Ii4TzW7PMfwpTcc6OskJfP_1ntqpHhkNQiYoGQl3ytg4qAtMFdslueDcn2klUjWtiguJAAU4UYrSDg2hr-CNsLRfPRr1OqCMNYWOnDGm8pN3KjQZMmjKjehvkDB8YwYVpqtyAaC_lHk2O1uEK3UBei_iusslne-S1fbGui246mZ9aL3gS3t1L7Z2YWcVa05jUkXNbpvlxd67DsWTNfFLQ">
+<div class="absolute inset-0 bg-on-background/40"></div>
+</div>
+<div class="relative z-10 text-center px-margin-mobile md:px-margin-desktop max-w-3xl mx-auto">
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-primary mb-4 drop-shadow-md">Bize Ulaşın</h1>
+<p class="font-body-lg text-body-lg text-surface-container-lowest opacity-90">Doğanın kalbinden sofranıza uzanan bu tatlı yolculukta her türlü soru, öneri ve siparişleriniz için buradayız.</p>
+</div>
+</section>
+<!-- Contact Content Area -->
+<section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg relative z-20 -mt-12 md:-mt-24">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Contact Information Card -->
+<div class="lg:col-span-5 bg-surface-container-lowest rounded-xl warm-shadow p-6 md:p-10 flex flex-col h-full border border-surface-variant">
+<h2 class="font-headline-sm text-headline-sm text-primary mb-6">İletişim Bilgileri</h2>
+<div class="space-y-8 flex-grow">
+<div class="flex items-start">
+<span class="material-symbols-outlined text-secondary-container mt-1 mr-4" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<div>
+<h3 class="font-label-md text-label-md font-semibold text-on-surface mb-1">Adres</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Şenkaya Yaylaları, Balcılar Köyü Yolu Üzeri<br>No: 42, Erzurum / Türkiye</p>
+</div>
+</div>
+<div class="flex items-start">
+<span class="material-symbols-outlined text-secondary-container mt-1 mr-4" style="font-variation-settings: 'FILL' 1;">call</span>
+<div>
+<h3 class="font-label-md text-label-md font-semibold text-on-surface mb-1">Telefon</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">+90 (555) 123 45 67<br><span class="text-sm opacity-80">(Pzt-Cum, 09:00 - 18:00)</span></p>
+</div>
+</div>
+<div class="flex items-start">
+<span class="material-symbols-outlined text-secondary-container mt-1 mr-4" style="font-variation-settings: 'FILL' 1;">mail</span>
+<div>
+<h3 class="font-label-md text-label-md font-semibold text-on-surface mb-1">E-posta</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">merhaba@balkovan.com.tr</p>
+</div>
+</div>
+</div>
+<div class="mt-10 pt-8 border-t border-surface-variant">
+<h3 class="font-label-md text-label-md font-semibold text-on-surface mb-4">Bizi Takip Edin</h3>
+<div class="flex space-x-4">
+<a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary hover:bg-primary hover:text-on-primary transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">share</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary hover:bg-primary hover:text-on-primary transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">photo_camera</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary hover:bg-primary hover:text-on-primary transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">play_arrow</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Contact Form -->
+<div class="lg:col-span-7 bg-surface-container-lowest rounded-xl warm-shadow p-6 md:p-10 border border-surface-variant mt-8 lg:mt-0">
+<h2 class="font-headline-sm text-headline-sm text-primary mb-2">Bize Mesaj Gönderin</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8">Arılarımız kadar çalışkanız; mesajlarınıza en kısa sürede dönüş yapacağız.</p>
+<form class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="name">Adınız Soyadınız</label>
+<input class="w-full bg-surface-bright border-2 border-outline-variant rounded-lg px-4 py-3 font-body-md text-body-md text-on-surface focus:border-primary-container focus:ring-0 focus:outline-none transition-colors" id="name" name="name" placeholder="Ahmet Yılmaz" type="text">
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="email">E-posta Adresiniz</label>
+<input class="w-full bg-surface-bright border-2 border-outline-variant rounded-lg px-4 py-3 font-body-md text-body-md text-on-surface focus:border-primary-container focus:ring-0 focus:outline-none transition-colors" id="email" name="email" placeholder="ahmet@ornek.com" type="email">
+</div>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="subject">Konu</label>
+<select class="w-full bg-surface-bright border-2 border-outline-variant rounded-lg px-4 py-3 font-body-md text-body-md text-on-surface focus:border-primary-container focus:ring-0 focus:outline-none transition-colors appearance-none" id="subject" name="subject">
+<option disabled="" selected="" value="">Lütfen bir konu seçin</option>
+<option value="siparis">Sipariş Durumu</option>
+<option value="toptan">Toptan Alım</option>
+<option value="urun">Ürünler Hakkında Bilgi</option>
+<option value="diger">Diğer</option>
+</select>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="message">Mesajınız</label>
+<textarea class="w-full bg-surface-bright border-2 border-outline-variant rounded-lg px-4 py-3 font-body-md text-body-md text-on-surface focus:border-primary-container focus:ring-0 focus:outline-none transition-colors resize-y" id="message" name="message" placeholder="Size nasıl yardımcı olabiliriz?" rows="5"></textarea>
+</div>
+<div class="pt-2">
+<button class="w-full md:w-auto px-8 py-4 bg-primary text-on-primary rounded-xl font-label-md text-label-md font-semibold hover:bg-on-primary-container transition-colors duration-300 flex items-center justify-center warm-shadow-hover" type="submit">
+<span class="">Mesajı Gönder</span>
+<span class="material-symbols-outlined ml-2 text-sm" style="font-variation-settings: 'FILL' 0;">send</span>
+</button>
+</div>
+</form>
+</div>
+</div>
+</section>
+<!-- Newsletter -->
+<section class="py-stack-lg border-b border-honey-100 bg-surface">
+<div class="max-w-3xl mx-auto px-margin-mobile text-center">
+<span class="material-symbols-outlined text-amber-deep mb-6" style="font-size: 56px;">mail</span>
+<h2 class="font-headline-md text-headline-md text-on-background mb-4">Balkovan Ailesine Katılın</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-10">Yeni hasatlardan, sınırlı üretim ballarımızdan ve özel indirimlerden ilk sizin haberiniz olsun.</p>
+<form class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
+<input class="flex-grow bg-surface-container-low border border-honey-200 rounded-2xl px-6 py-4 focus:outline-none focus:border-amber-deep focus:ring-1 focus:ring-amber-deep font-body-md text-on-background placeholder:text-ink-muted" placeholder="E-posta adresiniz" type="email">
+<button class="bg-amber-deep text-on-primary font-label-md text-label-md font-bold px-8 py-4 rounded-2xl hover:bg-primary-container transition-colors whitespace-nowrap" type="submit">
+                        Kayıt Ol
+                    </button>
+</form>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low dark:bg-inverse-surface grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-desktop py-stack-lg max-w-container-max mx-auto full-width flat no shadows">
+<div class="col-span-1 md:col-span-1">
+<span class="font-headline-sm text-headline-sm font-bold text-primary dark:text-inverse-primary mb-4 block">Balkovan</span>
+<p class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant">
+                © 2024 Balkovan. Tüm Hakları Saklıdır. [Firma Unvanı]
+            </p>
+</div>
+<div class="col-span-1">
+<h4 class="font-label-md text-label-md text-primary dark:text-primary-fixed-dim font-bold mb-4">Müşteri Hizmetleri</h4>
+<ul class="space-y-3">
+<li class=""><a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Sıkça Sorulan Sorular</a></li>
+<li class=""><a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Kargo ve Teslimat</a></li>
+<li class=""><a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">İade Koşulları</a></li>
+</ul>
+</div>
+<div class="col-span-1">
+<h4 class="font-label-md text-label-md text-primary dark:text-primary-fixed-dim font-bold mb-4">Kurumsal</h4>
+<ul class="space-y-3">
+<li class=""><a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Hakkımızda</a></li>
+<li class=""><a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Kalite Belgelerimiz</a></li>
+<li class=""><a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">İletişim</a></li>
+</ul>
+</div>
+<div class="col-span-1">
+<h4 class="font-label-md text-label-md text-primary dark:text-primary-fixed-dim font-bold mb-4">Sosyal Medya</h4>
+<ul class="space-y-3">
+<li class=""><a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Instagram</a></li>
+<li class=""><a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Facebook</a></li>
+</ul>
+</div>
+</footer>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 pb-safe md:hidden bg-surface-container dark:bg-inverse-surface shadow-[0_-4px_20px_rgba(70,25,3,0.06)] rounded-t-2xl border-t border-honey-100">
+<a class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-xl px-4 py-1 scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-label-md text-label-md mt-1">Mağaza</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-variant scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">shopping_basket</span>
+<span class="font-label-md text-label-md mt-1">Sepetim</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-variant scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">favorite</span>
+<span class="font-label-md text-label-md mt-1">Favorilerim</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-variant scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-label-md mt-1">Hesabım</span>
+</a>
+</nav>
+<!-- Safe area padding for mobile nav -->
+<div class="h-20 md:hidden"></div>
+
+
+</body></html>
