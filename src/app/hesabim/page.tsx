@@ -84,14 +84,15 @@ export default function AccountPage() {
           {order ? (
             <>
               <div>
-                <div className="flex items-start justify-between mb-4 gap-2">
+                {/* Mobilde siparis no basligin yanina sigmiyordu; dar ekranda alta aliniyor. */}
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-4 gap-2">
                   <div className="flex items-center gap-3 text-secondary">
                     <Icon name="local_shipping" className="text-3xl" />
                     <h2 className="font-headline-sm text-headline-sm">
                       Son Siparişim
                     </h2>
                   </div>
-                  <span className="text-on-surface-variant font-label-md text-label-md bg-surface-variant px-3 py-1 rounded-full whitespace-nowrap">
+                  <span className="self-start text-on-surface-variant font-label-md text-label-md bg-surface-variant px-3 py-1 rounded-full whitespace-nowrap">
                     Sipariş No: #{order.orderNumber}
                   </span>
                 </div>

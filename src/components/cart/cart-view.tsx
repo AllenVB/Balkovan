@@ -170,7 +170,7 @@ export function CartView() {
                     type="button"
                     onClick={() => removeLine(line.id)}
                     aria-label={`${line.name} ürününü sepetten çıkar`}
-                    className="text-on-surface-variant hover:text-error transition-colors p-1 rounded-full hover:bg-error-container"
+                    className="text-on-surface-variant hover:text-error transition-colors min-w-11 min-h-11 sm:min-w-0 sm:min-h-0 sm:p-1 flex items-center justify-center rounded-full hover:bg-error-container shrink-0"
                   >
                     <Icon name="delete" className="text-lg" />
                   </button>
@@ -183,7 +183,7 @@ export function CartView() {
                       onClick={() => setQuantity(line.id, line.quantity - 1)}
                       disabled={line.quantity <= 1}
                       aria-label={`${line.name} adedini azalt`}
-                      className="px-3 py-1 text-primary hover:bg-honey-100 rounded-l-lg transition-colors disabled:opacity-40 disabled:hover:bg-transparent"
+                      className="min-w-11 min-h-11 sm:min-w-0 sm:min-h-0 sm:px-3 sm:py-1 flex items-center justify-center text-primary hover:bg-honey-100 rounded-l-lg transition-colors disabled:opacity-40 disabled:hover:bg-transparent"
                     >
                       −
                     </button>
@@ -195,7 +195,7 @@ export function CartView() {
                       onClick={() => setQuantity(line.id, line.quantity + 1)}
                       disabled={line.quantity >= MAX_LINE_QUANTITY}
                       aria-label={`${line.name} adedini artır`}
-                      className="px-3 py-1 text-primary hover:bg-honey-100 rounded-r-lg transition-colors disabled:opacity-40 disabled:hover:bg-transparent"
+                      className="min-w-11 min-h-11 sm:min-w-0 sm:min-h-0 sm:px-3 sm:py-1 flex items-center justify-center text-primary hover:bg-honey-100 rounded-r-lg transition-colors disabled:opacity-40 disabled:hover:bg-transparent"
                     >
                       +
                     </button>
