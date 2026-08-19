@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { formatPrice, formatPriceCompact } from "@/lib/format";
+import {
+  formatDate,
+  formatNumber,
+  formatPrice,
+  formatPriceCompact,
+} from "@/lib/format";
 
 describe("formatPrice", () => {
   it("simgeyi tutarin sonuna koyar", () => {
@@ -31,5 +36,26 @@ describe("formatPriceCompact", () => {
 
   it("sondaki sifiri dusurmez, iki basamak korur", () => {
     expect(formatPriceCompact(24950)).toBe("249,50 ₺");
+  });
+});
+
+describe("formatDate", () => {
+  it("ISO tarihi Turkce uzun ay adiyla bicimler", () => {
+    expect(formatDate("2023-10-12")).toBe("12 Ekim 2023");
+  });
+
+  it("ayin ilk gununde bir onceki aya kaymaz", () => {
+    // Saat dilimi sabitlenmemis olsaydi UTC- dilimlerinde 31 Aralik'a duserdi.
+    expect(formatDate("2024-01-01")).toBe("1 Ocak 2024");
+  });
+});
+
+describe("formatNumber", () => {
+  it("binlik ayraci ekler", () => {
+    expect(formatNumber(1450)).toBe("1.450");
+  });
+
+  it("ondalik gostermez", () => {
+    expect(formatNumber(1450.6)).toBe("1.451");
   });
 });

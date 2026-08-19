@@ -49,6 +49,8 @@ oraya elle taşındı — yeni ekran geldiğinde class isimleri birebir kullanı
 | `/kampanyalar` | Kampanyalar |
 | `/hakkimizda` | Hakkımızda |
 | `/iletisim` | İletişim |
+| `/hesabim` | Hesap panosu (bal puanları, son sipariş, hızlı işlemler) |
+| `/hesabim/[bolum]` | Hesap alt bölümleri — tasarımları gelmedi, "hazırlanıyor" ekranı |
 
 ## Backend gelmeden önce bilinmesi gerekenler
 
@@ -60,5 +62,9 @@ oraya elle taşındı — yeni ekran geldiğinde class isimleri birebir kullanı
   kalıcı değil.
 - **İletişim formu** doğrulama yapar, gönderim henüz bir servise bağlı değil.
 - **Ödeme** hiç başlamadı (iyzico planlandı).
-- `/hesabim` ve `/favorilerim` bağlantıları menüde var ama sayfaları yok;
-  üyelik fazında gelecek.
+- **Hesap ekranı** örnek üye verisiyle çalışıyor (`src/lib/account.ts`);
+  kimlik doğrulama yok, sayfa herkese açık. Alt bölümlerin (siparişlerim,
+  profil, adreslerim, favorilerim, ödeme yöntemleri, destek) tasarımı henüz
+  gelmedi; hepsi tek bir "bu bölüm hazırlanıyor" ekranını gösteriyor.
+- Mobil alt menü üç sekme: Mağaza, Sepetim, Hesabım. Favorilerim buradan
+  kaldırıldı, hesap ekranındaki hızlı işlemlerde duruyor.

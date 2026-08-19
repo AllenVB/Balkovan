@@ -68,6 +68,14 @@
   --color-outline: #887362;
   --color-outline-variant: #dbc2ae;
 
+  /* Siparis durumu renkleri. Material 3 paletinde "success" rolu yok; hesap
+     ekranindaki "Teslim Edildi" rozetinin Tailwind emerald tonlari token'a
+     alindi ki durum renkleri tek yerden yonetilsin. */
+  --color-success: #10b981;
+  --color-on-success: #047857;
+  --color-info: #0ea5e9;
+  --color-on-info: #0369a1;
+
   /* --- Marka takma adlari (DESIGN.md prose'unda bu isimlerle geciyor) --- */
   --color-cream: #fff8f4;
   --color-comb: #ffead9;

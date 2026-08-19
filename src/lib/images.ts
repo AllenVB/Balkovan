@@ -34,6 +34,9 @@ export const stitchImages = {
   iletisim: {
     hero: "https://lh3.googleusercontent.com/aida-public/AB6AXuCOtq-IEPDKU_h-Xib4xnL5ddc91im-XnJK5Ii4TzW7PMfwpTcc6OskJfP_1ntqpHhkNQiYoGQl3ytg4qAtMFdslueDcn2klUjWtiguJAAU4UYrSDg2hr-CNsLRfPRr1OqCMNYWOnDGm8pN3KjQZMmjKjehvkDB8YwYVpqtyAaC_lHk2O1uEK3UBei_iusslne-S1fbGui246mZ9aL3gS3t1L7Z2YWcVa05jUkXNbpvlxd67DsWTNfFLQ"
   },
+  hesabim: {
+    hero: "https://lh3.googleusercontent.com/aida/AP1WRLsdKiNJdPoiMvwToVWy2p_Mq6iQh55uKsiPlMVNL6yMMzvKpUc3Bcalc3-yayLe-ssuvhpiPieqVn4pPc3XRlVIvg7vEeCWzQe_qYy7aPGhItn1cJpKvHogV5J5LCaDWS2nxNDwzIU1-sql5FTkrIYYG7q7c53IRnY7Pxcf_BsO3u7W8_pj0aMtsjyg3HfoBmvWOg901SVQnruTcBcF1qgEnXEZ1Q6ypcglNiPJLkKRYT6NRgFIvwT5AEX0"
+  },
   urunDetay: {
     ana: "https://lh3.googleusercontent.com/aida/AP1WRLsGqItpg308dIONfBLwLKLBKPMhPA7aex9TKOPCXx6w0ED8S6tMDWvZSxDRqb1auy70oRh8axHFn4L8Hyl_Eyb3oAFTuI1-evTtGxMZ-mxGAakE25prSv5TATIX8QHHrPup8bfOZbVUa1efO4hEMnT54Rq-BK8ckECdkNRXvLN7Ht0k35yic9TTWFExXSZGIAxQlWBnGf6TsIsJFWhwVK9aydP0vdB2NOCiv2S4kx_RHy_kq5v2ZVBD3hMx",
     galeri: [

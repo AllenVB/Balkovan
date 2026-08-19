@@ -34,3 +34,25 @@ export function formatPriceCompact(amountInKurus: number): string {
   const formatter = amountInKurus % 100 === 0 ? wholeFormatter : decimalFormatter;
   return `${formatter.format(amountInKurus / 100)} ${CURRENCY_SYMBOL}`;
 }
+
+const dateFormatter = new Intl.DateTimeFormat("tr-TR", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+  // Sabit saat dilimi: sunucu ile tarayici farkli dilimlerde olunca ayni ISO
+  // tarih farkli gune dusup hydration uyusmazligi cikarabiliyor.
+  timeZone: "UTC",
+});
+
+/**
+ * ISO tarihini "12 Ekim 2023" olarak bicimler (tasarimdaki siparis tarihi bicimi).
+ * Sunucu ve istemcide ayni sonucu vermesi icin UTC uzerinden hesaplanir.
+ */
+export function formatDate(isoDate: string): string {
+  return dateFormatter.format(new Date(`${isoDate}T00:00:00Z`));
+}
+
+/** Puan gibi ondaliksiz sayilari "1.450" olarak bicimler. */
+export function formatNumber(value: number): string {
+  return wholeFormatter.format(value);
+}

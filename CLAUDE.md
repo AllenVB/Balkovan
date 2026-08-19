@@ -27,7 +27,7 @@ Tutarlar **kuruş cinsinden integer** tutulur, float kullanılmaz. Biçimleme ya
 ## Veri
 
 Katalog `src/lib/products.ts`, görsel adresleri `src/lib/images.ts`, sepet kuralları
-`src/lib/cart.ts`. Bileşenlerin içine sabit ürün/görsel/fiyat gömme — bu dosyalar
+`src/lib/cart.ts`, hesap/üyelik `src/lib/account.ts`. Bileşenlerin içine sabit ürün/görsel/fiyat gömme — bu dosyalar
 backend gelince tek noktadan değişecek.
 
 Kargo eşiği ve ücreti `src/lib/cart.ts` içindeki sabitlerdir; başka yerde
@@ -46,3 +46,19 @@ tekrarlanmaz.
 
 Saf mantık (fiyat, sepet toplamı, kargo) için Vitest birim testi zorunlu.
 Test dosyası kodun yanında: `src/lib/cart.test.ts`.
+
+## Stitch çıktısındaki tutarsızlıklar
+
+Stitch her ekranı ayrı ürettiği için ekranlar arası çelişki çıkıyor. Yeni ekran
+gelince şunları karşılaştır ve **sistemdeki hâli kazanır**:
+
+- **Dil:** bazı ekranlar İngilizce çıkıyor ("My Account", bottom nav "Home/Shop").
+  Arayüz tamamen Türkçe.
+- **Para birimi:** kimi ekranda `₺145`, kimi ekranda `145,00 ₺`. Doğrusu
+  `DESIGN.md`'deki gibi simge sonda — her zaman `lib/format.ts` kullan.
+- **Header/alt menü:** ekrandan ekrana değişiyor (logo ortada/solda, sekme sayısı).
+  `components/layout/` altındaki tek sürüm geçerli.
+- **Gölge sınıfı:** Stitch `ambient-shadow`/`shadow-ambient` de üretiyor;
+  projede tek ad `warm-shadow`.
+- **Palet dışı renk:** Tailwind default renkleri (`emerald-500` gibi) doğrudan
+  kullanılmaz; önce `globals.css`'e token olarak eklenir (`--color-success`).

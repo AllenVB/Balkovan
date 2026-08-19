@@ -9,7 +9,6 @@ export const mainNavLinks = [
 export const bottomNavLinks = [
   { href: "/urunler", label: "Mağaza", icon: "storefront" },
   { href: "/sepet", label: "Sepetim", icon: "shopping_basket" },
-  { href: "/favorilerim", label: "Favorilerim", icon: "favorite" },
   { href: "/hesabim", label: "Hesabım", icon: "person" },
 ] as const;
 
