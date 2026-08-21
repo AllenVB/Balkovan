@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { ProductImage } from "@/components/ui/product-image";
 import { Icon } from "@/components/ui/icon";
 import { useCart } from "@/components/cart/cart-provider";
 import { formatNumber, formatPrice } from "@/lib/format";
@@ -24,12 +24,12 @@ export function CheckoutSummary({ shippingOptionId }: { shippingOptionId?: strin
         {lines.map((line) => (
           <li key={line.id} className="flex items-center gap-3">
             <span className="w-12 h-12 rounded-lg bg-surface-container-high overflow-hidden shrink-0 relative">
-              <Image
+              <ProductImage
                 src={line.image}
-                alt=""
-                fill
+                alt={line.name}
                 sizes="48px"
                 className="object-cover"
+                placeholderIconSize={20}
               />
             </span>
             <span className="flex-grow min-w-0">

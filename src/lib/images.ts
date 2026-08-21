@@ -1,6 +1,11 @@
 /**
  * Tasarimdan gelen gorsel adresleri.
  *
+ * ⚠️ BU ADRESLER OLMEYE BASLADI: 2026-08-21 itibariyle 23 adresten 13'u 403
+ * donuyor (ozellikle /aida/ ile baslayanlar). Ekranlar kirilmadi cunku
+ * components/ui/product-image.tsx yuklenemeyen gorseli yer tutucuya ceviriyor,
+ * ama urunler artik fotografsiz gorunuyor. Gercek urun fotograflari acil.
+ *
  * DIKKAT: Bunlar Google Stitch'in urettigi gecici CDN adresleri. Kalici degiller;
  * gercek urun fotograflari hazir olunca bu dosya tek noktadan degistirilecek
  * (tercihen public/images altina tasinarak). Sayfalar bu dosyaya bakar, dogrudan

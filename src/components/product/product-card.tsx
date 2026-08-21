@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { ProductImage } from "@/components/ui/product-image";
 import Link from "next/link";
 import { AddToCartButton } from "@/components/cart/add-to-cart-button";
 import { formatPriceCompact } from "@/lib/format";
@@ -26,12 +26,12 @@ export function ProductCard({ product, variant = "grid" }: ProductCardProps) {
           href={href}
           className="h-72 bg-surface-container-low relative block overflow-hidden"
         >
-          <Image
+          <ProductImage
             src={product.image}
             alt={product.name}
-            fill
             sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
             className="object-cover transition-transform duration-500 group-hover:scale-105"
+            placeholderIconSize={56}
           />
         </Link>
         <div className="p-6 flex-grow flex flex-col justify-between bg-surface">
@@ -71,12 +71,12 @@ export function ProductCard({ product, variant = "grid" }: ProductCardProps) {
         href={href}
         className="relative w-full aspect-square overflow-hidden bg-white block"
       >
-        <Image
+        <ProductImage
           src={product.image}
           alt={product.name}
-          fill
           sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
           className="object-cover group-hover:scale-105 transition-transform duration-500"
+          placeholderIconSize={56}
         />
         {product.badge ? (
           <span className="absolute top-4 left-4 bg-secondary-container text-on-secondary-container px-2 py-1 rounded font-label-md text-label-md shadow-sm">

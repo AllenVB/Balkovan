@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { ProductImage } from "@/components/ui/product-image";
 import Link from "next/link";
 import { Icon } from "@/components/ui/icon";
 import { useCart } from "@/components/cart/cart-provider";
@@ -129,12 +129,12 @@ export function CartView() {
                 href={`/urunler/${line.productSlug}`}
                 className="w-24 h-24 sm:w-32 sm:h-32 rounded-lg bg-surface-container-high overflow-hidden shrink-0 relative block"
               >
-                <Image
+                <ProductImage
                   src={line.image}
                   alt={line.name}
-                  fill
                   sizes="128px"
                   className="object-cover"
+                  placeholderIconSize={32}
                 />
               </Link>
 

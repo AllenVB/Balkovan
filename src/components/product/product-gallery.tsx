@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { ProductImage } from "@/components/ui/product-image";
 import { useState } from "react";
 import { clsx } from "clsx";
 import { Icon } from "@/components/ui/icon";
@@ -29,13 +29,13 @@ export function ProductGallery({
   return (
     <div className="lg:col-span-7 flex flex-col gap-4">
       <div className="w-full h-[400px] md:h-[600px] rounded-xl overflow-hidden bg-surface-container relative warm-shadow group">
-        <Image
+        <ProductImage
           src={activeImage}
           alt={productName}
-          fill
           priority
           sizes="(min-width: 1024px) 58vw, 100vw"
           className="object-cover transition-transform duration-700 group-hover:scale-105"
+          placeholderIconSize={72}
         />
         {badge ? (
           <div className="absolute top-4 left-4 flex flex-col gap-2">
@@ -65,12 +65,12 @@ export function ProductGallery({
                     : "border border-outline-variant opacity-70 hover:opacity-100",
                 )}
               >
-                <Image
+                <ProductImage
                   src={image}
                   alt=""
-                  fill
                   sizes="15vw"
                   className="object-cover"
+                  placeholderIconSize={24}
                 />
               </button>
             );
