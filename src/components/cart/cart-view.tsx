@@ -12,7 +12,8 @@ import { nextBulkTier, THREE_FOR_TWO_GROUP_SIZE } from "@/lib/promotions";
 
 /** Sepet ekrani. Satirlar CartProvider'dan gelir; adet ve silme oraya yazar. */
 export function CartView() {
-  const { lines, totals, isReady, setQuantity, removeLine } = useCart();
+  const { lines, totals, isReady, setQuantity, removeLine, priceChanges, dismissPriceChanges } =
+    useCart();
   const upcomingTier = nextBulkTier(totals.itemCount);
   const threeForTwoQuantity = lines
     .filter((line) => line.threeForTwo)
@@ -60,6 +61,57 @@ export function CartView() {
         <h1 className="font-headline-md text-headline-md text-primary mb-2 hidden md:block">
           Sepetim ({totals.itemCount} Ürün)
         </h1>
+
+        {/* Urun fiyati/durumu degistiyse musteri bilsin: sepet sessizce
+            guncellenirse odemede "tutar uyusmuyor" hatasina takilirdi. */}
+        {priceChanges.length > 0 ? (
+          <div
+            role="status"
+            className="bg-primary-fixed border-2 border-primary rounded-xl p-4 flex items-start gap-3"
+          >
+            <Icon name="info" className="text-primary shrink-0" />
+            <div className="flex-grow font-body-md text-sm text-on-primary-fixed">
+              <p className="font-bold mb-1">Sepetiniz güncellendi</p>
+              <ul className="flex flex-col gap-1">
+                {priceChanges.map((change, index) => (
+                  <li key={`${change.kind}-${change.name}-${index}`}>
+                    <strong>{change.name}</strong>
+                    {change.kind === "kaldirildi" ? (
+                      change.sebep === "stok-bitti" ? (
+                        " stokta kalmadı, sepetten çıkarıldı."
+                      ) : (
+                        " artık satışta değil, sepetten çıkarıldı."
+                      )
+                    ) : change.kind === "adet" ? (
+                      <>
+                        {" adedi stok kadar güncellendi: "}
+                        <strong>{change.newQuantity}</strong>
+                      </>
+                    ) : (
+                      <>
+                        {" fiyatı "}
+                        <span className="line-through">
+                          {formatPrice(change.oldPriceInKurus)}
+                        </span>
+                        {" → "}
+                        <strong>{formatPrice(change.newPriceInKurus)}</strong>
+                        {" olarak güncellendi."}
+                      </>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <button
+              type="button"
+              onClick={dismissPriceChanges}
+              aria-label="Bildirimi kapat"
+              className="shrink-0 text-primary hover:bg-surface-container rounded-full p-1"
+            >
+              <Icon name="close" className="text-sm" />
+            </button>
+          </div>
+        ) : null}
 
         {/* Ucretsiz kargo ilerlemesi */}
         <div className="bg-comb rounded-xl p-4 md:p-6 border border-honey-100 warm-shadow">

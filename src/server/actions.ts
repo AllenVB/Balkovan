@@ -5,6 +5,7 @@ import {
   orderRequestSchema,
   type OrderResult,
 } from "@/server/orders";
+import { refreshCartLines } from "@/server/catalog";
 
 /**
  * Odeme adiminin cagirdigi sunucu eylemi.
@@ -28,4 +29,14 @@ export async function placeOrderAction(input: unknown): Promise<OrderResult> {
   // Uyelik geldiginde oturumdaki kullanici kimligi buraya gecirilecek;
   // o zaman bal puani bakiyesi ve "ilk siparise ozel" kupon kurali islenir.
   return createOrder(parsed.data, { userId: null });
+}
+
+/**
+ * Sepeti veritabanindaki guncel fiyatlarla tazeler.
+ * Sepet sayfasi acilinca cagrilir; fiyat degistiyse musteriye bildirilir.
+ */
+export async function refreshCartAction(
+  items: { productSlug: string; variantWeightGrams: number }[],
+) {
+  return refreshCartLines(items);
 }

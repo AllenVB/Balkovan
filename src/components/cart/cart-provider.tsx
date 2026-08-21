@@ -4,7 +4,10 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
+  useRef,
+  useState,
   useSyncExternalStore,
   type ReactNode,
 } from "react";
@@ -30,6 +33,7 @@ import {
   writeUsePoints,
 } from "@/lib/cart-storage";
 import { demoAccount } from "@/lib/account";
+import { refreshCartAction } from "@/server/actions";
 import { findCoupon } from "@/lib/promotions";
 import {
   getShippingServerSnapshot,
@@ -60,11 +64,22 @@ type CartContextValue = {
   /** Kod gecerliyse uygular ve true doner; gecersizse hicbir sey yapmaz. */
   applyCoupon: (code: string) => boolean;
   removeCoupon: () => void;
+  /**
+   * Sepet acildiginda veritabaniyla karsilastirilir; degisen satirlar burada
+   * listelenir ki musteriye "fiyat guncellendi" denebilsin.
+   */
+  priceChanges: CartChange[];
+  dismissPriceChanges: () => void;
   /** Musterinin elindeki bal puani. */
   availablePoints: number;
   useLoyaltyPoints: boolean;
   setUseLoyaltyPoints: (value: boolean) => void;
 };
+
+export type CartChange =
+  | { kind: "fiyat"; name: string; oldPriceInKurus: number; newPriceInKurus: number }
+  | { kind: "kaldirildi"; name: string; sebep: "satista-degil" | "stok-bitti" }
+  | { kind: "adet"; name: string; newQuantity: number };
 
 const CartContext = createContext<CartContextValue | null>(null);
 
@@ -151,6 +166,102 @@ export function CartProvider({ children }: { children: ReactNode }) {
     getShippingServerSnapshot,
   );
 
+  const [priceChanges, setPriceChanges] = useState<CartChange[]>([]);
+  const dismissPriceChanges = useCallback(() => setPriceChanges([]), []);
+
+  // Sepet ilk okunduğunda bir kez tazelenir: fiyat degistiyse ya da urun
+  // satistan kalktiysa sepet duzeltilir ve degisiklik musteriye bildirilir.
+  const refreshedRef = useRef(false);
+  useEffect(() => {
+    if (!isReady || refreshedRef.current || lines.length === 0) return;
+    refreshedRef.current = true;
+
+    let cancelled = false;
+    void (async () => {
+      try {
+        const fresh = await refreshCartAction(
+          lines.map((line) => ({
+            productSlug: line.productSlug,
+            variantWeightGrams: line.variantWeightGrams,
+          })),
+        );
+        if (cancelled) return;
+
+        const changes: CartChange[] = [];
+        const updated = lines.flatMap((line) => {
+          const match = fresh.find(
+            (item) =>
+              item.productSlug === line.productSlug &&
+              item.variantWeightGrams === line.variantWeightGrams,
+          );
+
+          // Urun satistan kalkmis: satiri sepetten cikar.
+          if (!match || !match.current) {
+            changes.push({
+              kind: "kaldirildi",
+              name: line.name,
+              sebep: "satista-degil",
+            });
+            return [];
+          }
+
+          const current = match.current;
+
+          // Stok tukenmisse satir sepette kalmamali; kalirsa siparis her
+          // denemede "stok yok" ile reddedilir ve musteri cikmaza girer.
+          if (current.stock <= 0) {
+            changes.push({
+              kind: "kaldirildi",
+              name: current.name,
+              sebep: "stok-bitti",
+            });
+            return [];
+          }
+
+          if (current.unitPriceInKurus !== line.unitPriceInKurus) {
+            changes.push({
+              kind: "fiyat",
+              name: current.name,
+              oldPriceInKurus: line.unitPriceInKurus,
+              newPriceInKurus: current.unitPriceInKurus,
+            });
+          }
+
+          // Stok adetten azsa adet stoga cekilir.
+          const quantity = Math.min(line.quantity, current.stock);
+          if (quantity !== line.quantity) {
+            changes.push({ kind: "adet", name: current.name, newQuantity: quantity });
+          }
+
+          return [
+            {
+              ...line,
+              name: current.name,
+              variantLabel: current.variantLabel,
+              image: current.image,
+              tag: current.badge,
+              threeForTwo: current.threeForTwo,
+              unitPriceInKurus: current.unitPriceInKurus,
+              quantity,
+            },
+          ];
+        });
+
+        if (changes.length > 0) {
+          setPriceChanges(changes);
+          writeCart(updated);
+        }
+      } catch {
+        // Tazeleme basarisiz olursa sepet oldugu gibi kalir; siparis
+        // adiminda sunucu dogrulamasi yine de yanlis fiyati engeller.
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [isReady, lines]);
+
   const value = useMemo<CartContextValue>(
     () => ({
       lines,
@@ -168,6 +279,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
       couponCode,
       applyCoupon,
       removeCoupon,
+      priceChanges,
+      dismissPriceChanges,
       availablePoints,
       useLoyaltyPoints,
       setUseLoyaltyPoints,
@@ -176,6 +289,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
       lines,
       couponCode,
       shippingOptionId,
+      priceChanges,
+      dismissPriceChanges,
       availablePoints,
       useLoyaltyPoints,
       setUseLoyaltyPoints,

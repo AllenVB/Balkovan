@@ -112,3 +112,62 @@ export async function getVariantStock(
   });
   return Object.fromEntries(rows.map((row) => [row.weightGrams, row.stock]));
 }
+
+export type CartLineRefresh = {
+  productSlug: string;
+  variantWeightGrams: number;
+  /** Urun/varyant artik satista degilse null. */
+  current: {
+    name: string;
+    variantLabel: string;
+    image: string;
+    unitPriceInKurus: number;
+    stock: number;
+    badge?: string;
+    threeForTwo: boolean;
+  } | null;
+};
+
+/**
+ * Sepet satirlarini veritabanindaki guncel haliyle karsilastirir.
+ *
+ * NEDEN GEREKLI: Sepet tarayicida tutuluyor ve fiyati kendi kopyasinda
+ * sakliyor. Urun fiyati degisirse musteri eski tutari gorur, siparis ise
+ * sunucuda dogru fiyatla hesaplanip reddedilir - ve sepet kendini
+ * guncellemezse musteri ayni hatayla sonsuz donguye girer.
+ */
+export async function refreshCartLines(
+  items: { productSlug: string; variantWeightGrams: number }[],
+): Promise<CartLineRefresh[]> {
+  if (items.length === 0) return [];
+
+  const slugs = [...new Set(items.map((item) => item.productSlug))];
+  const rows = await prisma.product.findMany({
+    where: { slug: { in: slugs }, isActive: true },
+    include: { variants: { where: { isActive: true } } },
+  });
+
+  return items.map((item) => {
+    const product = rows.find((row) => row.slug === item.productSlug);
+    const variant = product?.variants.find(
+      (v) => v.weightGrams === item.variantWeightGrams,
+    );
+
+    if (!product || !variant) {
+      return { ...item, current: null };
+    }
+
+    return {
+      ...item,
+      current: {
+        name: product.name,
+        variantLabel: `${variant.label}, ${variant.weightGrams}g`,
+        image: product.image,
+        unitPriceInKurus: variant.priceInKurus,
+        stock: variant.stock,
+        badge: product.badge ?? undefined,
+        threeForTwo: product.threeForTwo,
+      },
+    };
+  });
+}
