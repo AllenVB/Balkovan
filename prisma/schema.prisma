@@ -222,9 +222,47 @@ model User {
 
   orders    Order[]
   addresses Address[]
+  accounts  Account[]
+  sessions  Session[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+/// Auth.js: harici saglayici hesaplari (Google vb. eklenirse kullanilir).
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+/// Auth.js: veritabani tabanli oturumlar.
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+/// Auth.js: e-posta dogrulama / sifre sifirlama jetonlari.
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
 }
 
 /// Kullanicinin kayitli adres defteri (odeme adiminda "Kayitli Adresler")
