@@ -1,0 +1,248 @@
+// Balkovan veri modeli.
+//
+// Tipler src/lib icindeki mevcut tiplerden turetildi (products.ts, cart.ts,
+// checkout.ts, loyalty.ts) ki sayfalar backend'e gecerken degismesin.
+//
+// PARA: Tum tutarlar KURUS cinsinden Int. Float ile para tutulmaz.
+// Baglanti adresi prisma.config.ts icinde (Prisma 7 kurali).
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum ProductCategory {
+  BALLAR
+  ARI_URUNLERI
+  SETLER
+}
+
+model Product {
+  id          String          @id @default(cuid())
+  slug        String          @unique
+  name        String
+  description String
+  category    ProductCategory
+  /// Gorsel uzerindeki rozet: "%100 Dogal", "Sinirli Stok"...
+  badge       String?
+  /// Baslik ustundeki kucuk etiketler: "Ham Bal", "TA14+"
+  tags        String[]
+  image       String
+  gallery     String[]
+  /// Urun detayindaki "Urun Hakkinda" paragraflari
+  longDescription String[]
+  breadcrumb  String
+  /// "3 Al 2 Ode" kampanyasina dahil mi (bkz. lib/promotions.ts)
+  threeForTwo Boolean         @default(false)
+  isActive    Boolean         @default(true)
+  /// Anasayfa "One Cikanlar" siralamasi; null ise one cikarilmaz
+  featuredRank Int?
+
+  // Ozellikler (lib/products.ts > ProductSpecs)
+  region        String
+  harvest       String
+  totalActivity String?
+
+  variants  ProductVariant[]
+  orderItems OrderItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([category, isActive])
+}
+
+model ProductVariant {
+  id            String  @id @default(cuid())
+  productId     String
+  product       Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  /// Kavanoz boyu; urun+gramaj birlesimi sepette tek satirdir
+  weightGrams   Int
+  /// "Kavanoz", "Buyuk Boy"
+  label         String
+  priceInKurus  Int
+  /// Stok adedi. Siparis olusurken transaction icinde dusulur.
+  stock         Int     @default(0)
+  isActive      Boolean @default(true)
+
+  orderItems OrderItem[]
+
+  @@unique([productId, weightGrams])
+}
+
+enum OrderStatus {
+  BEKLEMEDE
+  HAZIRLANIYOR
+  KARGODA
+  TESLIM_EDILDI
+  IPTAL
+}
+
+enum PaymentStatus {
+  BEKLEMEDE
+  ODENDI
+  BASARISIZ
+  IADE_EDILDI
+}
+
+model Order {
+  id          String      @id @default(cuid())
+  /// Musteriye gorunen numara: BLK-2026-4821
+  orderNumber String      @unique
+  status      OrderStatus @default(BEKLEMEDE)
+
+  /// Misafir siparisi olabilir; uyelik geldiginde doldurulur
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+  email  String?
+
+  // Teslimat bilgileri siparis aninda KOPYALANIR; adres sonradan
+  // degisse bile siparis kaydi degismemeli.
+  firstName    String
+  lastName     String
+  phone        String
+  city         String
+  district     String
+  fullAddress  String
+  addressTitle String?
+
+  shippingOptionId String
+  shippingName     String
+  shippingInKurus  Int
+
+  subtotalInKurus   Int
+  discountTotalInKurus Int @default(0)
+  totalInKurus      Int
+  /// Bu siparisten kazanilan bal puani
+  earnedPoints      Int @default(0)
+  /// Bu siparişte harcanan bal puani
+  spentPoints       Int @default(0)
+  deliveryEstimate  String
+
+  couponCode String?
+
+  items     OrderItem[]
+  discounts OrderDiscount[]
+  payment   Payment?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([status, createdAt])
+}
+
+model OrderItem {
+  id      String @id @default(cuid())
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  /// Urun silinse bile siparis satiri kalmali: iliski opsiyonel,
+  /// gosterilecek bilgiler asagida kopyalanmis halde tutuluyor.
+  productId String?
+  product   Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+  variantId String?
+  variant   ProductVariant? @relation(fields: [variantId], references: [id], onDelete: SetNull)
+
+  productSlug       String
+  name              String
+  variantLabel      String
+  variantWeightGrams Int
+  image             String
+  /// Siparis anindaki birim fiyat; urun fiyati sonradan degisse bile sabit
+  unitPriceInKurus  Int
+  quantity          Int
+  threeForTwo       Boolean @default(false)
+
+  @@index([orderId])
+}
+
+/// Siparise uygulanan her indirim ayri satir (lib/promotions.ts > AppliedDiscount)
+model OrderDiscount {
+  id       String @id @default(cuid())
+  orderId  String
+  order    Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  /// "three-for-two", "bulk", "coupon-MERHABA15", "loyalty-points"
+  code     String
+  label    String
+  amountInKurus Int
+
+  @@index([orderId])
+}
+
+model Payment {
+  id       String        @id @default(cuid())
+  orderId  String        @unique
+  order    Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  /// Saglayici bagimsiz tutuldu: "iyzico", "mock"
+  provider String
+  /// Saglayicinin islem kimligi
+  providerRef String?
+  status   PaymentStatus @default(BEKLEMEDE)
+  amountInKurus Int
+  /// Saglayicidan donen ham yanit; hata ayiklama ve mutabakat icin
+  rawResponse Json?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Coupon {
+  id             String  @id @default(cuid())
+  code           String  @unique
+  label          String
+  discountPercent Int
+  isActive       Boolean @default(true)
+  /// Toplam kullanim siniri; null ise sinirsiz
+  maxRedemptions Int?
+  redemptionCount Int    @default(0)
+  /// Yalnizca ilk siparise ozel mi (uyelik gerektirir)
+  firstOrderOnly Boolean @default(false)
+  startsAt       DateTime?
+  endsAt         DateTime?
+
+  createdAt DateTime @default(now())
+}
+
+model User {
+  id           String  @id @default(cuid())
+  email        String  @unique
+  /// Auth.js e-posta dogrulamasi icin
+  emailVerified DateTime?
+  passwordHash String?
+  firstName    String?
+  lastName     String?
+  phone        String?
+  /// Bal puani bakiyesi (lib/loyalty.ts: 10 puan = 1 ₺)
+  loyaltyPoints Int    @default(0)
+
+  orders    Order[]
+  addresses Address[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+/// Kullanicinin kayitli adres defteri (odeme adiminda "Kayitli Adresler")
+model Address {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  title       String?
+  firstName   String
+  lastName    String
+  phone       String
+  city        String
+  district    String
+  fullAddress String
+  isDefault   Boolean @default(false)
+
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}

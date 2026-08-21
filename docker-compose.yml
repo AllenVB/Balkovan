@@ -1,0 +1,23 @@
+# Gelistirme veritabani. Uretimde yonetilen bir PostgreSQL kullanilacak.
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: balkovan-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: balkovan
+      POSTGRES_PASSWORD: balkovan
+      POSTGRES_DB: balkovan
+    ports:
+      # 5432 ve 5433 bu makinede baska Postgres ornekleri tarafindan kullaniliyor.
+      - "5434:5432"
+    volumes:
+      - balkovan-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U balkovan -d balkovan"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  balkovan-db-data:

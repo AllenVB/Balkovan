@@ -44,3 +44,6 @@ next-env.d.ts
 
 # Stitch tasarim arsivleri (acilmis hali design/stitch altinda versiyonlaniyor)
 /*.zip
+
+# Prisma'nin urettigi istemci (postinstall ile uretilir)
+/src/generated
