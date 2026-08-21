@@ -4,7 +4,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { Icon } from "@/components/ui/icon";
 import { CouponCode } from "@/components/campaign/coupon-code";
-import { getProductBySlug } from "@/lib/products";
+import { getProductBySlug } from "@/server/catalog";
 
 export const metadata: Metadata = {
   title: "Kampanyalar",
@@ -53,10 +53,12 @@ const campaigns: {
 
 const teaserSlugs = ["cam-bali", "ham-cicek-bali", "premium-hediye-seti"];
 
-export default function CampaignsPage() {
-  const teasers = teaserSlugs
-    .map((slug) => getProductBySlug(slug))
-    .filter((product) => product !== undefined);
+export const revalidate = 300;
+
+export default async function CampaignsPage() {
+  const teasers = (
+    await Promise.all(teaserSlugs.map((slug) => getProductBySlug(slug)))
+  ).filter((product) => product !== null);
 
   return (
     <div className="px-margin-mobile md:px-margin-desktop py-stack-lg max-w-container-max mx-auto w-full">

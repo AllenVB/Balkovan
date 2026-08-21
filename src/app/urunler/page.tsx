@@ -2,7 +2,8 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { clsx } from "clsx";
 import { ProductCard } from "@/components/product/product-card";
-import { products, categoryFilters } from "@/lib/products";
+import { categoryFilters, type ProductCategory } from "@/lib/products";
+import { getProducts } from "@/server/catalog";
 
 export const metadata: Metadata = {
   title: "Ürünler",
@@ -21,10 +22,9 @@ export default async function ProductsPage({
       ? rawCategory
       : "tumu";
 
-  const visibleProducts =
-    selected === "tumu"
-      ? products
-      : products.filter((product) => product.category === selected);
+  const visibleProducts = await getProducts(
+    selected === "tumu" ? undefined : (selected as ProductCategory),
+  );
 
   return (
     <div className="w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg flex flex-col gap-stack-lg">

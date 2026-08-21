@@ -5,7 +5,7 @@ import { Icon } from "@/components/ui/icon";
 import { Container } from "@/components/ui/container";
 import { Newsletter } from "@/components/layout/newsletter";
 import { ProductCard } from "@/components/product/product-card";
-import { featuredProducts } from "@/lib/products";
+import { getFeaturedProducts } from "@/server/catalog";
 import { stitchImages } from "@/lib/images";
 import { RatingStars } from "@/components/review/rating-stars";
 import { averageRating, reviewCount, testimonials } from "@/lib/testimonials";
@@ -90,7 +90,12 @@ const productionSteps: {
   },
 ];
 
-export default function HomePage() {
+// Urun fiyat ve stogu degisebildigi icin sayfa belirli araliklarla tazelenir.
+export const revalidate = 300;
+
+export default async function HomePage() {
+  const featuredProducts = await getFeaturedProducts();
+
   return (
     <>
       {/* Hero */}

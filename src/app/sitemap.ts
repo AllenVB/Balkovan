@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { products } from "@/lib/products";
+import { getAllProductSlugs } from "@/server/catalog";
 import { contentPages } from "@/lib/content-pages";
 import { absoluteUrl } from "@/lib/seo";
 
@@ -12,8 +12,9 @@ const staticPaths = [
   { path: "/iletisim", priority: 0.5, changeFrequency: "monthly" as const },
 ];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
+  const productSlugs = await getAllProductSlugs();
 
   return [
     ...staticPaths.map((entry) => ({
@@ -22,8 +23,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: entry.changeFrequency,
       priority: entry.priority,
     })),
-    ...products.map((product) => ({
-      url: absoluteUrl(`/urunler/${product.slug}`),
+    ...productSlugs.map((slug) => ({
+      url: absoluteUrl(`/urunler/${slug}`),
       lastModified: now,
       changeFrequency: "weekly" as const,
       priority: 0.8,

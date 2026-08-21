@@ -4,18 +4,22 @@ import type { Metadata } from "next";
 import { Icon } from "@/components/ui/icon";
 import { ProductGallery } from "@/components/product/product-gallery";
 import { ProductPurchase } from "@/components/product/product-purchase";
-import { getProductBySlug, products } from "@/lib/products";
+import { getAllProductSlugs, getProductBySlug } from "@/server/catalog";
 import { absoluteUrl, SITE_NAME } from "@/lib/seo";
 
-export function generateStaticParams() {
-  return products.map((product) => ({ slug: product.slug }));
+// Urun sayfalari onceden uretilir; fiyat/stok degisiklikleri icin tazelenir.
+export const revalidate = 300;
+
+export async function generateStaticParams() {
+  const slugs = await getAllProductSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
   params,
 }: PageProps<"/urunler/[slug]">): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = await getProductBySlug(slug);
   if (!product) return { title: "Ürün bulunamadı" };
 
   return {
@@ -36,7 +40,7 @@ export default async function ProductDetailPage({
   params,
 }: PageProps<"/urunler/[slug]">) {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = await getProductBySlug(slug);
   if (!product) notFound();
 
   const cheapest = product.variants.reduce(
