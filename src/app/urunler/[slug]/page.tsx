@@ -4,7 +4,11 @@ import type { Metadata } from "next";
 import { Icon } from "@/components/ui/icon";
 import { ProductGallery } from "@/components/product/product-gallery";
 import { ProductPurchase } from "@/components/product/product-purchase";
-import { getAllProductSlugs, getProductBySlug } from "@/server/catalog";
+import {
+  getAllProductSlugs,
+  getProductBySlug,
+  getVariantStock,
+} from "@/server/catalog";
 import { absoluteUrl, SITE_NAME } from "@/lib/seo";
 
 // Urun sayfalari onceden uretilir; fiyat/stok degisiklikleri icin tazelenir.
@@ -43,6 +47,8 @@ export default async function ProductDetailPage({
   const product = await getProductBySlug(slug);
   if (!product) notFound();
 
+  const stockByWeight = await getVariantStock(slug);
+
   const cheapest = product.variants.reduce(
     (min, variant) => Math.min(min, variant.priceInKurus),
     product.variants[0]?.priceInKurus ?? product.priceInKurus,
@@ -65,7 +71,9 @@ export default async function ProductDetailPage({
         Math.max(...product.variants.map((v) => v.priceInKurus)) / 100
       ).toFixed(2),
       offerCount: product.variants.length,
-      availability: "https://schema.org/InStock",
+      availability: Object.values(stockByWeight).some((stock) => stock > 0)
+        ? "https://schema.org/InStock"
+        : "https://schema.org/OutOfStock",
       url: absoluteUrl(`/urunler/${product.slug}`),
     },
   };
@@ -114,7 +122,7 @@ export default async function ProductDetailPage({
           gallery={product.gallery}
           badge={product.badge}
         />
-        <ProductPurchase product={product} />
+        <ProductPurchase product={product} stockByWeight={stockByWeight} />
       </div>
     </div>
   );

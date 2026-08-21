@@ -11,7 +11,14 @@ import { formatPrice } from "@/lib/format";
 import type { Product } from "@/lib/products";
 
 /** Urun detayinin sag sutunu: fiyat, gramaj secimi, adet ve sepete ekle. */
-export function ProductPurchase({ product }: { product: Product }) {
+export function ProductPurchase({
+  product,
+  stockByWeight = {},
+}: {
+  product: Product;
+  /** Varyant gramajina gore stok adedi (sunucudan). */
+  stockByWeight?: Record<number, number>;
+}) {
   const [variantIndex, setVariantIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const { totals } = useCart();
@@ -36,6 +43,11 @@ export function ProductPurchase({ product }: { product: Product }) {
     100,
     (projectedQuantity / maxBulkQuantity) * 100,
   );
+
+  const stock = selectedVariant ? stockByWeight[selectedVariant.weightGrams] : undefined;
+  const isOutOfStock = stock !== undefined && stock <= 0;
+  // Az kalan stokta aciliyet hissi; abartmamak icin esik dusuk tutuldu.
+  const isLowStock = stock !== undefined && stock > 0 && stock <= 5;
 
   return (
     <div className="lg:col-span-5 flex flex-col pt-4 lg:pt-0 lg:sticky lg:top-28">
@@ -174,15 +186,29 @@ export function ProductPurchase({ product }: { product: Product }) {
           </button>
         </div>
 
-        <AddToCartButton
-          product={product}
-          variant={selectedVariant}
-          quantity={quantity}
-          icon="shopping_bag"
-          label="Sepete Ekle"
-          className="flex-grow bg-primary hover:bg-primary-container text-on-primary font-bold rounded-lg h-14 flex items-center justify-center gap-2 shadow-md warm-shadow-hover hover:scale-[1.01] transition-all duration-200"
-        />
+        {isOutOfStock ? (
+          <span className="flex-grow bg-surface-container-high text-on-surface-variant font-bold rounded-lg h-14 flex items-center justify-center gap-2">
+            <Icon name="info" />
+            Tükendi
+          </span>
+        ) : (
+          <AddToCartButton
+            product={product}
+            variant={selectedVariant}
+            quantity={quantity}
+            icon="shopping_bag"
+            label="Sepete Ekle"
+            className="flex-grow bg-primary hover:bg-primary-container text-on-primary font-bold rounded-lg h-14 flex items-center justify-center gap-2 shadow-md warm-shadow-hover hover:scale-[1.01] transition-all duration-200"
+          />
+        )}
       </div>
+
+      {isLowStock ? (
+        <p className="flex items-center gap-2 font-label-md text-label-md text-secondary mb-stack-md -mt-2">
+          <Icon name="info" className="text-sm" />
+          Son {stock} adet
+        </p>
+      ) : null}
 
       {/* Ozellikler */}
       <div className="bg-surface-container-low rounded-xl p-5 mb-stack-md border border-surface-variant shadow-sm">
