@@ -121,6 +121,29 @@ export async function createOrder(
         error: "İndirim kodu geçerli değil ya da süresi dolmuş.",
       };
     }
+
+    // "Ilk siparise ozel" kuponlar yalnizca uye olan ve daha once siparis
+    // vermemis musteriler icin gecerli.
+    if (coupon.firstOrderOnly) {
+      if (!options.userId) {
+        return {
+          ok: false,
+          code: "KUPON_GECERSIZ",
+          error: "Bu kod yalnızca üyelere özel. Giriş yapıp tekrar deneyin.",
+        };
+      }
+      const previousOrders = await prisma.order.count({
+        where: { userId: options.userId },
+      });
+      if (previousOrders > 0) {
+        return {
+          ok: false,
+          code: "KUPON_GECERSIZ",
+          error: "Bu kod yalnızca ilk siparişte kullanılabilir.",
+        };
+      }
+    }
+
     validCouponCode = coupon.code;
   }
 

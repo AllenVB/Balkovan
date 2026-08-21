@@ -71,10 +71,13 @@ export const quickActions: (AccountSection & { external?: boolean })[] = [
  * Hesap alt sayfalarinin tamami; /hesabim/[bolum] route'lari buradan uretilir.
  * Site disina cikan karolar (WhatsApp) dahil edilmez.
  */
+/** Kendi sayfasi yazilmis bolumler; yer tutucu route'a dusmemeliler. */
+const sectionsWithOwnPage = ["siparislerim"];
+
 export const allAccountSections: AccountSection[] = [
   ...accountSections,
   ...quickActions.filter((section) => !section.external),
-];
+].filter((section) => !sectionsWithOwnPage.includes(section.slug));
 
 export function getAccountSection(slug: string): AccountSection | undefined {
   return allAccountSections.find((section) => section.slug === slug);

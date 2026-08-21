@@ -32,7 +32,6 @@ import {
   writeCoupon,
   writeUsePoints,
 } from "@/lib/cart-storage";
-import { demoAccount } from "@/lib/account";
 import { refreshCartAction } from "@/server/actions";
 import { findCoupon } from "@/lib/promotions";
 import {
@@ -91,7 +90,14 @@ const alwaysFalse = () => false;
  * Sepet durumu. Veri lib/cart-storage.ts'teki tarayici deposundan gelir,
  * kurallar (ekleme, adet, toplamlar) lib/cart.ts'teki saf fonksiyonlardadir.
  */
-export function CartProvider({ children }: { children: ReactNode }) {
+export function CartProvider({
+  children,
+  loyaltyPoints = 0,
+}: {
+  children: ReactNode;
+  /** Oturum acan kullanicinin bal puani; misafirde 0. */
+  loyaltyPoints?: number;
+}) {
   const lines = useSyncExternalStore(
     subscribeToCart,
     getCartSnapshot,
@@ -154,9 +160,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
     [],
   );
 
-  // Puan bakiyesi su an ornek hesaptan geliyor; oturum acan gercek kullanici
-  // backend fazinda buraya baglanacak.
-  const availablePoints = demoAccount.loyaltyPoints;
+  // Bakiye sunucudan geliyor; istemci bunu degistirse bile siparis aninda
+  // sunucu gercek bakiyeyi yeniden okuyor (bkz. server/orders.ts).
+  const availablePoints = loyaltyPoints;
 
   // Kargo secimi odeme adiminda yapiliyor ama toplamlar tek yerden geliyor;
   // secim degisince sepet ve ozet birlikte guncellensin.

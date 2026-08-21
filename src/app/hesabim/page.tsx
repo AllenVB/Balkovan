@@ -4,19 +4,21 @@ import type { Metadata } from "next";
 import { Icon } from "@/components/ui/icon";
 import { formatDate, formatNumber, formatPriceCompact } from "@/lib/format";
 import {
-  demoAccount,
   loyaltyTierLabels,
   orderStatusLabels,
   quickActions,
 } from "@/lib/account";
+import { getAccount } from "@/server/account";
 
 export const metadata: Metadata = {
   title: "Hesabım",
   description: "Bal puanlarınız, son siparişiniz ve hesap işlemleriniz.",
 };
 
-export default function AccountPage() {
-  const account = demoAccount;
+export default async function AccountPage() {
+  const account = await getAccount();
+  // Layout oturumu zaten dogruladi; tip daraltmasi icin kontrol.
+  if (!account) return null;
   const order = account.latestOrder;
 
   return (

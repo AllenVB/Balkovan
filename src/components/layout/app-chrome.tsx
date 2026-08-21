@@ -14,7 +14,13 @@ import { CookieNotice } from "@/components/layout/cookie-notice";
  * Suppressed") - musteri akistan cikmasin diye. Bu yuzden /odeme altinda
  * yalnizca icerik render edilir; cikis yolu adimlarin kendi "geri" baglantisi.
  */
-export function AppChrome({ children }: { children: ReactNode }) {
+export function AppChrome({
+  children,
+  isSignedIn = false,
+}: {
+  children: ReactNode;
+  isSignedIn?: boolean;
+}) {
   const pathname = usePathname();
   const isCheckout = pathname.startsWith("/odeme");
 
@@ -29,7 +35,7 @@ export function AppChrome({ children }: { children: ReactNode }) {
 
   return (
     <>
-      <SiteHeader />
+      <SiteHeader isSignedIn={isSignedIn} />
       <main className="flex-grow">{children}</main>
       <SiteFooter />
       <BottomNav />

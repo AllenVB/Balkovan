@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Fraunces, Inter } from "next/font/google";
 import { AppChrome } from "@/components/layout/app-chrome";
 import { CartProvider } from "@/components/cart/cart-provider";
+import { getAccount } from "@/server/account";
 import { materialSymbolsHref } from "@/lib/icons";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/seo";
 import "./globals.css";
@@ -45,7 +46,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const account = await getAccount();
   return (
     <html
       lang="tr"
@@ -66,8 +68,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <link rel="stylesheet" href={materialSymbolsHref} />
       </head>
       <body className="bg-background text-on-background font-body-md min-h-full flex flex-col">
-        <CartProvider>
-          <AppChrome>{children}</AppChrome>
+        <CartProvider loyaltyPoints={account?.loyaltyPoints ?? 0}>
+          <AppChrome isSignedIn={account !== null}>{children}</AppChrome>
         </CartProvider>
       </body>
     </html>

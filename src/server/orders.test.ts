@@ -143,28 +143,20 @@ describe("createOrder - fiyat guvenligi", () => {
     expect(result.code).toBe("KUPON_GECERSIZ");
   });
 
-  it("gecerli kuponu uygular ve tutari dusurur", async () => {
-    const indirimsiz = await order({
+  it("ilk siparise ozel kupon misafirden reddedilir", async () => {
+    const result = await order({
       items: [
         { productSlug: "cam-bali", variantWeightGrams: 450, quantity: 1 },
       ],
       address,
       shippingOptionId: "aras",
-      useLoyaltyPoints: false,
-    });
-    const kuponlu = await order({
-      items: [
-        { productSlug: "cam-bali", variantWeightGrams: 450, quantity: 1 },
-      ],
-      address,
-      shippingOptionId: "aras",
-      couponCode: "merhaba15",
+      couponCode: "MERHABA15",
       useLoyaltyPoints: false,
     });
 
-    expect(indirimsiz.ok && kuponlu.ok).toBe(true);
-    if (!indirimsiz.ok || !kuponlu.ok) return;
-    expect(kuponlu.totalInKurus).toBeLessThan(indirimsiz.totalInKurus);
+    expect(result.ok).toBe(false);
+    if (result.ok) return;
+    expect(result.code).toBe("KUPON_GECERSIZ");
   });
 });
 
@@ -209,5 +201,105 @@ describe("createOrder - stok", () => {
       where: { product: { slug: "kestane-bali" }, weightGrams: 450 },
     });
     expect(after.stock).toBe(before.stock);
+  });
+});
+
+
+describe("createOrder - uyelik ve kupon", () => {
+  let userId = "";
+
+  beforeAll(async () => {
+    const user = await prisma.user.create({
+      data: {
+        email: `test-${Date.now()}@balkovan.test`,
+        firstName: "Test",
+        lastName: "Uye",
+        loyaltyPoints: 1000,
+      },
+    });
+    userId = user.id;
+  });
+
+  afterAll(async () => {
+    if (userId) {
+      await prisma.order.deleteMany({ where: { userId } });
+      await prisma.user.delete({ where: { id: userId } });
+    }
+  });
+
+  it("uyenin ilk siparisinde kupon gecerli ve tutari dusurur", async () => {
+    const indirimsiz = await createOrder(
+      {
+        items: [
+          { productSlug: "cam-bali", variantWeightGrams: 450, quantity: 1 },
+        ],
+        address,
+        shippingOptionId: "aras",
+        useLoyaltyPoints: false,
+      },
+      { userId: null },
+    );
+
+    const kuponlu = await createOrder(
+      {
+        items: [
+          { productSlug: "cam-bali", variantWeightGrams: 450, quantity: 1 },
+        ],
+        address,
+        shippingOptionId: "aras",
+        couponCode: "merhaba15",
+        useLoyaltyPoints: false,
+      },
+      { userId },
+    );
+
+    expect(indirimsiz.ok).toBe(true);
+    expect(kuponlu.ok).toBe(true);
+    if (!indirimsiz.ok || !kuponlu.ok) return;
+    if (indirimsiz.ok) createdOrderNumbers.push(indirimsiz.orderNumber);
+    expect(kuponlu.totalInKurus).toBeLessThan(indirimsiz.totalInKurus);
+  });
+
+  it("ayni uyenin ikinci siparisinde kupon reddedilir", async () => {
+    const result = await createOrder(
+      {
+        items: [
+          { productSlug: "cam-bali", variantWeightGrams: 450, quantity: 1 },
+        ],
+        address,
+        shippingOptionId: "aras",
+        couponCode: "MERHABA15",
+        useLoyaltyPoints: false,
+      },
+      { userId },
+    );
+
+    expect(result.ok).toBe(false);
+    if (result.ok) return;
+    expect(result.code).toBe("KUPON_GECERSIZ");
+  });
+
+  it("uye bal puanini kullanabilir ve puan bakiyesi guncellenir", async () => {
+    const before = await prisma.user.findUniqueOrThrow({ where: { id: userId } });
+
+    const result = await createOrder(
+      {
+        items: [
+          { productSlug: "kestane-bali", variantWeightGrams: 450, quantity: 1 },
+        ],
+        address,
+        shippingOptionId: "aras",
+        useLoyaltyPoints: true,
+      },
+      { userId },
+    );
+
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+
+    const after = await prisma.user.findUniqueOrThrow({ where: { id: userId } });
+    // Harcanan puan dusulmus, kazanilan eklenmis olmali.
+    expect(after.loyaltyPoints).not.toBe(before.loyaltyPoints);
+    expect(after.loyaltyPoints).toBeGreaterThanOrEqual(0);
   });
 });

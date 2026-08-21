@@ -7,6 +7,7 @@ import { clsx } from "clsx";
 import { Icon } from "@/components/ui/icon";
 import { useCart } from "@/components/cart/cart-provider";
 import { mainNavLinks } from "@/lib/navigation";
+import { AccountMenu } from "@/components/auth/account-menu";
 
 /**
  * Tasarimdaki TopNavBar. Her sayfada ayni; ustunde ince duyuru seridi var.
@@ -16,7 +17,7 @@ import { mainNavLinks } from "@/lib/navigation";
  * oldugu icin Kampanyalar, Hakkimizda ve Iletisim'e telefondan hic
  * ulasilamiyordu. Bu yuzden acilir bir mobil menu eklendi.
  */
-export function SiteHeader() {
+export function SiteHeader({ isSignedIn = false }: { isSignedIn?: boolean }) {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -88,13 +89,7 @@ export function SiteHeader() {
           </nav>
 
           <div className="flex gap-4 items-center text-primary">
-            <Link
-              href="/hesabim"
-              aria-label="Hesabım"
-              className="scale-105 transition-transform duration-200 hover:text-primary-container p-2 rounded-full"
-            >
-              <Icon name="person" />
-            </Link>
+            <AccountMenu isSignedIn={isSignedIn} />
             <CartLink />
           </div>
         </div>

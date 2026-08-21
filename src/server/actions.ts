@@ -6,6 +6,7 @@ import {
   type OrderResult,
 } from "@/server/orders";
 import { refreshCartLines } from "@/server/catalog";
+import { auth } from "@/auth";
 
 /**
  * Odeme adiminin cagirdigi sunucu eylemi.
@@ -26,9 +27,10 @@ export async function placeOrderAction(input: unknown): Promise<OrderResult> {
     };
   }
 
-  // Uyelik geldiginde oturumdaki kullanici kimligi buraya gecirilecek;
-  // o zaman bal puani bakiyesi ve "ilk siparise ozel" kupon kurali islenir.
-  return createOrder(parsed.data, { userId: null });
+  // Oturum varsa siparis kullaniciya baglanir: bal puani bakiyesi guncellenir
+  // ve siparis gecmisinde gorunur. Oturum yoksa misafir siparisi olusur.
+  const session = await auth();
+  return createOrder(parsed.data, { userId: session?.user?.id ?? null });
 }
 
 /**
