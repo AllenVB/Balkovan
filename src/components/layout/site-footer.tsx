@@ -5,7 +5,7 @@ import { footerSections } from "@/lib/navigation";
 export function SiteFooter() {
   return (
     <footer className="bg-surface-container-low">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile lg:px-margin-desktop py-stack-lg max-w-container-max mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-gutter px-margin-mobile lg:px-margin-desktop py-stack-lg max-w-container-max mx-auto">
         <div className="col-span-1">
           <span className="font-headline-sm text-headline-sm font-bold text-primary mb-4 block">
             Balkovan

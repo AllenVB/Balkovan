@@ -85,6 +85,9 @@ export function CheckoutSummary({ shippingOptionId }: { shippingOptionId?: strin
             {formatPrice(totals.totalInKurus)}
           </span>
         </div>
+        <p className="text-right font-body-md text-xs text-ink-muted">
+          Tüm fiyatlara KDV dahildir.
+        </p>
         {totals.earnedPoints > 0 ? (
           <p className="flex items-center justify-end gap-1 font-label-md text-label-md text-on-surface-variant">
             <Icon name="stars" filled className="text-primary text-sm" />

@@ -36,6 +36,15 @@ export const footerSections = [
     ],
   },
   {
+    title: "Yasal",
+    links: [
+      { href: "/mesafeli-satis-sozlesmesi", label: "Mesafeli Satış Sözleşmesi" },
+      { href: "/on-bilgilendirme-formu", label: "Ön Bilgilendirme Formu" },
+      { href: "/kvkk-aydinlatma-metni", label: "KVKK Aydınlatma Metni" },
+      { href: "/gizlilik-ve-cerez-politikasi", label: "Gizlilik ve Çerez Politikası" },
+    ],
+  },
+  {
     title: "Sosyal Medya",
     links: [
       { href: "https://instagram.com", label: "Instagram" },

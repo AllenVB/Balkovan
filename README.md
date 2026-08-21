@@ -49,11 +49,25 @@ oraya elle taşındı — yeni ekran geldiğinde class isimleri birebir kullanı
 | `/odeme` | Ödeme adım 1 — adres ve kargo |
 | `/odeme/kart` | Ödeme adım 2 — kart bilgileri |
 | `/odeme/onay` | Sipariş onayı |
+| `/[sayfa]` | Bilgi ve yasal metin sayfaları (SSS, kargo, iade, KVKK…) |
 | `/kampanyalar` | Kampanyalar |
 | `/hakkimizda` | Hakkımızda |
 | `/iletisim` | İletişim |
 | `/hesabim` | Hesap panosu (bal puanları, son sipariş, hızlı işlemler) |
 | `/hesabim/[bolum]` | Hesap alt bölümleri — tasarımları gelmedi, "hazırlanıyor" ekranı |
+
+## SEO ve yasal
+
+- `robots.txt` ve `sitemap.xml` otomatik üretiliyor (`src/app/robots.ts`,
+  `src/app/sitemap.ts`). Ödeme, hesap ve sepet aramaya kapalı.
+- Ürün sayfalarında JSON-LD yapılandırılmış veri (fiyat, para birimi, stok).
+- Site adresi `NEXT_PUBLIC_SITE_URL` ortam değişkeninden gelir — alan adı belli
+  olunca `.env` dosyasına yazılması yeterli (bkz. `.env.example`).
+- Bilgi ve yasal metin sayfaları `src/lib/content-pages.ts` içinde, tek şablonla
+  render ediliyor. **`needsLegalReview: true` işaretli sayfalar taslaktır** ve
+  sayfada bu uyarı görünür; hukuki metinler bilerek doldurulmadı.
+- Çerez bilgilendirme şeridi, KDV dahil ibaresi ve ödeme adımında mesafeli satış
+  sözleşmesi onayı eklendi — onay verilmeden sipariş tamamlanamıyor.
 
 ## Backend gelmeden önce bilinmesi gerekenler
 

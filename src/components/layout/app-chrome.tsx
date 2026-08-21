@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { BottomNav } from "@/components/layout/bottom-nav";
+import { CookieNotice } from "@/components/layout/cookie-notice";
 
 /**
  * Site kabugu: baslik, alt bilgi ve mobil alt menu.
@@ -18,7 +19,12 @@ export function AppChrome({ children }: { children: ReactNode }) {
   const isCheckout = pathname.startsWith("/odeme");
 
   if (isCheckout) {
-    return <main className="flex-grow">{children}</main>;
+    return (
+      <>
+        <main className="flex-grow">{children}</main>
+        <CookieNotice />
+      </>
+    );
   }
 
   return (
@@ -29,6 +35,7 @@ export function AppChrome({ children }: { children: ReactNode }) {
       <BottomNav />
       {/* Mobil alt navigasyon sabit konumlu; icerigin altinda kalmamasi icin bosluk */}
       <div className="h-20 md:hidden" aria-hidden="true" />
+      <CookieNotice />
     </>
   );
 }

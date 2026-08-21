@@ -143,3 +143,20 @@ Tasarımlar mobil menü içermiyor: ana menü `md` altında gizleniyor ve yerine
 ekranlarında ise yan menünün yerine yatay kaydırılan bir şerit var. Yeni bir
 bölüm eklerken mobilde nasıl ulaşılacağını da çöz — `md:hidden` ile gizleyip
 bırakma.
+
+## Bilgi ve yasal sayfalar
+
+`src/lib/content-pages.ts` tek kaynak; hepsi `/[sayfa]` şablonuyla render edilir.
+Yeni bilgi sayfası eklemek için diziye bir kayıt eklemek yeterli — route, sitemap
+ve metadata otomatik gelir.
+
+**Hukuki metin yazma.** Mesafeli Satış Sözleşmesi, Ön Bilgilendirme Formu, KVKK
+Aydınlatma ve Gizlilik/Çerez Politikası `needsLegalReview: true` ile işaretli ve
+içerik yerine "neler yer almalı" listesi taşıyor. Bunlar işletmenin gerçek
+bilgileri ve hukuki inceleme ile doldurulmalı; örnek metin koymak yanıltıcı olur.
+
+## SEO
+
+`src/lib/seo.ts` site adresi ve açıklamanın tek kaynağı. Yeni herkese açık sayfa
+eklerken `src/app/sitemap.ts` içine de ekle; ödeme/hesap/sepet gibi özel alanlar
+`src/app/robots.ts` içinde aramaya kapalı tutulur.

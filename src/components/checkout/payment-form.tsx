@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -37,6 +38,10 @@ const paymentSchema = z.object({
     .regex(/^(0[1-9]|1[0-2])\/\d{2}$/, "Son kullanma tarihini AA/YY yazın."),
   cvc: z.string().regex(/^\d{3,4}$/, "CVC 3 haneli olmalı."),
   use3dSecure: z.boolean(),
+  // Mesafeli Sozlesmeler Yonetmeligi geregi siparis oncesi acik onay sart.
+  acceptTerms: z.literal(true, {
+    message: "Devam etmek için sözleşmeleri onaylamanız gerekiyor.",
+  }),
 });
 
 type PaymentValues = z.infer<typeof paymentSchema>;
@@ -63,6 +68,7 @@ export function PaymentForm({ address }: { address: Address }) {
       expiry: "",
       cvc: "",
       use3dSecure: true,
+      acceptTerms: false as unknown as true,
     },
   });
 
@@ -241,6 +247,37 @@ export function PaymentForm({ address }: { address: Address }) {
           </span>
         </div>
       </section>
+
+      {/* Yasal onay: siparis oncesi zorunlu. */}
+      <div className="bg-surface-container-lowest rounded-xl border border-outline-variant/40 warm-shadow p-6">
+        <label className="flex items-start gap-3 cursor-pointer">
+          <input
+            type="checkbox"
+            className="w-5 h-5 mt-0.5 shrink-0 accent-[color:var(--color-primary)]"
+            aria-invalid={errors.acceptTerms ? "true" : undefined}
+            {...register("acceptTerms")}
+          />
+          <span className="font-body-md text-sm text-on-surface-variant">
+            <Link
+              href="/on-bilgilendirme-formu"
+              target="_blank"
+              className="text-primary font-semibold hover:underline"
+            >
+              Ön Bilgilendirme Formu
+            </Link>
+            {"'nu ve "}
+            <Link
+              href="/mesafeli-satis-sozlesmesi"
+              target="_blank"
+              className="text-primary font-semibold hover:underline"
+            >
+              Mesafeli Satış Sözleşmesi
+            </Link>
+            {"'ni okudum, onaylıyorum."}
+          </span>
+        </label>
+        <FieldError message={errors.acceptTerms?.message} />
+      </div>
 
       {/* Odeme saglayicisi henuz bagli degil; musteriye acikca soyleniyor. */}
       <p className="flex items-start gap-2 bg-primary-fixed border-2 border-primary rounded-lg p-4 font-body-md text-sm text-on-primary-fixed">
