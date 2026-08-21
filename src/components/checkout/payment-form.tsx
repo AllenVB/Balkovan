@@ -10,12 +10,8 @@ import { Icon } from "@/components/ui/icon";
 import { useCart } from "@/components/cart/cart-provider";
 import { useCheckout } from "@/components/checkout/use-checkout";
 import { formatPrice } from "@/lib/format";
-import {
-  buildDeliveryEstimate,
-  createOrderNumber,
-  getShippingOption,
-  type Address,
-} from "@/lib/checkout";
+import { getShippingOption, type Address } from "@/lib/checkout";
+import { placeOrderAction } from "@/server/actions";
 
 /**
  * Kart formu.
@@ -51,9 +47,10 @@ const inputClassName =
 
 export function PaymentForm({ address }: { address: Address }) {
   const router = useRouter();
-  const { totals, clear } = useCart();
+  const { lines, totals, clear, couponCode, useLoyaltyPoints } = useCart();
   const { shippingOptionId, setLastOrder } = useCheckout();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
 
   const {
     register,
@@ -72,23 +69,42 @@ export function PaymentForm({ address }: { address: Address }) {
     },
   });
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     setIsSubmitting(true);
+    setServerError(null);
 
-    // Siparis su an yalnizca tarayicida olusturuluyor. Backend geldiginde
-    // burasi sunucuya istek atacak; sunucu fiyati ve indirimleri YENIDEN
-    // hesaplamali, tarayicidan gelen tutara guvenilmemeli.
-    const now = new Date();
     const shipping = getShippingOption(shippingOptionId);
 
-    setLastOrder({
-      orderNumber: createOrderNumber(now),
-      createdAt: now.toISOString().slice(0, 10),
+    // Sunucuya YALNIZCA ne istendigi gonderilir; fiyati sunucu belirler.
+    // expectedTotalInKurus sadece karsilastirma icin: ekranda gorulen tutarla
+    // sunucunun hesabi tutmuyorsa siparis reddedilir.
+    const result = await placeOrderAction({
+      items: lines.map((line) => ({
+        productSlug: line.productSlug,
+        variantWeightGrams: line.variantWeightGrams,
+        quantity: line.quantity,
+      })),
       address,
       shippingOptionId: shipping.id,
-      totalInKurus: totals.totalInKurus,
-      earnedPoints: totals.earnedPoints,
-      deliveryEstimate: buildDeliveryEstimate(shipping, now),
+      couponCode: couponCode ?? null,
+      useLoyaltyPoints,
+      expectedTotalInKurus: totals.totalInKurus,
+    });
+
+    if (!result.ok) {
+      setServerError(result.error);
+      setIsSubmitting(false);
+      return;
+    }
+
+    setLastOrder({
+      orderNumber: result.orderNumber,
+      createdAt: new Date().toISOString().slice(0, 10),
+      address,
+      shippingOptionId: shipping.id,
+      totalInKurus: result.totalInKurus,
+      earnedPoints: result.earnedPoints,
+      deliveryEstimate: result.deliveryEstimate,
     });
 
     clear();
@@ -278,6 +294,16 @@ export function PaymentForm({ address }: { address: Address }) {
         </label>
         <FieldError message={errors.acceptTerms?.message} />
       </div>
+
+      {serverError ? (
+        <p
+          role="alert"
+          className="flex items-start gap-2 bg-error-container text-on-error-container rounded-lg p-4 font-body-md text-sm"
+        >
+          <Icon name="info" className="shrink-0" />
+          {serverError}
+        </p>
+      ) : null}
 
       {/* Odeme saglayicisi henuz bagli degil; musteriye acikca soyleniyor. */}
       <p className="flex items-start gap-2 bg-primary-fixed border-2 border-primary rounded-lg p-4 font-body-md text-sm text-on-primary-fixed">
