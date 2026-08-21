@@ -8,10 +8,17 @@ henüz başlamadı.
 
 ```bash
 npm install
+cp .env.example .env
+npm run db:up
+npx prisma migrate deploy
+npm run db:seed
 npm run dev
 ```
 
 http://localhost:3000
+
+Veritabanı Docker ile **5434** portunda ayağa kalkar (5432 ve 5433 bu makinede
+başka Postgres örnekleri tarafından kullanılıyordu).
 
 ## Komutlar
 
@@ -22,6 +29,10 @@ http://localhost:3000
 | `npm run lint` | ESLint |
 | `npm test` | Vitest (tek seferlik) |
 | `npm run test:watch` | Vitest izleme modu |
+| `npm run db:up` | PostgreSQL'i Docker ile başlatır |
+| `npm run db:migrate` | Şema değişikliğini migration'a çevirir ve uygular |
+| `npm run db:seed` | Katalog ve kuponları veritabanına yazar |
+| `npm run db:studio` | Veritabanını tarayıcıda görüntüler |
 
 ## Teknolojiler
 
@@ -68,6 +79,31 @@ oraya elle taşındı — yeni ekran geldiğinde class isimleri birebir kullanı
   sayfada bu uyarı görünür; hukuki metinler bilerek doldurulmadı.
 - Çerez bilgilendirme şeridi, KDV dahil ibaresi ve ödeme adımında mesafeli satış
   sözleşmesi onayı eklendi — onay verilmeden sipariş tamamlanamıyor.
+
+## Backend
+
+PostgreSQL + Prisma 7. Şema `prisma/schema.prisma`, bağlantı adresi
+`prisma.config.ts` içinde (Prisma 7'de `datasource` bloğunda `url` yok).
+
+- `src/lib/db.ts` — Prisma istemcisi (tekil)
+- `src/server/catalog.ts` — ürünleri veritabanından okur, sayfaların beklediği
+  `Product` tipine çevirir
+- `src/server/orders.ts` — **sipariş oluşturma ve fiyat doğrulaması**
+
+### ⚠️ Fiyat güvenliği
+
+Sepet tarayıcıda tutulduğu için birim fiyat kurcalanabilir. `createOrder`
+istemciden **yalnızca ürün/varyant/adet** kabul eder; fiyatları veritabanından
+okur ve tüm indirimleri sunucuda yeniden hesaplar. İstemcinin gönderdiği
+`expectedTotalInKurus` sadece karşılaştırma içindir — tutmazsa sipariş
+reddedilir (müşteri ekranda gördüğünden farklı tutar ödememeli).
+
+Stok düşme, sipariş kaydı, kupon sayacı ve puan güncellemesi tek transaction
+içinde yapılır; koşullu `updateMany` sayesinde eşzamanlı siparişlerde stok
+eksiye düşmez.
+
+`src/server/orders.test.ts` bu korumaları gerçek veritabanına karşı doğrular
+(düşük tutar, olmayan ürün, yetersiz stok, sahte kupon senaryoları).
 
 ## Backend gelmeden önce bilinmesi gerekenler
 

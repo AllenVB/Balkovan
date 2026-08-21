@@ -160,3 +160,23 @@ bilgileri ve hukuki inceleme ile doldurulmalı; örnek metin koymak yanıltıcı
 `src/lib/seo.ts` site adresi ve açıklamanın tek kaynağı. Yeni herkese açık sayfa
 eklerken `src/app/sitemap.ts` içine de ekle; ödeme/hesap/sepet gibi özel alanlar
 `src/app/robots.ts` içinde aramaya kapalı tutulur.
+
+## Backend
+
+PostgreSQL + Prisma 7. **Prisma 7 kalıpları eskisinden farklı** — kod yazmadan
+önce dikkat et:
+
+- `generator client { provider = "prisma-client" }` (`prisma-client-js` DEĞİL)
+- İstemci `src/generated/prisma` altına üretilir, import `@/generated/prisma/client`
+  (`/client` eki şart, `@prisma/client` çalışmaz)
+- `datasource` bloğunda `url` **yok**; bağlantı `prisma.config.ts` içinde
+- Bağlantı `@prisma/adapter-pg` adaptörüyle kurulur
+
+Sunucu kodu `src/server/` altında ve `import "server-only"` ile işaretli.
+
+**Fiyat asla istemciden alınmaz.** `createOrder` yalnızca ürün/varyant/adet
+kabul eder; fiyat veritabanından okunur, indirimler sunucuda yeniden hesaplanır.
+Bu kural değiştirilemez — sepet tarayıcıda tutulduğu için kurcalanabilir.
+
+Stok düşme ve sipariş kaydı tek transaction; koşullu `updateMany` ile yarış
+durumunda stok eksiye düşmez.
