@@ -32,6 +32,8 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# ornek dosya sir icermez, repoda kalmali
+!.env.example
 
 # vercel
 .vercel

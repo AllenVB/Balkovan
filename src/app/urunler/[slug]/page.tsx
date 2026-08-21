@@ -5,6 +5,7 @@ import { Icon } from "@/components/ui/icon";
 import { ProductGallery } from "@/components/product/product-gallery";
 import { ProductPurchase } from "@/components/product/product-purchase";
 import { getProductBySlug, products } from "@/lib/products";
+import { absoluteUrl, SITE_NAME } from "@/lib/seo";
 
 export function generateStaticParams() {
   return products.map((product) => ({ slug: product.slug }));
@@ -20,6 +21,14 @@ export async function generateMetadata({
   return {
     title: product.name,
     description: product.description,
+    alternates: { canonical: `/urunler/${product.slug}` },
+    openGraph: {
+      type: "website",
+      title: product.name,
+      description: product.description,
+      url: absoluteUrl(`/urunler/${product.slug}`),
+      images: [{ url: product.image, alt: product.name }],
+    },
   };
 }
 
@@ -30,8 +39,40 @@ export default async function ProductDetailPage({
   const product = getProductBySlug(slug);
   if (!product) notFound();
 
+  const cheapest = product.variants.reduce(
+    (min, variant) => Math.min(min, variant.priceInKurus),
+    product.variants[0]?.priceInKurus ?? product.priceInKurus,
+  );
+
+  // Arama motorlarina urun bilgisi: fiyat, para birimi, stok durumu.
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.description,
+    image: [product.image, ...product.gallery],
+    sku: product.slug,
+    brand: { "@type": "Brand", name: SITE_NAME },
+    offers: {
+      "@type": "AggregateOffer",
+      priceCurrency: "TRY",
+      lowPrice: (cheapest / 100).toFixed(2),
+      highPrice: (
+        Math.max(...product.variants.map((v) => v.priceInKurus)) / 100
+      ).toFixed(2),
+      offerCount: product.variants.length,
+      availability: "https://schema.org/InStock",
+      url: absoluteUrl(`/urunler/${product.slug}`),
+    },
+  };
+
   return (
     <div className="w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg">
+      <script
+        type="application/ld+json"
+        // Icerik kendi urettigimiz veriden geliyor, kullanici girdisi degil.
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
       <nav aria-label="Breadcrumb" className="flex text-sm text-outline mb-stack-md font-label-md">
         <ol className="inline-flex items-center space-x-1 md:space-x-2">
           <li className="inline-flex items-center">

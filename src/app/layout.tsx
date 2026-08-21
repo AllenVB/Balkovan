@@ -3,6 +3,7 @@ import { Fraunces, Inter } from "next/font/google";
 import { AppChrome } from "@/components/layout/app-chrome";
 import { CartProvider } from "@/components/cart/cart-provider";
 import { materialSymbolsHref } from "@/lib/icons";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/seo";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -20,12 +21,28 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  // Goreli adreslerin mutlaklastirilmasi icin taban adres.
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Balkovan - Orijinal bal, doğrudan arıcıdan",
     template: "%s | Balkovan",
   },
-  description:
-    "Yaylalardan süzülen ham ve katkısız bal. Isıl işlem görmemiş, doğrudan üreticiden sofranıza.",
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  openGraph: {
+    type: "website",
+    locale: "tr_TR",
+    siteName: SITE_NAME,
+    title: "Balkovan - Orijinal bal, doğrudan arıcıdan",
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Balkovan - Orijinal bal, doğrudan arıcıdan",
+    description: SITE_DESCRIPTION,
+  },
+  alternates: { canonical: "/" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
