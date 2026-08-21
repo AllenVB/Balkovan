@@ -61,6 +61,8 @@ oraya elle taşındı — yeni ekran geldiğinde class isimleri birebir kullanı
 | `/odeme/kart` | Ödeme adım 2 — kart bilgileri |
 | `/odeme/onay` | Sipariş onayı |
 | `/[sayfa]` | Bilgi ve yasal metin sayfaları (SSS, kargo, iade, KVKK…) |
+| `/giris`, `/kayit` | Üyelik |
+| `/hesabim/siparislerim` | Sipariş geçmişi |
 | `/kampanyalar` | Kampanyalar |
 | `/hakkimizda` | Hakkımızda |
 | `/iletisim` | İletişim |
@@ -89,6 +91,21 @@ PostgreSQL + Prisma 7. Şema `prisma/schema.prisma`, bağlantı adresi
 - `src/server/catalog.ts` — ürünleri veritabanından okur, sayfaların beklediği
   `Product` tipine çevirir
 - `src/server/orders.ts` — **sipariş oluşturma ve fiyat doğrulaması**
+
+### Üyelik
+
+Auth.js (NextAuth v5) + e-posta/şifre. Şifreler bcrypt ile saklanır.
+`src/auth.ts` yapılandırma, `src/server/auth-actions.ts` kayıt/giriş/çıkış.
+
+**Üyelik isteğe bağlı:** misafir olarak sipariş verilebilir. Oturum varsa
+sipariş kullanıcıya bağlanır, bal puanı bakiyesi güncellenir ve sipariş
+geçmişinde görünür.
+
+Üyeliğe bağlı kurallar:
+- **Bal puanı** kalıcı — kazanım ve harcama veritabanında tutulur
+- **"İlk siparişe özel" kuponlar** (`MERHABA15`) yalnızca üyelerde ve yalnızca
+  ilk siparişte geçerli; misafir kullanamaz
+- `/hesabim` altı oturum ister, yoksa `/giris?devam=...` adresine yönlenir
 
 ### ⚠️ Fiyat güvenliği
 

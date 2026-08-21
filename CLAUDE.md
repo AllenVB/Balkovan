@@ -180,3 +180,16 @@ Bu kural değiştirilemez — sepet tarayıcıda tutulduğu için kurcalanabilir
 
 Stok düşme ve sipariş kaydı tek transaction; koşullu `updateMany` ile yarış
 durumunda stok eksiye düşmez.
+
+## Üyelik
+
+Auth.js v5, `src/auth.ts`. Oturum JWT ile taşınır (Credentials sağlayıcısı
+veritabanı oturumlarıyla çalışmıyor), kullanıcı kaydı Prisma'da.
+
+**Misafir alışverişi bozulmamalı.** Üyelik isteğe bağlı; `createOrder`
+`userId: null` ile de çalışır. Oturuma bağlı bir kural eklerken misafir yolunun
+hâlâ çalıştığını doğrula.
+
+Sunucuda oturum `auth()` ile okunur. **Bal puanı bakiyesi istemciden alınmaz** —
+sipariş anında veritabanından okunur; tarayıcıdaki değer yalnızca gösterim
+içindir.
